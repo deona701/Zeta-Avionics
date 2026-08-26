@@ -5,10 +5,10 @@ import QtQuick.Controls.Basic
 
 ApplicationWindow {
     id: window
-    width: 640
-    height: 480
-    minimumWidth: 200
-    minimumHeight: 250
+    width: 1280
+    height: 720
+    minimumWidth: 1280
+    minimumHeight: 720
     visible: true
     title: "Zeta Avionics"
 

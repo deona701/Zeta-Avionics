@@ -14,13 +14,13 @@ if (EXISTS "${CMAKE_CURRENT_LIST_DIR}/importedcontent/CMakeLists.txt")
 endif()
 
 qt_add_executable(appZeta_Avionics
-    main.cpp
+    src/main.cpp
 )
 
 qt_add_qml_module(appZeta_Avionics
     URI Zeta_Avionics
     QML_FILES
-        Main.qml
+        qml/Main.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

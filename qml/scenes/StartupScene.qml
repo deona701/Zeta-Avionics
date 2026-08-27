@@ -74,6 +74,16 @@ Item {
         }
     }
 
+    Text {
+        id: startupComplete
+        anchors.centerIn: parent
+        text: "ALL PRIMARY SYSTEMS NOMINAL"
+        font.pixelSize: Theme.fontLarge
+        font.family: Theme.plexRegular
+        color: Theme.primaryText
+        opacity: 0.0
+    }
+
     SequentialAnimation {
         running: true
 
@@ -121,6 +131,22 @@ Item {
                 startupSystemLinesTimer.stop()
                 startupSystemLines.opacity = 0.0
             }
+        }
+
+        PauseAnimation { duration: 1200 }
+
+        NumberAnimation {
+            target: startupComplete
+            property: "opacity"
+            duration: 600
+            to: 1.0
+        }
+        PauseAnimation { duration: 2200 }
+        NumberAnimation {
+            target: startupComplete
+            property: "opacity"
+            duration: 600
+            to: 0.0
         }
     }
 }

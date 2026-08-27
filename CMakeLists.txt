@@ -27,6 +27,7 @@ qt_add_qml_module(appZeta_Avionics
     QML_FILES
         qml/Main.qml
         qml/Theme.qml
+        qml/scenes/StartupScene.qml
     RESOURCES
         assets/fonts/IBMPlexMono-Regular.ttf
         assets/fonts/IBMPlexMono-Medium.ttf

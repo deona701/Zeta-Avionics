@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
 import Zeta_Avionics
-
+import "scenes"
 
 ApplicationWindow {
     id: window
@@ -13,16 +13,12 @@ ApplicationWindow {
     visible: true
     title: "Zeta Avionics"
 
-    Rectangle {
+    StartupScene {
+        id: startupScene
         anchors.fill: parent
-        color: "black"
 
-        Text {
-            anchors.centerIn: parent
-            font.pixelSize: 18
-            font.family: Theme.plexRegular
-            text: "Welcome to Spacecraft Z-01"
-            color: "#008000"
+        onSequenceFinished: {
+            startupScene.visible = false
         }
     }
 }

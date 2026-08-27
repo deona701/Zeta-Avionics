@@ -148,5 +148,9 @@ Item {
             duration: 600
             to: 0.0
         }
+
+        ScriptAction {
+            script: startupSceneRoot.sequenceFinished()
+        }
     }
 }

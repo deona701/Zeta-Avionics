@@ -13,12 +13,20 @@ ApplicationWindow {
     visible: true
     title: "Zeta Avionics"
 
+    OverviewScene {
+        id: overviewScene
+        anchors.fill: parent
+        visible: false
+    }
+
     StartupScene {
         id: startupScene
         anchors.fill: parent
+        z: 1
 
         onSequenceFinished: {
             startupScene.visible = false
+            overviewScene.visible = true
         }
     }
 }

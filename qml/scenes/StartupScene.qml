@@ -4,35 +4,63 @@ Item {
     id: startupSceneRoot
     signal sequenceFinished()
 
+    property int dotCount: 1
+
     Text {
         id: startupZetaAvionicsText
         anchors.centerIn: parent
+        text: "Zeta Avionics"
         font.pixelSize: 24
         font.family: Theme.plexRegular
-        text: "Zeta Avionics"
+        color: Theme.primaryText
+        opacity: 0.0
+    }
+
+    Text {
+        id: startupInitialization
+        anchors.centerIn: parent
+        text: "Initializing onboard computer" + ".".repeat(dotCount)
+        font.pixelSize: 18
+        font.family: Theme.plexRegular
         color: Theme.primaryText
         opacity: 0.0
 
-        SequentialAnimation {
-            running: true
+        Timer {
+            id: dotTimer
+            interval: 200
+            repeat: true
+            onTriggered: dotCount = (dotCount % 3) + 1
+        }
+    }
 
-            NumberAnimation {
-                target: startupZetaAvionicsText
-                property: "opacity"
-                duration: 600
-                to: 1.0
+    SequentialAnimation {
+        running: true
+
+        NumberAnimation {
+            target: startupZetaAvionicsText
+            property: "opacity"
+            duration: 600
+            to: 1.0
+        }
+        PauseAnimation { duration: 2200 }
+        NumberAnimation {
+            target: startupZetaAvionicsText
+            property: "opacity"
+            duration: 600
+            to: 0.0
+        }
+
+        ScriptAction {
+            script: {
+                dotTimer.start()
+                startupInitialization.opacity = 1.0
             }
-
-
-            PauseAnimation {
-                duration: 2200
-            }
-
-            NumberAnimation {
-                target: startupZetaAvionicsText
-                property: "opacity"
-                duration: 600
-                to: 0.0
+        }
+        PauseAnimation { duration: 4200 }
+        ScriptAction {
+            script: {
+                dotTimer.stop()
+                startupInitialization.opacity = 0.0
             }
         }
     }

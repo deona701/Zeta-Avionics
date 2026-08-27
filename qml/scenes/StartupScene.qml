@@ -9,7 +9,7 @@ Item {
         font.pixelSize: 24
         font.family: Theme.plexRegular
         text: "Zeta Avionics"
-        color: "#008000"
+        color: Theme.primaryText
     }
 
 }

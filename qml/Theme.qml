@@ -9,4 +9,15 @@ Item {
         source: "qrc:/qt/qml/Zeta_Avionics/assets/fonts/IBMPlexMono-Regular.ttf"
     }
     property string plexRegular: regularFontLoader.name
+
+    // Font sizes
+    readonly property int fontSmall: 12
+    readonly property int fontNormal: 15
+    readonly property int fontLarge: 20
+    readonly property int fontTitle: 28
+
+    // Font colors (only placeholders before picking the background for the main scene)
+    readonly property color primaryText: "#FFFFFF"
+    readonly property color secondaryText: "#E3E3E3"
+
 }

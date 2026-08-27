@@ -5,6 +5,15 @@ Item {
     signal sequenceFinished()
 
     property int dotCount: 1
+    property var SystemLines: [
+        "POWER SYSTEM ............ ONLINE",
+        "NAVIGATION .............. ONLINE",
+        "PROPULSION .............. ONLINE",
+        "LIFE SUPPORT ............ ONLINE",
+        "COMMUNICATIONS .......... ONLINE",
+        "SENSORS ................. ONLINE",
+        "VOICE INTERFACE ......... ONLINE"
+    ]
 
     Text {
         id: startupZetaAvionicsText
@@ -49,6 +58,8 @@ Item {
             duration: 600
             to: 0.0
         }
+
+        PauseAnimation { duration: 2200 }
 
         ScriptAction {
             script: {

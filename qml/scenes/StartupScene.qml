@@ -5,7 +5,7 @@ Item {
     signal sequenceFinished()
 
     property int dotCount: 1
-    property var SystemLines: [
+    property var systemLines: [
         "POWER SYSTEM ............ ONLINE",
         "NAVIGATION .............. ONLINE",
         "PROPULSION .............. ONLINE",
@@ -20,7 +20,7 @@ Item {
         id: startupZetaAvionicsText
         anchors.centerIn: parent
         text: "Zeta Avionics"
-        font.pixelSize: 24
+        font.pixelSize: Theme.fontTitle
         font.family: Theme.plexRegular
         color: Theme.primaryText
         opacity: 0.0
@@ -30,7 +30,7 @@ Item {
         id: startupInitialization
         anchors.centerIn: parent
         text: "Initializing onboard computer" + ".".repeat(dotCount)
-        font.pixelSize: 18
+        font.pixelSize: Theme.fontLarge
         font.family: Theme.plexRegular
         color: Theme.primaryText
         opacity: 0.0
@@ -40,6 +40,37 @@ Item {
             interval: 200
             repeat: true
             onTriggered: dotCount = (dotCount % 3) + 1
+        }
+    }
+
+    Column {
+        id: startupSystemLines
+        anchors.centerIn: parent
+        spacing: 8
+
+        Repeater {
+            model: systemLines
+
+            Text {
+                text: modelData
+                font.pixelSize: Theme.fontNormal
+                font.family: Theme.plexRegular
+                color: Theme.primaryText
+                visible: index < startupSceneRoot.revealedLineCount
+            }
+        }
+        Timer {
+            id: startupSystemLinesTimer
+            interval: 150
+            repeat: true
+            onTriggered: {
+                if (revealedLineCount < systemLines.length) {
+                    revealedLineCount++
+                }
+                else {
+                    startupSystemLinesTimer.stop()
+                }
+            }
         }
     }
 
@@ -73,6 +104,22 @@ Item {
             script: {
                 dotTimer.stop()
                 startupInitialization.opacity = 0.0
+            }
+        }
+
+        PauseAnimation { duration: 4200 }
+
+        ScriptAction {
+            script: {
+                startupSystemLinesTimer.start()
+                startupSystemLines.opacity = 1.0
+            }
+        }
+        PauseAnimation { duration: 3200 }
+        ScriptAction {
+            script: {
+                startupSystemLinesTimer.stop()
+                startupSystemLines.opacity = 0.0
             }
         }
     }

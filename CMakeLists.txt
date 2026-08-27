@@ -17,10 +17,21 @@ qt_add_executable(appZeta_Avionics
     src/main.cpp
 )
 
+set_source_files_properties(qml/Theme.qml
+    PROPERTIES
+        QT_QML_SINGLETON_TYPE TRUE
+)
+
 qt_add_qml_module(appZeta_Avionics
     URI Zeta_Avionics
     QML_FILES
         qml/Main.qml
+        qml/Theme.qml
+    RESOURCES
+        assets/fonts/IBMPlexMono-Regular.ttf
+        assets/fonts/IBMPlexMono-Medium.ttf
+        assets/fonts/IBMPlexMono-SemiBold.ttf
+        assets/fonts/IBMPlexMono-Bold.ttf
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

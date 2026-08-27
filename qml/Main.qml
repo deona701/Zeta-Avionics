@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
+import Zeta_Avionics
 
 
 ApplicationWindow {
@@ -19,6 +20,7 @@ ApplicationWindow {
         Text {
             anchors.centerIn: parent
             font.pixelSize: 18
+            font.family: Theme.plexRegular
             text: "Welcome to Spacecraft Z-01"
             color: "#008000"
         }

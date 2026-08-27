@@ -14,6 +14,7 @@ Item {
         "SENSORS ................. ONLINE",
         "VOICE INTERFACE ......... ONLINE"
     ]
+    property int revealedLineCount: 0
 
     Text {
         id: startupZetaAvionicsText

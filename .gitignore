@@ -83,7 +83,8 @@ CMakeLists.txt.user*
 /build*/
 /.qtcreator/
 
-# Ignore non-redistributable 3D raw source assets
-assets/*.glb
-assets/*.gltf
+# Ignore non-redistributable 3D raw source assets & generated balsam components
+assets/**/*.glb
+assets/**/*.gltf
+assets/spacecraft/
 qml/components/SpacecraftModel/

@@ -16,10 +16,10 @@ ApplicationWindow {
     OverviewScene {
         id: overviewScene
         anchors.fill: parent
-        visible: false
+        visible: true
     }
 
-    StartupScene {
+    /*StartupScene {
         id: startupScene
         anchors.fill: parent
         z: 1
@@ -28,5 +28,5 @@ ApplicationWindow {
             startupScene.visible = false
             overviewScene.visible = true
         }
-    }
+    }*/
 }

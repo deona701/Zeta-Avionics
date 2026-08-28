@@ -8,10 +8,13 @@ View3D {
 
     camera: camera
 
-    //environment: SceneEnvironment {
-    //    clearColor: "#0a0d14"
-    //    backgroundMode: SceneEnvironment.Color
-    //}
+    environment: SceneEnvironment {
+        clearColor: "#05070a"
+        backgroundMode: SceneEnvironment.Color
+        antialiasingMode: SceneEnvironment.MSAA
+        antialiasingQuality: SceneEnvironment.High
+        probeExposure: 1.5
+    }
 
     property real pitchAngle: 0
     property real yawAngle: 0
@@ -19,13 +22,13 @@ View3D {
 
     PerspectiveCamera {
         id: camera
-        position: Qt.vector3d(0, 20, 350)
+        position: Qt.vector3d(80, 40, 180)
         Component.onCompleted: camera.lookAt(spacecraft.position)
     }
 
     DirectionalLight {
         brightness: 1.5
-        eulerRotation: Qt.vector3d(-30, -30, 0)
+        eulerRotation: Qt.vector3d(30, 35, 0)
     }
 
     PointLight {
@@ -35,10 +38,10 @@ View3D {
 
     Futuristic_spacecraft_3dmodel {
         id: spacecraft
-        scale: Qt.vector3d(350, 350, 350)
+        scale: Qt.vector3d(300, 300, 300)
 
-        eulerRotation.x: spacecraftModelView3D.pitchAngle
-        eulerRotation.y: spacecraftModelView3D.yawAngle
+        eulerRotation.x: spacecraftModelView3D.pitchAngle + 10
+        eulerRotation.y: spacecraftModelView3D.yawAngle - 35
         eulerRotation.z: spacecraftModelView3D.rollAngle
     }
 }

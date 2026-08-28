@@ -87,4 +87,5 @@ CMakeLists.txt.user*
 assets/**/*.glb
 assets/**/*.gltf
 assets/spacecraft/
+assets/background/
 qml/components/SpacecraftModel/

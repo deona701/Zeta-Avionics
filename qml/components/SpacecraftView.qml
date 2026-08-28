@@ -10,7 +10,7 @@ View3D {
 
     environment: SceneEnvironment {
         clearColor: "#05070a"
-        backgroundMode: SceneEnvironment.Color
+        backgroundMode: SceneEnvironment.Transparent
         antialiasingMode: SceneEnvironment.MSAA
         antialiasingQuality: SceneEnvironment.High
         probeExposure: 1.5

@@ -36,6 +36,7 @@ qt_add_qml_module(appZeta_Avionics
         assets/fonts/IBMPlexMono-Medium.ttf
         assets/fonts/IBMPlexMono-SemiBold.ttf
         assets/fonts/IBMPlexMono-Bold.ttf
+        assets/background/Photoman61.mp4
         qml/components/SpacecraftModel/meshes/meshes_0__mesh.mesh
         qml/components/SpacecraftModel/maps/textureData.jpg
         qml/components/SpacecraftModel/maps/textureData8.png

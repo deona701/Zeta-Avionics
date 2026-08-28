@@ -43,5 +43,32 @@ View3D {
         eulerRotation.x: spacecraftModelView3D.pitchAngle + 10
         eulerRotation.y: spacecraftModelView3D.yawAngle - 35
         eulerRotation.z: spacecraftModelView3D.rollAngle
+
+        NumberAnimation {
+            id: spinAnimation
+            target: spacecraft
+            property: "eulerRotation.y"
+            duration: 35000
+            from: spacecraft.eulerRotation.y
+            to: spacecraft.eulerRotation.y + 360
+            loops: Animation.Infinite
+            running: true
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        property real lastX: 0
+
+        onPressed: (mouse) => {
+            spinAnimation.stop()
+            lastX = mouse.x
+        }
+        onPositionChanged: (mouse) => {
+            var delta = mouse.x - lastX
+            spacecraft.eulerRotation.y += delta * 0.5
+            lastX = mouse.x
+        }
+        onReleased: { spinAnimation.start() }
     }
 }

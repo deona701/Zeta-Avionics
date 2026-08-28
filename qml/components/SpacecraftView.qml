@@ -22,7 +22,7 @@ View3D {
 
     PerspectiveCamera {
         id: camera
-        position: Qt.vector3d(80, 40, 180)
+        position: Qt.vector3d(80, 60, 180)
         Component.onCompleted: camera.lookAt(spacecraft.position)
     }
 

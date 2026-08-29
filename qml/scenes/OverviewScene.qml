@@ -6,6 +6,8 @@ Item {
     id: overviewSceneRoot
     anchors.fill: parent
 
+    property bool sceneActive: false
+
     MediaPlayer {
         id: bgPlayer
         source: Qt.resolvedUrl("../../assets/background/Photoman61.mp4")
@@ -26,10 +28,10 @@ Item {
 
     Rectangle {
         id: sidePanel
-        width: 8
+        width: 80
         height: 450
         anchors.left: parent.left
-        anchors.margins: 8
+        anchors.leftMargin: -100
         anchors.verticalCenter: parent.verticalCenter
         radius: 6
         opacity: 1
@@ -147,6 +149,30 @@ Item {
                 }
             }
         }
+
+        states: [
+            State {
+                name: "VISIBLE"
+                when: overviewSceneRoot.sceneActive
+                PropertyChanges {
+                    target: sidePanel
+                    anchors.leftMargin: 8
+                }
+            }
+        ]
+        transitions: [
+            Transition {
+                from: "*"
+                to: "VISIBLE"
+
+                NumberAnimation {
+                    target: sidePanel
+                    property: "anchors.leftMargin"
+                    duration: 600
+                    easing.type: Easing.OutCubic
+                }
+            }
+        ]
     }
 
     Rectangle {
@@ -154,7 +180,7 @@ Item {
         width: 800
         height: 80
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 8
+        anchors.bottomMargin: -100
         anchors.horizontalCenter: parent.horizontalCenter
         radius: 6
         opacity: 1
@@ -164,8 +190,6 @@ Item {
             id: bottomPanelRow
             anchors.fill: parent
             anchors.margins: 6
-            width: parent.width
-            height: parent.height
             spacing: 8
 
             readonly property real itemWidth: (width - (spacing * 4)) / 5
@@ -262,5 +286,29 @@ Item {
                 }
             }
         }
+
+        states: [
+            State {
+                name: "VISIBLE"
+                when: overviewSceneRoot.sceneActive
+                PropertyChanges {
+                    target: bottomPanel
+                    anchors.bottomMargin: 8
+                }
+            }
+        ]
+        transitions: [
+            Transition {
+                from: "*"
+                to: "VISIBLE"
+
+                NumberAnimation {
+                    target: bottomPanel
+                    property: "anchors.bottomMargin"
+                    duration: 600
+                    easing.type: Easing.OutCubic
+                }
+            }
+        ]
     }
 }

@@ -38,7 +38,7 @@ View3D {
 
     Futuristic_spacecraft_3dmodel {
         id: spacecraft
-        scale: Qt.vector3d(300, 300, 300)
+        scale: Qt.vector3d(280, 280, 280)
 
         eulerRotation.x: spacecraftModelView3D.pitchAngle + 10
         eulerRotation.y: spacecraftModelView3D.yawAngle - 35

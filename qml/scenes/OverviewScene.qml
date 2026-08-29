@@ -26,17 +26,18 @@ Item {
 
     Rectangle {
         id: sidePanel
-        width: 90
+        width: 88
         height: 450
         anchors.left: parent.left
+        anchors.margins: 8
         anchors.verticalCenter: parent.verticalCenter
-        radius: 15
-        opacity: 1.0
+        radius: 6
+        opacity: 1
 
         Column {
-            id: sideNavColumn
+            id: sidePanelColumn
             spacing: 10
-            width: parent.width - 25
+            width: parent.width - 15
             anchors.centerIn: parent
 
             readonly property real buttonHeight: (sidePanel.height - 20 - (4 * 10)) / 5
@@ -44,7 +45,7 @@ Item {
             // Button
             Rectangle {
                 width: parent.width
-                height: sideNavColumn.buttonHeight
+                height: sidePanelColumn.buttonHeight
                 radius: 6
                 color: "black"
 
@@ -65,7 +66,7 @@ Item {
             // Button
             Rectangle {
                 width: parent.width
-                height: sideNavColumn.buttonHeight
+                height: sidePanelColumn.buttonHeight
                 radius: 6
                 color: "black"
 
@@ -86,7 +87,7 @@ Item {
             // Button
             Rectangle {
                 width: parent.width
-                height: sideNavColumn.buttonHeight
+                height: sidePanelColumn.buttonHeight
                 radius: 6
                 color: "black"
 
@@ -107,7 +108,7 @@ Item {
             // Button
             Rectangle {
                 width: parent.width
-                height: sideNavColumn.buttonHeight
+                height: sidePanelColumn.buttonHeight
                 radius: 6
                 color: "black"
 
@@ -128,7 +129,7 @@ Item {
             // Button
             Rectangle {
                 width: parent.width
-                height: sideNavColumn.buttonHeight
+                height: sidePanelColumn.buttonHeight
                 radius: 6
                 color: "black"
 
@@ -149,26 +150,36 @@ Item {
     }
 
     Rectangle {
+        id: bottomPanel
         width: 800
-        height: 70
+        height: 80
         anchors.bottom: parent.bottom
+        anchors.bottomMargin: 8
         anchors.horizontalCenter: parent.horizontalCenter
-        radius: 15
-        opacity: 1.0
+        radius: 6
+        opacity: 1
+        color: "white"
 
         Row {
+            id: bottomPanelRow
+            anchors.fill: parent
+            anchors.margins: 6
             width: parent.width
             height: parent.height
+            spacing: 8
+
+            readonly property real itemWidth: (width - (spacing * 4)) / 5
 
             // SPACECRAFT _ MAIN SCREEN
             Rectangle {
-                width: (parent.width - 4) / 5
+                width: bottomPanelRow.itemWidth
                 height: parent.height
-                color: "transparent"
+                color: "black"
+                radius: 6
 
                 Text {
                     text: "Spacecraft"
-                    color: "black"
+                    color: "white"
                     font.pixelSize: 18
                     font.bold: true
                     anchors.centerIn: parent
@@ -179,22 +190,17 @@ Item {
                     onClicked: console.log("Spacecraft clicked")
                 }
             }
-            // DIVIDER
-            Rectangle {
-                width: 2
-                height: parent.height
-                color: "black"
-            }
 
             // MISSIONS CENTER
             Rectangle {
-                width: (parent.width - 4) / 5
+                width: bottomPanelRow.itemWidth
                 height: parent.height
-                color: "transparent"
+                color: "black"
+                radius: 6
 
                 Text {
                     text: "Missions"
-                    color: "black"
+                    color: "white"
                     font.pixelSize: 18
                     font.bold: true
                     anchors.centerIn: parent
@@ -206,36 +212,24 @@ Item {
                 }
             }
 
-            // DIVIDER
-            Rectangle {
-                width: 2
-                height: parent.height
-                color: "black"
-            }
-
             // EMPTY SPACE
             Rectangle {
-                width: (parent.width - 4) / 5
+                width: bottomPanelRow.itemWidth
                 height: parent.height
                 color: "black"
-            }
-
-            // DIVIDER
-            Rectangle {
-                width: 2
-                height: parent.height
-                color: "black"
+                radius: 2
             }
 
             // DIAGNOSTICS SYSTEM
             Rectangle {
-                width: (parent.width - 4) / 5
+                width: bottomPanelRow.itemWidth
                 height: parent.height
-                color: "transparent"
+                color: "black"
+                radius: 6
 
                 Text {
                     text: "Diagnostics"
-                    color: "black"
+                    color: "white"
                     font.pixelSize: 18
                     font.bold: true
                     anchors.centerIn: parent
@@ -247,22 +241,16 @@ Item {
                 }
             }
 
-            // DIVIDER
-            Rectangle {
-                width: 1.6
-                height: parent.height
-                color: "black"
-            }
-
             // ZETA CONTROLS
             Rectangle {
-                width: (parent.width - 4) / 5
+                width: bottomPanelRow.itemWidth
                 height: parent.height
-                color: "transparent"
+                color: "black"
+                radius: 6
 
                 Text {
                     text: "Zeta"
-                    color: "black"
+                    color: "white"
                     font.pixelSize: 18
                     font.bold: true
                     anchors.centerIn: parent

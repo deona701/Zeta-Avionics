@@ -168,7 +168,7 @@ Item {
                 NumberAnimation {
                     target: sidePanel
                     property: "anchors.leftMargin"
-                    duration: 600
+                    duration: 1000
                     easing.type: Easing.OutCubic
                 }
             }
@@ -305,7 +305,7 @@ Item {
                 NumberAnimation {
                     target: bottomPanel
                     property: "anchors.bottomMargin"
-                    duration: 600
+                    duration: 1000
                     easing.type: Easing.OutCubic
                 }
             }

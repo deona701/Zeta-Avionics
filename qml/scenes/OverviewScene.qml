@@ -23,4 +23,23 @@ Item {
     SpacecraftView {
         anchors.fill: parent
     }
+
+    Rectangle {
+        id: sidePanel
+        width: 69
+        height: 500
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        radius: 15
+        opacity: 0.7
+    }
+
+    Rectangle {
+        width: 800
+        height: 70
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        radius: 15
+        opacity: 0.7
+    }
 }

@@ -20,7 +20,13 @@ View3D {
     property real yawAngle: 0
     property real rollAngle: 0
 
-    property alias isSpinning: spinAnimation.running
+    property bool isSpinning: false
+
+    onIsSpinningChanged: {
+        if (isSpinning) {
+            spacecraftIntroAnimation.start()
+        }
+    }
 
     PerspectiveCamera {
         id: camera
@@ -40,7 +46,7 @@ View3D {
 
     Futuristic_spacecraft_3dmodel {
         id: spacecraft
-        scale: Qt.vector3d(280, 280, 280)
+        scale: Qt.vector3d(0, 0, 0)
 
         eulerRotation.x: spacecraftModelView3D.pitchAngle + 10
         eulerRotation.y: spacecraftModelView3D.yawAngle - 35
@@ -52,6 +58,24 @@ View3D {
             onTriggered: {
                 spacecraftModelView3D.yawAngle += frameTime * 20
             }
+        }
+    }
+
+    ParallelAnimation {
+        id: spacecraftIntroAnimation
+
+        Vector3dAnimation {
+            target: spacecraft
+            property: "scale"
+            from: Qt.vector3d(0, 0, 0)
+            to: Qt.vector3d(280, 280, 280)
+            duration: 1500
+            easing.type: Easing.OutBack
+            easing.overshoot: 0.8
+        }
+
+        onFinished: {
+            spinAnimation.running = true
         }
     }
 

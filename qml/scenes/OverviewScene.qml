@@ -3,7 +3,7 @@ import QtMultimedia
 import "../components/"
 
 Item {
-    id: dashboardRoot
+    id: overviewSceneRoot
     anchors.fill: parent
 
     MediaPlayer {
@@ -26,7 +26,7 @@ Item {
 
     Rectangle {
         id: sidePanel
-        width: 88
+        width: 8
         height: 450
         anchors.left: parent.left
         anchors.margins: 8

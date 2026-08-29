@@ -26,12 +26,126 @@ Item {
 
     Rectangle {
         id: sidePanel
-        width: 69
-        height: 500
+        width: 90
+        height: 450
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
         radius: 15
-        opacity: 0.7
+        opacity: 1.0
+
+        Column {
+            id: sideNavColumn
+            spacing: 10
+            width: parent.width - 25
+            anchors.centerIn: parent
+
+            readonly property real buttonHeight: (sidePanel.height - 20 - (4 * 10)) / 5
+
+            // Button
+            Rectangle {
+                width: parent.width
+                height: sideNavColumn.buttonHeight
+                radius: 6
+                color: "black"
+
+                Text {
+                    text: "Propulsion"
+                    color: "white"
+                    anchors.centerIn: parent
+                    font.bold: true
+                    font.pixelSize: 12
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: console.log("Propulsion clicked")
+                }
+            }
+
+            // Button
+            Rectangle {
+                width: parent.width
+                height: sideNavColumn.buttonHeight
+                radius: 6
+                color: "black"
+
+                Text {
+                    text: "Power"
+                    color: "white"
+                    anchors.centerIn: parent
+                    font.bold: true
+                    font.pixelSize: 12
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: console.log("Power clicked")
+                }
+            }
+
+            // Button
+            Rectangle {
+                width: parent.width
+                height: sideNavColumn.buttonHeight
+                radius: 6
+                color: "black"
+
+                Text {
+                    text: "    Life \nSupport"
+                    color: "white"
+                    anchors.centerIn: parent
+                    font.bold: true
+                    font.pixelSize: 12
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: console.log("Life Support clicked")
+                }
+            }
+
+            // Button
+            Rectangle {
+                width: parent.width
+                height: sideNavColumn.buttonHeight
+                radius: 6
+                color: "black"
+
+                Text {
+                    text: "Navigation"
+                    color: "white"
+                    anchors.centerIn: parent
+                    font.bold: true
+                    font.pixelSize: 12
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: console.log("Nav clicked")
+                }
+            }
+
+            // Button
+            Rectangle {
+                width: parent.width
+                height: sideNavColumn.buttonHeight
+                radius: 6
+                color: "black"
+
+                Text {
+                    text: "Comms"
+                    color: "white"
+                    anchors.centerIn: parent
+                    font.bold: true
+                    font.pixelSize: 12
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: console.log("Comms clicked")
+                }
+            }
+        }
     }
 
     Rectangle {
@@ -40,7 +154,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         radius: 15
-        opacity: 0.7
+        opacity: 1.0
 
         Row {
             width: parent.width

@@ -20,6 +20,8 @@ View3D {
     property real yawAngle: 0
     property real rollAngle: 0
 
+    property alias isSpinning: spinAnimation.running
+
     PerspectiveCamera {
         id: camera
         position: Qt.vector3d(80, 60, 180)
@@ -44,15 +46,12 @@ View3D {
         eulerRotation.y: spacecraftModelView3D.yawAngle - 35
         eulerRotation.z: spacecraftModelView3D.rollAngle
 
-        NumberAnimation {
+        FrameAnimation {
             id: spinAnimation
-            target: spacecraft
-            property: "eulerRotation.y"
-            duration: 35000
-            from: spacecraft.eulerRotation.y
-            to: spacecraft.eulerRotation.y + 360
-            loops: Animation.Infinite
-            running: true
+            running: false
+            onTriggered: {
+                spacecraftModelView3D.yawAngle += frameTime * 20
+            }
         }
     }
 
@@ -61,14 +60,16 @@ View3D {
         property real lastX: 0
 
         onPressed: (mouse) => {
-            spinAnimation.stop()
+            spinAnimation.paused = true
             lastX = mouse.x
         }
         onPositionChanged: (mouse) => {
             var delta = mouse.x - lastX
-            spacecraft.eulerRotation.y += delta * 0.5
+            spacecraftModelView3D.yawAngle += delta * 0.5
             lastX = mouse.x
         }
-        onReleased: { spinAnimation.start() }
+        onReleased: {
+            spinAnimation.paused = false
+        }
     }
 }

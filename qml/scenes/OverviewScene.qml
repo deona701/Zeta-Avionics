@@ -23,7 +23,9 @@ Item {
     }
 
     SpacecraftView {
+        id: spacecraftView
         anchors.fill: parent
+        isSpinning: overviewSceneRoot.sceneActive
     }
 
     Rectangle {

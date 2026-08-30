@@ -12,7 +12,7 @@ Item {
 
     // Font sizes
     readonly property int fontSmall: 12
-    readonly property int fontNormal: 15
+    readonly property int fontNormal: 18
     readonly property int fontLarge: 20
     readonly property int fontTitle: 28
 

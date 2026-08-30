@@ -35,7 +35,7 @@ Item {
         anchors.left: parent.left
         anchors.leftMargin: -100
         anchors.verticalCenter: parent.verticalCenter
-        radius: Theme.cornerRadius
+        radius: 6
         opacity: 1
 
         Column {
@@ -50,7 +50,7 @@ Item {
             Rectangle {
                 width: parent.width
                 height: sidePanelColumn.buttonHeight
-                radius: Theme.cornerRadius
+                radius: 6
                 color: "black"
 
                 Text {
@@ -58,7 +58,7 @@ Item {
                     color: "white"
                     anchors.centerIn: parent
                     font.bold: true
-                    font.pixelSize: 12
+                    font.pixelSize: Theme.fontSmall
                 }
 
                 MouseArea {
@@ -71,7 +71,7 @@ Item {
             Rectangle {
                 width: parent.width
                 height: sidePanelColumn.buttonHeight
-                radius: Theme.cornerRadius
+                radius: 6
                 color: "black"
 
                 Text {
@@ -79,7 +79,7 @@ Item {
                     color: "white"
                     anchors.centerIn: parent
                     font.bold: true
-                    font.pixelSize: 12
+                    font.pixelSize: Theme.fontSmall
                 }
 
                 MouseArea {
@@ -92,7 +92,7 @@ Item {
             Rectangle {
                 width: parent.width
                 height: sidePanelColumn.buttonHeight
-                radius: Theme.cornerRadius
+                radius: 6
                 color: "black"
 
                 Text {
@@ -100,7 +100,7 @@ Item {
                     color: "white"
                     anchors.centerIn: parent
                     font.bold: true
-                    font.pixelSize: 12
+                    font.pixelSize: Theme.fontSmall
                 }
 
                 MouseArea {
@@ -113,7 +113,7 @@ Item {
             Rectangle {
                 width: parent.width
                 height: sidePanelColumn.buttonHeight
-                radius: Theme.cornerRadius
+                radius: 6
                 color: "black"
 
                 Text {
@@ -121,7 +121,7 @@ Item {
                     color: "white"
                     anchors.centerIn: parent
                     font.bold: true
-                    font.pixelSize: 12
+                    font.pixelSize: Theme.fontSmall
                 }
 
                 MouseArea {
@@ -134,7 +134,7 @@ Item {
             Rectangle {
                 width: parent.width
                 height: sidePanelColumn.buttonHeight
-                radius: Theme.cornerRadius
+                radius: 6
                 color: "black"
 
                 Text {
@@ -142,7 +142,7 @@ Item {
                     color: "white"
                     anchors.centerIn: parent
                     font.bold: true
-                    font.pixelSize: 12
+                    font.pixelSize: Theme.fontSmall
                 }
 
                 MouseArea {
@@ -184,7 +184,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: -100
         anchors.horizontalCenter: parent.horizontalCenter
-        radius: Theme.cornerRadius
+        radius: 6
         opacity: 1
         color: "white"
 
@@ -201,12 +201,12 @@ Item {
                 width: bottomPanelRow.itemWidth
                 height: parent.height
                 color: "black"
-                radius: Theme.cornerRadius
+                radius: 6
 
                 Text {
                     text: "Spacecraft"
                     color: "white"
-                    font.pixelSize: 18
+                    font.pixelSize: Theme.fontNormal
                     font.bold: true
                     anchors.centerIn: parent
                 }
@@ -222,12 +222,12 @@ Item {
                 width: bottomPanelRow.itemWidth
                 height: parent.height
                 color: "black"
-                radius: Theme.cornerRadius
+                radius: 6
 
                 Text {
                     text: "Missions"
                     color: "white"
-                    font.pixelSize: 18
+                    font.pixelSize: Theme.fontNormal
                     font.bold: true
                     anchors.centerIn: parent
                 }
@@ -251,12 +251,12 @@ Item {
                 width: bottomPanelRow.itemWidth
                 height: parent.height
                 color: "black"
-                radius: Theme.cornerRadius
+                radius: 6
 
                 Text {
                     text: "Diagnostics"
                     color: "white"
-                    font.pixelSize: 18
+                    font.pixelSize: Theme.fontNormal
                     font.bold: true
                     anchors.centerIn: parent
                 }
@@ -272,12 +272,12 @@ Item {
                 width: bottomPanelRow.itemWidth
                 height: parent.height
                 color: "black"
-                radius: Theme.cornerRadius
+                radius: 6
 
                 Text {
                     text: "Zeta"
                     color: "white"
-                    font.pixelSize: 18
+                    font.pixelSize: Theme.fontNormal
                     font.bold: true
                     anchors.centerIn: parent
                 }

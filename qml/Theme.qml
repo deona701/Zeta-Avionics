@@ -20,4 +20,7 @@ Item {
     readonly property color primaryText: "#FFFFFF"
     readonly property color secondaryText: "#E3E3E3"
 
+    // Common dimensions
+    readonly property int cornerRadius: 6
+
 }

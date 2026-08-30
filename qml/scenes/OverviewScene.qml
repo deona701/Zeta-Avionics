@@ -35,7 +35,7 @@ Item {
         anchors.left: parent.left
         anchors.leftMargin: -100
         anchors.verticalCenter: parent.verticalCenter
-        radius: 6
+        radius: Theme.cornerRadius
         opacity: 1
 
         Column {
@@ -50,7 +50,7 @@ Item {
             Rectangle {
                 width: parent.width
                 height: sidePanelColumn.buttonHeight
-                radius: 6
+                radius: Theme.cornerRadius
                 color: "black"
 
                 Text {
@@ -71,7 +71,7 @@ Item {
             Rectangle {
                 width: parent.width
                 height: sidePanelColumn.buttonHeight
-                radius: 6
+                radius: Theme.cornerRadius
                 color: "black"
 
                 Text {
@@ -92,7 +92,7 @@ Item {
             Rectangle {
                 width: parent.width
                 height: sidePanelColumn.buttonHeight
-                radius: 6
+                radius: Theme.cornerRadius
                 color: "black"
 
                 Text {
@@ -113,7 +113,7 @@ Item {
             Rectangle {
                 width: parent.width
                 height: sidePanelColumn.buttonHeight
-                radius: 6
+                radius: Theme.cornerRadius
                 color: "black"
 
                 Text {
@@ -134,7 +134,7 @@ Item {
             Rectangle {
                 width: parent.width
                 height: sidePanelColumn.buttonHeight
-                radius: 6
+                radius: Theme.cornerRadius
                 color: "black"
 
                 Text {
@@ -184,7 +184,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: -100
         anchors.horizontalCenter: parent.horizontalCenter
-        radius: 6
+        radius: Theme.cornerRadius
         opacity: 1
         color: "white"
 
@@ -201,7 +201,7 @@ Item {
                 width: bottomPanelRow.itemWidth
                 height: parent.height
                 color: "black"
-                radius: 6
+                radius: Theme.cornerRadius
 
                 Text {
                     text: "Spacecraft"
@@ -222,7 +222,7 @@ Item {
                 width: bottomPanelRow.itemWidth
                 height: parent.height
                 color: "black"
-                radius: 6
+                radius: Theme.cornerRadius
 
                 Text {
                     text: "Missions"
@@ -251,7 +251,7 @@ Item {
                 width: bottomPanelRow.itemWidth
                 height: parent.height
                 color: "black"
-                radius: 6
+                radius: Theme.cornerRadius
 
                 Text {
                     text: "Diagnostics"
@@ -272,7 +272,7 @@ Item {
                 width: bottomPanelRow.itemWidth
                 height: parent.height
                 color: "black"
-                radius: 6
+                radius: Theme.cornerRadius
 
                 Text {
                     text: "Zeta"

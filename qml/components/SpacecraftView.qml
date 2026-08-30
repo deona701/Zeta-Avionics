@@ -69,7 +69,7 @@ View3D {
             property: "scale"
             from: Qt.vector3d(0, 0, 0)
             to: Qt.vector3d(280, 280, 280)
-            duration: 1500
+            duration: 1400
             easing.type: Easing.OutBack
             easing.overshoot: 0.8
         }

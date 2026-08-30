@@ -153,4 +153,12 @@ Item {
             script: startupSceneRoot.sequenceFinished()
         }
     }
+
+    Shortcut {
+        sequences: ["Space", "Escape"]
+        onActivated: {
+            console.log("SKIPPING STARTUP SCENE")
+            startupSceneRoot.sequenceFinished()
+        }
+    }
 }

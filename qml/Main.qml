@@ -36,6 +36,9 @@ ApplicationWindow {
         anchors.fill: parent
         fillMode: VideoOutput.PreserveAspectCrop
         visible: window.uiActive
+
+        opacity: window.uiActive ? 1.0 : 0.0
+        Behavior on opacity { NumberAnimation { duration: 800 } }
     }
 
     SpacecraftView {

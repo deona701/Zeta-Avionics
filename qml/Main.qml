@@ -18,6 +18,11 @@ ApplicationWindow {
     property bool uiActive: false
     property string currentScene: "MAIN"
 
+    Rectangle {
+        anchors.fill: parent
+        color: "black"
+    }
+
     MediaPlayer {
         id: bgPlayer
         source: Qt.resolvedUrl("../assets/background/Photoman61.mp4")
@@ -30,6 +35,7 @@ ApplicationWindow {
         id: bgVideoOutput
         anchors.fill: parent
         fillMode: VideoOutput.PreserveAspectCrop
+        visible: window.uiActive
     }
 
     SpacecraftView {

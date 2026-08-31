@@ -41,6 +41,7 @@ qt_add_qml_module(appZeta_Avionics
         qml/components/SpacecraftModel/maps/textureData.jpg
         qml/components/SpacecraftModel/maps/textureData8.png
         qml/components/SpacecraftModel/maps/textureData10.jpg
+        QML_FILES qml/scenes/NavigationScene.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

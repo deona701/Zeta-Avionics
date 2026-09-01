@@ -45,6 +45,7 @@ ApplicationWindow {
         id: spacecraftView
         anchors.fill: parent
         isSpinning: uiActive
+        visible: window.currentScene === "MAIN"
     }
 
     Rectangle {
@@ -336,7 +337,17 @@ ApplicationWindow {
     OverviewScene {
         id: overviewScene
         anchors.fill: parent
-        visible: false
+        visible: window.currentScene === "MAIN" && window.uiActive
+    }
+
+
+    NavigationScene {
+        id: navigationScene
+        anchors.fill: parent
+        visible: window.currentScene === "NAV"
+
+        opacity: window.uiActive ? 1.0 : 0.0
+        Behavior on opacity { NumberAnimation { duration: 800 } }
     }
 
     StartupScene {
@@ -346,7 +357,6 @@ ApplicationWindow {
 
         onSequenceFinished: {
             startupScene.visible = false
-            overviewScene.visible = true
             window.uiActive = true
         }
     }

@@ -45,7 +45,9 @@ ApplicationWindow {
         id: spacecraftView
         anchors.fill: parent
         isSpinning: uiActive
-        visible: window.currentScene === "MAIN"
+        opacity: window.currentScene === "MAIN" ? 1.0 : 0.0
+        visible: opacity > 0
+        Behavior on opacity { NumberAnimation { duration: 400 } }
     }
 
     Rectangle {
@@ -216,7 +218,7 @@ ApplicationWindow {
 
             readonly property real itemWidth: (width - (spacing * 4)) / 5
 
-            // SPACECRAFT _ MAIN SCREEN
+            // SPACECRAFT - MAIN SCREEN
             Rectangle {
                 width: bottomPanelRow.itemWidth
                 height: parent.height

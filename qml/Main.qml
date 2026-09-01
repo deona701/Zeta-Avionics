@@ -146,7 +146,7 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: console.log("Nav clicked")
+                    onClicked: window.currentScene = "NAV"
                 }
             }
 
@@ -233,7 +233,7 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: console.log("Spacecraft clicked")
+                    onClicked: window.currentScene = "MAIN"
                 }
             }
 

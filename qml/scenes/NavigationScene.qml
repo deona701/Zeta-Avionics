@@ -23,11 +23,71 @@ Item {
 
         Rectangle {
             width: parent.width
-            height: (parent.height - parent.spacing) * 0.30
+            height: (parent.height - parent.spacing) * 0.35
             radius: 10
             color: "transparent"
             border.color: "white"
             border.width: 2
+
+            Row {
+                anchors.centerIn: parent
+                anchors.margins: 15
+                spacing: 240
+
+                Column {
+                    spacing: 40
+
+                    Text {
+                        text: "CURRENT POSITION"
+                        color: "white"
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                    }
+
+                    Text {
+                        text: "DESTINATION"
+                        color: "white"
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                    }
+                }
+
+                Column {
+                    spacing: 40
+
+                    Text {
+                        text: "DISTANCE"
+                        color: "white"
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                    }
+
+                    Text {
+                        text: "VELOCITY"
+                        color: "white"
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                    }
+                }
+
+                Column {
+                    spacing: 40
+
+                    Text {
+                        text: "ESTIMATED TIME OF ARRIVAL"
+                        color: "white"
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                    }
+
+                    Text {
+                        text: "TRAJECTORY"
+                        color: "white"
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                    }
+                }
+            }
         }
     }
 }

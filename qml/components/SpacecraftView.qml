@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick3D
-import "SpacecraftModel"
+import "../../models/SpacecraftModel"
 
 View3D {
     id: spacecraftModelView3D

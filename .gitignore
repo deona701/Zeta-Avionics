@@ -88,4 +88,6 @@ assets/**/*.glb
 assets/**/*.gltf
 assets/spacecraft/
 assets/background/
-qml/components/SpacecraftModel/
+assets/planets/
+models/
+models/SpacecraftModel/

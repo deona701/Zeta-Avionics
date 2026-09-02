@@ -16,8 +16,8 @@ Item {
             width: parent.width
             height: (parent.height - parent.spacing) * 0.65
             radius: 10
-            color: "#BDBDBD"
-            border.color: "black"
+            color: "transparent"
+            border.color: "white"
             border.width: 2
         }
 
@@ -25,8 +25,8 @@ Item {
             width: parent.width
             height: (parent.height - parent.spacing) * 0.30
             radius: 10
-            color: "#BDBDBD"
-            border.color: "black"
+            color: "transparent"
+            border.color: "white"
             border.width: 2
         }
     }

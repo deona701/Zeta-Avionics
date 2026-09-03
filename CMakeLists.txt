@@ -45,6 +45,9 @@ qt_add_qml_module(appZeta_Avionics
         models/MarsModel/Timeworx_mars_4071.qml
         models/MarsModel/meshes/sphere_002_mesh.mesh
         models/MarsModel/maps/textureData.jpg
+        models/EarthModel/Timeworx_world_4045.qml
+        models/EarthModel/meshes/atmosphere_mesh.mesh
+        models/EarthModel/maps/textureData.jpg
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

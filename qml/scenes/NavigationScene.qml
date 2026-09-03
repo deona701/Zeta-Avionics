@@ -1,4 +1,7 @@
 import QtQuick
+import QtQuick3D
+//import "../../models/EarthModel"
+import "../../models/MarsModel"
 
 Item {
     id: navigationSceneRoot
@@ -19,6 +22,43 @@ Item {
             color: "transparent"
             border.color: "white"
             border.width: 2
+
+            View3D {
+                id: marsModel
+                anchors.fill: parent
+
+                PerspectiveCamera {
+                    id: camera
+                    position: Qt.vector3d(80, 60, 180)
+                    Component.onCompleted: camera.lookAt(mars.position)
+                }
+
+                DirectionalLight {
+                    brightness: 1.5
+                    eulerRotation: Qt.vector3d(30, 35, 0)
+                }
+
+                PointLight {
+                    position: Qt.vector3d(0, 100, 100)
+                    brightness: 0.8
+                }
+
+                Timeworx_mars_4071 {
+                    id: mars
+                    scale: Qt.vector3d(70, 70, 70)
+
+                    NumberAnimation {
+                        id: spinAnimation
+                        target: mars
+                        property: "eulerRotation.y"
+                        duration: 15000
+                        from: mars.eulerRotation.y
+                        to: mars.eulerRotation.y + 360
+                        loops: Animation.Infinite
+                        running: true
+                    }
+                }
+            }
         }
 
         Rectangle {

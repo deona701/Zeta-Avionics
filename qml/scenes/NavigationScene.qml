@@ -121,32 +121,14 @@ Item {
                     spacing: 40
 
                     Text {
-                        text: "CURRENT POSITION"
+                        text: "CURRENT POSITION \n Earth"
                         color: "white"
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
                     }
 
                     Text {
-                        text: "DESTINATION"
-                        color: "white"
-                        font.bold: true
-                        font.pixelSize: Theme.fontLarge
-                    }
-                }
-
-                Column {
-                    spacing: 40
-
-                    Text {
-                        text: "DISTANCE"
-                        color: "white"
-                        font.bold: true
-                        font.pixelSize: Theme.fontLarge
-                    }
-
-                    Text {
-                        text: "VELOCITY"
+                        text: "DESTINATION \n Mars"
                         color: "white"
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
@@ -157,14 +139,32 @@ Item {
                     spacing: 40
 
                     Text {
-                        text: "ESTIMATED TIME OF ARRIVAL"
+                        text: "DISTANCE \n 225,000,000 KM"
                         color: "white"
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
                     }
 
                     Text {
-                        text: "TRAJECTORY"
+                        text: "VELOCITY \n 12 KM/S"
+                        color: "white"
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                    }
+                }
+
+                Column {
+                    spacing: 40
+
+                    Text {
+                        text: "ESTIMATED TIME OF ARRIVAL \n 217 days"
+                        color: "white"
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                    }
+
+                    Text {
+                        text: "TRAJECTORY \n Nominal"
                         color: "white"
                         font.bold: true
                         font.pixelSize: Theme.fontLarge

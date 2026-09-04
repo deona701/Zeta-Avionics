@@ -16,6 +16,18 @@ Item {
         anchors.rightMargin: 25
         spacing: 25
 
+        transform: Translate {
+            y: navigationSceneRoot.opacity > 0 ? 0 : 50
+
+            Behavior on y {
+
+                NumberAnimation {
+                    duration: 600
+                    easing.type: Easing.OutCubic
+                }
+            }
+        }
+
         Rectangle {
             width: parent.width
             height: (parent.height - parent.spacing) * 0.65

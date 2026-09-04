@@ -29,43 +29,6 @@ Item {
                 spacing: 100
 
                 View3D {
-                    id: marsModel
-                    width: 300
-                    height: 300
-
-                    PerspectiveCamera {
-                        id: camera
-                        position: Qt.vector3d(80, 60, 180)
-                        Component.onCompleted: camera.lookAt(mars.position)
-                    }
-
-                    DirectionalLight {
-                        brightness: 1.5
-                        eulerRotation: Qt.vector3d(30, 35, 0)
-                    }
-
-                    PointLight {
-                        position: Qt.vector3d(0, 100, 100)
-                        brightness: 0.8
-                    }
-
-                    Timeworx_mars_4071 {
-                        id: mars
-                        scale: Qt.vector3d(70, 70, 70)
-
-                        NumberAnimation {
-                            target: mars
-                            property: "eulerRotation.y"
-                            duration: 15000
-                            from: mars.eulerRotation.y
-                            to: mars.eulerRotation.y + 360
-                            loops: Animation.Infinite
-                            running: true
-                        }
-                    }
-                }
-
-                View3D {
                     id: earthModel
                     width: 300
                     height: 300
@@ -96,6 +59,43 @@ Item {
                             duration: 15000
                             from: earth.eulerRotation.y
                             to: earth.eulerRotation.y + 360
+                            loops: Animation.Infinite
+                            running: true
+                        }
+                    }
+                }
+
+                View3D {
+                    id: marsModel
+                    width: 300
+                    height: 300
+
+                    PerspectiveCamera {
+                        id: camera
+                        position: Qt.vector3d(80, 60, 180)
+                        Component.onCompleted: camera.lookAt(mars.position)
+                    }
+
+                    DirectionalLight {
+                        brightness: 1.5
+                        eulerRotation: Qt.vector3d(30, 35, 0)
+                    }
+
+                    PointLight {
+                        position: Qt.vector3d(0, 100, 100)
+                        brightness: 0.8
+                    }
+
+                    Timeworx_mars_4071 {
+                        id: mars
+                        scale: Qt.vector3d(70, 70, 70)
+
+                        NumberAnimation {
+                            target: mars
+                            property: "eulerRotation.y"
+                            duration: 15000
+                            from: mars.eulerRotation.y
+                            to: mars.eulerRotation.y + 360
                             loops: Animation.Infinite
                             running: true
                         }

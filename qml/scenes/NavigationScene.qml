@@ -8,12 +8,13 @@ Item {
     anchors.fill: parent
 
     Column {
-    anchors.fill: parent
-    anchors.topMargin: 25
-    anchors.bottomMargin: 95
-    anchors.leftMargin: 95
-    anchors.rightMargin: 25
-    spacing: 25
+        id: navMainColumn
+        anchors.fill: parent
+        anchors.topMargin: 25
+        anchors.bottomMargin: 95
+        anchors.leftMargin: 95
+        anchors.rightMargin: 25
+        spacing: 25
 
         Rectangle {
             width: parent.width

@@ -346,10 +346,16 @@ ApplicationWindow {
     NavigationScene {
         id: navigationScene
         anchors.fill: parent
-        visible: window.currentScene === "NAV"
 
-        opacity: window.uiActive ? 1.0 : 0.0
-        Behavior on opacity { NumberAnimation { duration: 800 } }
+        visible: opacity > 0
+        opacity: (window.currentScene === "NAV" && window.uiActive) ? 1.0 : 0.0
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 400
+                easing.type: Easing.InOutQuad
+            }
+        }
     }
 
     StartupScene {

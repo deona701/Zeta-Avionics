@@ -85,7 +85,7 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: console.log("Propulsion clicked")
+                    onClicked: window.currentScene = "PROP"
                 }
             }
 
@@ -342,6 +342,20 @@ ApplicationWindow {
         visible: window.currentScene === "MAIN" && window.uiActive
     }
 
+    PropulsionScene {
+        id: propulsionScene
+        anchors.fill: parent
+
+        visible: opacity > 0
+        opacity: (window.currentScene === "PROP" && window.uiActive) ? 1.0 : 0.0
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 400
+                easing.type: Easing.InOutQuad
+            }
+        }
+    }
 
     NavigationScene {
         id: navigationScene

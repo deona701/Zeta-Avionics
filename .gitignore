@@ -89,5 +89,5 @@ assets/**/*.gltf
 assets/spacecraft/
 assets/background/
 assets/planets/
+assets/spacecraftengine
 models/
-models/SpacecraftModel/

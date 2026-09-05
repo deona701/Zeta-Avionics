@@ -4,41 +4,56 @@ import "../../models/EngineModel"
 
 Item {
 
-    View3D {
-        id: engineModel
-        width: 300
-        height: 300
+    Rectangle {
+        width: parent.width
+        height: parent.height
+        anchors.centerIn: parent
+        radius: 10
+        color: "transparent"
 
-        PerspectiveCamera {
-            id: engineCamera
-            position: Qt.vector3d(80, 60, 180)
-            Component.onCompleted: engineCamera.lookAt(earth.position)
-        }
+        View3D {
+            id: engineModel
+            anchors.fill: parent
 
-        DirectionalLight {
-            brightness: 1.5
-            eulerRotation: Qt.vector3d(30, 35, 0)
-        }
+            PerspectiveCamera {
+                id: engineCamera
+                position: Qt.vector3d(0, 100, 300)
+                Component.onCompleted: engineCamera.lookAt(engine.position)
+            }
 
-        PointLight {
-            position: Qt.vector3d(0, 100, 100)
-            brightness: 0.8
-        }
+            DirectionalLight {
+                eulerRotation: Qt.vector3d(-45, 45, 0)
+                brightness: 1.2
+            }
+            DirectionalLight {
+                eulerRotation: Qt.vector3d(30, -135, 0)
+                brightness: 0.4
+            }
+            DirectionalLight {
+                eulerRotation: Qt.vector3d(-10, 180, 0)
+                brightness: 0.9
+            }
 
-        Raptorengine {
-            id: engine
-            scale: Qt.vector3d(6, 6, 6)
+            PointLight {
+                position: Qt.vector3d(0, 100, 100)
+                brightness: 0.2
+            }
 
-            NumberAnimation {
-                target: engine
-                property: "eulerRotation.y"
-                duration: 15000
-                from: engine.eulerRotation.y
-                to: engine.eulerRotation.y + 360
-                loops: Animation.Infinite
-                running: true
+            Raptorengine {
+                id: engine
+                scale: Qt.vector3d(0.3, 0.3, 0.3)
+                position: Qt.vector3d(0, -80, 0)
+
+                NumberAnimation {
+                    target: engine
+                    property: "eulerRotation.y"
+                    duration: 15000
+                    from: engine.eulerRotation.y
+                    to: engine.eulerRotation.y + 360
+                    loops: Animation.Infinite
+                    running: true
+                }
             }
         }
     }
-
 }

@@ -4,7 +4,7 @@ project(Zeta_Avionics VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(Qt6 REQUIRED COMPONENTS Quick Quick3D)
 
 qt_standard_project_setup(REQUIRES 6.10)
 
@@ -21,6 +21,8 @@ set_source_files_properties(qml/Theme.qml
     PROPERTIES
         QT_QML_SINGLETON_TYPE TRUE
 )
+
+file(GLOB ENGINE_MESHES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" CONFIGURE_DEPENDS "models/EngineModel/meshes/*")
 
 qt_add_qml_module(appZeta_Avionics
     URI Zeta_Avionics
@@ -50,6 +52,7 @@ qt_add_qml_module(appZeta_Avionics
         models/EarthModel/meshes/atmosphere_mesh.mesh
         models/EarthModel/maps/textureData.jpg
         models/EngineModel/Raptorengine.qml
+        ${ENGINE_MESHES}
 
 )
 
@@ -65,7 +68,7 @@ set_target_properties(appZeta_Avionics PROPERTIES
 )
 
 target_link_libraries(appZeta_Avionics
-    PRIVATE Qt6::Quick
+    PRIVATE Qt6::Quick Qt6::Quick3D
 )
 
 install(TARGETS appZeta_Avionics

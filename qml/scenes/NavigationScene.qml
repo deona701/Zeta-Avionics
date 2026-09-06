@@ -33,8 +33,6 @@ Item {
             height: (parent.height - parent.spacing) * 0.65
             radius: 10
             color: "transparent"
-            border.color: "white"
-            border.width: 2
 
             Row {
                 anchors.centerIn: parent

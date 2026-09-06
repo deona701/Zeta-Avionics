@@ -7,9 +7,10 @@ Item {
     Rectangle {
         width: parent.width
         height: parent.height
-        anchors.centerIn: parent
         radius: 10
         color: "transparent"
+        border.color: "white"
+        border.width: 2
 
         View3D {
             id: engineModel
@@ -17,8 +18,7 @@ Item {
 
             PerspectiveCamera {
                 id: engineCamera
-                position: Qt.vector3d(0, 100, 300)
-                Component.onCompleted: engineCamera.lookAt(engine.position)
+                position: Qt.vector3d(160, -20, 300)
             }
 
             DirectionalLight {
@@ -41,8 +41,7 @@ Item {
 
             Raptorengine {
                 id: engine
-                scale: Qt.vector3d(0.3, 0.3, 0.3)
-                position: Qt.vector3d(0, -80, 0)
+                scale: Qt.vector3d(0.22, 0.22, 0.22)
 
                 NumberAnimation {
                     target: engine

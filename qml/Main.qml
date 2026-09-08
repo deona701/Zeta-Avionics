@@ -127,7 +127,7 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: console.log("Life Support clicked")
+                    onClicked: window.currentScene = "LIFESUPPORT"
                 }
             }
 
@@ -348,6 +348,22 @@ ApplicationWindow {
 
         visible: opacity > 0
         opacity: (window.currentScene === "PROP" && window.uiActive) ? 1.0 : 0.0
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 400
+                easing.type: Easing.InOutQuad
+            }
+        }
+    }
+
+
+    LifeSupportScene {
+        id: lifeSupportScene
+        anchors.fill: parent
+
+        visible: opacity > 0
+        opacity: (window.currentScene === "LIFESUPPORT" && window.uiActive) ? 1.0 : 0.0
 
         Behavior on opacity {
             NumberAnimation {

@@ -8,6 +8,7 @@ Item {
         anchors.bottomMargin: 95
         anchors.leftMargin: 95
         anchors.rightMargin: 25
+        color: "transparent"
 
         Row {
             Column {

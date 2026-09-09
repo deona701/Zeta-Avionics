@@ -11,7 +11,10 @@ Item {
         color: "transparent"
 
         Row {
+            spacing: 15
+
             Column {
+
                 Rectangle {
                     width: 380
                     height: 300
@@ -80,7 +83,7 @@ Item {
 
             Column {
                 Rectangle {
-                    width: 400
+                    width: 380
                     height: 600
                     radius: 6
                     color: "black"

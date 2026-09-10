@@ -121,6 +121,7 @@ Item {
             radius: 10
             color: "transparent"
             border.color: "white"
+            border.width: 2
 
             Row {
                 anchors.centerIn: parent

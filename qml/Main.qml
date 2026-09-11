@@ -169,7 +169,7 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: console.log("Comms clicked")
+                    onClicked: window.currentScene = "COMMS"
                 }
             }
         }
@@ -379,6 +379,21 @@ ApplicationWindow {
 
         visible: opacity > 0
         opacity: (window.currentScene === "NAV" && window.uiActive) ? 1.0 : 0.0
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 400
+                easing.type: Easing.InOutQuad
+            }
+        }
+    }
+
+    CommunicationsScene {
+        id: communicationsScene
+        anchors.fill: parent
+
+        visible: opacity > 0
+        opacity: (window.currentScene === "COMMS" && window.uiActive) ? 1.0 : 0.0
 
         Behavior on opacity {
             NumberAnimation {

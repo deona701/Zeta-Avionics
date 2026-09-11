@@ -32,7 +32,8 @@ Item {
             width: parent.width
             height: (parent.height - parent.spacing) * 0.65
             radius: 10
-            color: "transparent"
+            color: "#80000000"
+            border.color: "white"
 
             Row {
                 anchors.centerIn: parent
@@ -119,7 +120,7 @@ Item {
             width: parent.width
             height: (parent.height - parent.spacing) * 0.35
             radius: 10
-            color: "transparent"
+            color: "black"
             border.color: "white"
             border.width: 2
 

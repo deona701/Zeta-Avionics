@@ -1,9 +1,39 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 
 Item {
     id: communicationsSceneRoot
     anchors.fill: parent
+
+    property string pendingTitle: ""
+    property string pendingMessage: ""
+
+    function sendNtfyNotification(title, message) {
+        var xhr = new XMLHttpRequest();
+        var url = "https://ntfy.sh/zeta_avionics";
+
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Title", title);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                console.log("ntfy response status:", xhr.status);
+            }
+        }
+
+        xhr.send(message);
+    }
+
+    function transmit(title, message, durationMs) {
+        if (sendAnimation.running) return;
+
+        pendingTitle = title;
+        pendingMessage = message;
+        sendAnimation.duration = durationMs || 2000;
+        sendAnimation.to = transmitBar.width;
+        sendAnimation.start();
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -16,7 +46,7 @@ Item {
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.preferredHeight: 3
+            Layout.preferredHeight: 350
             color: "black"
             border.color: "white"
             radius: 10
@@ -74,8 +104,7 @@ Item {
 
         Rectangle {
             Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.preferredHeight: 0.5
+            Layout.preferredHeight: 100
             color: "black"
             border.color: "white"
             radius: 10
@@ -85,8 +114,85 @@ Item {
                 anchors.margins: 15
                 spacing: 15
 
-            Text {
-                text: "SCROLLING TELEMETRY FEED"; color: Theme.primaryText; font.pixelSize: Theme.fontSmall; font.bold: true }
+                Rectangle {
+                    id: transmitBar
+                    Layout.fillWidth: true
+                    height: 10
+                    color: "black"
+                    border.color: "white"
+
+                    Rectangle {
+                        id: progressFill
+                        width: 0
+                        height: parent.height
+                        color: "white"
+                    }
+                }
+
+                NumberAnimation {
+                    id: sendAnimation
+                    target: progressFill
+                    property: "width"
+                    from: 0
+                    to: transmitBar.width
+                    duration: 2000
+
+                    onFinished: {
+                        sendNtfyNotification(pendingTitle, pendingMessage);
+                        progressFill.width = 0;
+                    }
+                }
+
+                RowLayout {
+                    Layout.alignment: Qt.AlignHCenter
+                    spacing: 15
+
+                    Button {
+                        contentItem: Text {
+                            text: parent.text
+                            color: "white"
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                        }
+
+                        background: Rectangle {
+                            color: "black"
+                            border.color: "white"
+                        }
+
+                        text: "SEND TELEMETRY BURST"
+                        onClicked: {
+                            transmit(
+                                "ZETA AVIONICS: Telemetry Burst",
+                                "Outbound telemetry package transmitted to Earth Relay successfully.",
+                                2000
+                            )
+                        }
+                    }
+
+                    Button {
+                        contentItem: Text {
+                            text: parent.text
+                            color: "white"
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                        }
+
+                        background: Rectangle {
+                            color: "black"
+                            border.color: "white"
+                        }
+
+                        text: "DISTRESS BEACON"
+                        onClicked: {
+                            transmit(
+                                "CRITICAL ALERT: Zeta Avionics",
+                                "Master Caution triggered. Emergency broadcast sequence active.",
+                                500
+                            )
+                        }
+                    }
+                }
             }
         }
     }

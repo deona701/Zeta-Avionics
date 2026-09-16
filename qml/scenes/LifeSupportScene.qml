@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 
 Item {
-    id: root
+    id: lifeSupportSceneRoot
     anchors.fill: parent
 
     Rectangle {

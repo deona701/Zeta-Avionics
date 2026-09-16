@@ -4,7 +4,7 @@ import QtQuick3D
 import "../../models/EngineModel"
 
 Item {
-    id: root
+    id: propulsionSceneRoot
     anchors.fill: parent
 
     Rectangle {

@@ -106,7 +106,7 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: console.log("Power clicked")
+                    onClicked: window.currentScene = "POWER"
                 }
             }
 
@@ -357,6 +357,20 @@ ApplicationWindow {
         }
     }
 
+    PowerScene {
+        id: powerScene
+        anchors.fill: parent
+
+        visible: opacity > 0
+        opacity: (window.currentScene === "POWER" && window.uiActive) ? 1.0 : 0.0
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 400
+                easing.type: Easing.InOutQuad
+            }
+        }
+    }
 
     LifeSupportScene {
         id: lifeSupportScene

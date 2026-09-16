@@ -55,6 +55,7 @@ qt_add_qml_module(appZeta_Avionics
         models/EngineModel/Raptorengine.qml
         ${ENGINE_MESHES}
         QML_FILES qml/scenes/CommunicationsScene.qml
+        QML_FILES qml/scenes/PowerScene.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

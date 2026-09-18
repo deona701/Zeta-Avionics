@@ -39,6 +39,7 @@ qt_add_qml_module(appZeta_Avionics
         qml/scenes/CommunicationsScene.qml
         qml/scenes/PowerScene.qml
         qml/components/SideNavBar.qml
+        qml/components/BottomNavBar.qml
     RESOURCES
         assets/fonts/IBMPlexMono-Regular.ttf
         assets/fonts/IBMPlexMono-Medium.ttf

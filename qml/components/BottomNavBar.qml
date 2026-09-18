@@ -11,103 +11,51 @@ Rectangle {
     opacity: 1
     color: "white"
 
+    readonly property var navItems: [
+        { label: "Spacecraft", scene: "MAIN" },
+        { label: "Missions", scene: "MISSIONS" },
+        { isSpacer: true },
+        { label: "Diagnostics", scene: "DIAG" },
+        { label: "Zeta", scene: "ZETA" }
+    ]
+
     Row {
         id: bottomPanelRow
         anchors.fill: parent
         anchors.margins: 6
         spacing: 8
 
-        readonly property real itemWidth: (width - (spacing * 4)) / 5
+        readonly property real itemWidth: (width - ((bottomPanel.navItems.length - 1) * spacing)) / bottomPanel.navItems.length
 
-        // SPACECRAFT - MAIN SCREEN
-        Rectangle {
-            width: bottomPanelRow.itemWidth
-            height: parent.height
-            color: "black"
-            radius: 6
+        Repeater {
+            model: bottomPanel.navItems
 
-            Text {
-                text: "Spacecraft"
-                color: "white"
-                font.pixelSize: Theme.fontNormal
-                font.bold: true
-                anchors.centerIn: parent
-            }
+            Rectangle {
+                required property var modelData
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: window.currentScene = "MAIN"
-            }
-        }
+                width: bottomPanelRow.itemWidth
+                height: parent.height
+                color: "black"
+                radius: modelData.isSpacer ? 2 : 6
 
-        // MISSIONS CENTER
-        Rectangle {
-            width: bottomPanelRow.itemWidth
-            height: parent.height
-            color: "black"
-            radius: 6
+                Text {
+                    text: modelData.label || ""
+                    color: "white"
+                    font.pixelSize: Theme.fontNormal
+                    font.bold: true
+                    anchors.centerIn: parent
+                    visible: !modelData.isSpacer
+                }
 
-            Text {
-                text: "Missions"
-                color: "white"
-                font.pixelSize: Theme.fontNormal
-                font.bold: true
-                anchors.centerIn: parent
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: console.log("Missions clicked")
-            }
-        }
-
-        // EMPTY SPACE
-        Rectangle {
-            width: bottomPanelRow.itemWidth
-            height: parent.height
-            color: "black"
-            radius: 2
-        }
-
-        // DIAGNOSTICS SYSTEM
-        Rectangle {
-            width: bottomPanelRow.itemWidth
-            height: parent.height
-            color: "black"
-            radius: 6
-
-            Text {
-                text: "Diagnostics"
-                color: "white"
-                font.pixelSize: Theme.fontNormal
-                font.bold: true
-                anchors.centerIn: parent
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: console.log("Diagnostics clicked")
-            }
-        }
-
-        // ZETA CONTROLS
-        Rectangle {
-            width: bottomPanelRow.itemWidth
-            height: parent.height
-            color: "black"
-            radius: 6
-
-            Text {
-                text: "Zeta"
-                color: "white"
-                font.pixelSize: Theme.fontNormal
-                font.bold: true
-                anchors.centerIn: parent
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: console.log("Zeta clicked")
+                MouseArea {
+                    anchors.fill: parent
+                    enabled: !modelData.isSpacer
+                    onClicked: {
+                        if (modelData.scene) {
+                            window.currentScene = modelData.scene
+                        }
+                    }
+                }
             }
         }
     }
@@ -128,11 +76,11 @@ Rectangle {
             to: "VISIBLE"
 
             NumberAnimation {
-            target: bottomPanel
-            property: "anchors.bottomMargin"
-            duration: 1000
-            easing.type: Easing.OutCubic
+                target: bottomPanel
+                property: "anchors.bottomMargin"
+                duration: 1000
+                easing.type: Easing.OutCubic
+            }
         }
-    }
-]
+    ]
 }

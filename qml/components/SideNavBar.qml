@@ -16,135 +16,65 @@ Rectangle {
         width: parent.width - 15
         anchors.centerIn: parent
 
+        readonly property var navItems: [
+            { label: "Propulsion", scene: "PROP" },
+            { label: "Power", scene: "POWER" },
+            { label: "Life\nSupport", scene: "LIFESUPPORT" },
+            { label: "Navigation", scene: "NAV" },
+            { label: "Comms", scene: "COMMS" }
+        ]
+
         readonly property real buttonHeight: (sidePanel.height - 20 - (4 * 10)) / 5
 
-        // Button
-        Rectangle {
-            width: parent.width
-            height: sidePanelColumn.buttonHeight
-            radius: 6
-            color: "black"
+        Repeater {
+            model: sidePanelColumn.navItems
 
-            Text {
-                text: "Propulsion"
-                color: "white"
-                anchors.centerIn: parent
-                font.bold: true
-                font.pixelSize: Theme.fontSmall
-            }
+            Rectangle {
+                required property var modelData
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: window.currentScene = "PROP"
-            }
-        }
+                width: parent.width
+                height: sidePanelColumn.buttonHeight
+                radius: 6
+                color: "black"
 
-        // Button
-        Rectangle {
-            width: parent.width
-            height: sidePanelColumn.buttonHeight
-            radius: 6
-            color: "black"
+                Text {
+                    text: parent.modelData.label
+                    color: "white"
+                    anchors.centerIn: parent
+                    font.bold: true
+                    font.pixelSize: Theme.fontSmall
+                    horizontalAlignment: Text.AlignHCenter
+                }
 
-            Text {
-                text: "Power"
-                color: "white"
-                anchors.centerIn: parent
-                font.bold: true
-                font.pixelSize: Theme.fontSmall
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: window.currentScene = "POWER"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: window.currentScene = parent.modelData.scene
+                }
             }
         }
 
-        // Button
-        Rectangle {
-            width: parent.width
-            height: sidePanelColumn.buttonHeight
-            radius: 6
-            color: "black"
-
-            Text {
-                text: "    Life \nSupport"
-                color: "white"
-                anchors.centerIn: parent
-                font.bold: true
-                font.pixelSize: Theme.fontSmall
+        states: [
+            State {
+                name: "VISIBLE"
+                when: uiActive
+                PropertyChanges {
+                    target: sidePanel
+                    anchors.leftMargin: 8
+                }
             }
+        ]
+        transitions: [
+            Transition {
+                from: "*"
+                to: "VISIBLE"
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: window.currentScene = "LIFESUPPORT"
+                NumberAnimation {
+                    target: sidePanel
+                    property: "anchors.leftMargin"
+                    duration: 1000
+                    easing.type: Easing.OutCubic
+                }
             }
-        }
-
-        // Button
-        Rectangle {
-            width: parent.width
-            height: sidePanelColumn.buttonHeight
-            radius: 6
-            color: "black"
-
-            Text {
-                text: "Navigation"
-                color: "white"
-                anchors.centerIn: parent
-                font.bold: true
-                font.pixelSize: Theme.fontSmall
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: window.currentScene = "NAV"
-            }
-        }
-
-        // Button
-        Rectangle {
-            width: parent.width
-            height: sidePanelColumn.buttonHeight
-            radius: 6
-            color: "black"
-
-            Text {
-                text: "Comms"
-                color: "white"
-                anchors.centerIn: parent
-                font.bold: true
-                font.pixelSize: Theme.fontSmall
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: window.currentScene = "COMMS"
-            }
-        }
+        ]
     }
-
-    states: [
-        State {
-            name: "VISIBLE"
-            when: uiActive
-            PropertyChanges {
-                target: sidePanel
-                anchors.leftMargin: 8
-            }
-        }
-    ]
-    transitions: [
-        Transition {
-            from: "*"
-            to: "VISIBLE"
-
-            NumberAnimation {
-                target: sidePanel
-                property: "anchors.leftMargin"
-                duration: 1000
-                easing.type: Easing.OutCubic
-            }
-        }
-    ]
 }

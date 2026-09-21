@@ -4,7 +4,6 @@ import QtQuick.Controls
 
 Item {
     id: communicationsSceneRoot
-    anchors.fill: parent
 
     property string pendingTitle: ""
     property string pendingMessage: ""

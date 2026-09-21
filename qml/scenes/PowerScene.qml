@@ -4,7 +4,6 @@ import QtQuick.Controls
 
 Item {
     id: powerSceneRoot
-    anchors.fill: parent
 
     signal requestPowerReroute(string systemName, real deltaKw)
 

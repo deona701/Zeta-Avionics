@@ -5,7 +5,6 @@ import "../../models/EngineModel"
 
 Item {
     id: propulsionSceneRoot
-    anchors.fill: parent
 
     Rectangle {
         anchors.fill: parent

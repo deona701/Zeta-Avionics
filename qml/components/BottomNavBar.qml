@@ -35,12 +35,12 @@ Rectangle {
 
                 width: bottomPanelRow.itemWidth
                 height: parent.height
-                color: "black"
+                color: Theme.dark
                 radius: modelData.isSpacer ? 2 : 6
 
                 Text {
                     text: modelData.label || ""
-                    color: "white"
+                    color: Theme.primaryText
                     font.pixelSize: Theme.fontNormal
                     font.bold: true
                     anchors.centerIn: parent

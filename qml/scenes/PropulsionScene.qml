@@ -13,9 +13,9 @@ Item {
         anchors.bottomMargin: 95
         anchors.leftMargin: 95
         anchors.rightMargin: 25
-        border.color: "white"
+        border.color: Theme.light
         radius: 10
-        color: "black"
+        color: Theme.dark
 
         RowLayout {
             anchors.fill: parent

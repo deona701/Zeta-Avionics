@@ -47,8 +47,8 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.preferredHeight: 350
-            color: "black"
-            border.color: "white"
+            color: Theme.dark
+            border.color: Theme.light
             radius: 10
 
             ColumnLayout {
@@ -105,8 +105,8 @@ Item {
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 100
-            color: "black"
-            border.color: "white"
+            color: Theme.dark
+            border.color: Theme.light
             radius: 10
 
             ColumnLayout {
@@ -118,14 +118,14 @@ Item {
                     id: transmitBar
                     Layout.fillWidth: true
                     height: 10
-                    color: "black"
-                    border.color: "white"
+                    color: Theme.dark
+                    border.color: Theme.light
 
                     Rectangle {
                         id: progressFill
                         width: 0
                         height: parent.height
-                        color: "white"
+                        color: Theme.light
                     }
                 }
 
@@ -150,14 +150,14 @@ Item {
                     Button {
                         contentItem: Text {
                             text: parent.text
-                            color: "white"
+                            color: Theme.light
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                         }
 
                         background: Rectangle {
-                            color: "black"
-                            border.color: "white"
+                            color: Theme.dark
+                            border.color: Theme.light
                         }
 
                         text: "SEND TELEMETRY BURST"
@@ -173,14 +173,14 @@ Item {
                     Button {
                         contentItem: Text {
                             text: parent.text
-                            color: "white"
+                            color: Theme.light
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                         }
 
                         background: Rectangle {
-                            color: "black"
-                            border.color: "white"
+                            color: Theme.dark
+                            border.color: Theme.light
                         }
 
                         text: "DISTRESS BEACON"

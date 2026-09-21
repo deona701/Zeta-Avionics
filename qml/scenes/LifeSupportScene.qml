@@ -70,8 +70,8 @@ Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     radius: 6
-                    color: "black"
-                    border.color: "white"
+                    color: Theme.dark
+                    border.color: Theme.light
 
                     ColumnLayout {
                         anchors.fill: parent
@@ -80,7 +80,7 @@ Item {
 
                         Text {
                             text: "CABIN ECLSS OVERVIEW"
-                            color: "white"
+                            color: Theme.primaryText
                             font.bold: true
                             font.pixelSize: Theme.fontNormal
                             Layout.alignment: Qt.AlignHCenter
@@ -112,7 +112,7 @@ Item {
                             }
                             Text {
                                 text: "101.3 kPa"
-                                color: "white"
+                                color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
                             }
@@ -124,7 +124,7 @@ Item {
                             }
                             Text {
                                 text: "21.1 kPa"
-                                color: "white"
+                                color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
                             }
@@ -136,7 +136,7 @@ Item {
                             }
                             Text {
                                 text: "0.31 %"
-                                color: "white"
+                                color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
                             }
@@ -148,7 +148,7 @@ Item {
                             }
                             Text {
                                 text: "45 %"
-                                color: "white"
+                                color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
                             }
@@ -180,7 +180,7 @@ Item {
                             }
                             Text {
                                 text: "21.5°C"
-                                color: "white"
+                                color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
                             }
@@ -204,7 +204,7 @@ Item {
                             }
                             Text {
                                 text: "4.2°C (NOMINAL)"
-                                color: "white"
+                                color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
                             }
@@ -236,7 +236,7 @@ Item {
                             }
                             Text {
                                 text: "88.4 %"
-                                color: "white"
+                                color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
                             }
@@ -248,7 +248,7 @@ Item {
                             }
                             Text {
                                 text: "32.1 %"
-                                color: "white"
+                                color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
                             }
@@ -260,7 +260,7 @@ Item {
                             }
                             Text {
                                 text: "94.8 %"
-                                color: "white"
+                                color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
                             }
@@ -285,8 +285,8 @@ Item {
         Layout.fillWidth: true
         Layout.fillHeight: true
         radius: 6
-        color: "black"
-        border.color: "white"
+        color: Theme.dark
+        border.color: Theme.light
 
         ColumnLayout {
             anchors.fill: parent
@@ -295,7 +295,7 @@ Item {
 
             Text {
                 text: name
-                color: "white"
+                color: Theme.primaryText
                 font.bold: true
                 font.pixelSize: 16
                 Layout.alignment: Qt.AlignHCenter
@@ -316,45 +316,45 @@ Item {
 
                 Text {
                     text: "Heart Rate:"
-                    color: "white"
+                    color: Theme.primaryText
                     font.pixelSize: Theme.fontSmall
                 }
                 Text {
                     text: bpm + " BPM"
-                    color: "white"
+                    color: Theme.primaryText
                     font.pixelSize: Theme.fontSmall
                 }
 
                 Text {
                     text: "SpO2:"
-                    color: "white"
+                    color: Theme.primaryText
                     font.pixelSize: Theme.fontSmall
                 }
                 Text {
                     text: spo2
-                    color: "white"
+                    color: Theme.primaryText
                     font.pixelSize: Theme.fontSmall
                 }
 
                 Text {
                     text: "Resp. Rate:"
-                    color: "white"
+                    color: Theme.primaryText
                     font.pixelSize: Theme.fontSmall
                 }
                 Text {
                     text: resp
-                    color: "white"
+                    color: Theme.primaryText
                     font.pixelSize: Theme.fontSmall
                 }
 
                 Text {
                     text: "Core Temp:"
-                    color: "white"
+                    color: Theme.primaryText
                     font.pixelSize: Theme.fontSmall
                 }
                 Text {
                     text: temp
-                    color: "white"
+                    color: Theme.primaryText
                     font.pixelSize: Theme.fontSmall
                 }
             }

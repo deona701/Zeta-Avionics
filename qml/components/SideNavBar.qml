@@ -35,11 +35,11 @@ Rectangle {
                 width: parent.width
                 height: sidePanelColumn.buttonHeight
                 radius: 6
-                color: "black"
+                color: Theme.dark
 
                 Text {
                     text: parent.modelData.label
-                    color: "white"
+                    color: Theme.primaryText
                     anchors.centerIn: parent
                     font.bold: true
                     font.pixelSize: Theme.fontSmall

@@ -20,7 +20,7 @@ ApplicationWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: "black"
+        color: Theme.dark
     }
 
     MediaPlayer {

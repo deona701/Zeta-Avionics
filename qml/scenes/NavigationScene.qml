@@ -5,7 +5,6 @@ import "../../models/MarsModel"
 
 Item {
     id: navigationSceneRoot
-    anchors.fill: parent
 
     Column {
         id: navMainColumn

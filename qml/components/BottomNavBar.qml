@@ -7,7 +7,7 @@ Rectangle {
     anchors.bottom: parent.bottom
     anchors.bottomMargin: -100
     anchors.horizontalCenter: parent.horizontalCenter
-    radius: 6
+    radius: Theme.cornerRadius
     opacity: 1
     color: Theme.light
 

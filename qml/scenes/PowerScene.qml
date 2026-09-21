@@ -22,7 +22,7 @@ Item {
             color: Theme.dark
             border.color: Theme.light
             border.width: 1
-            radius: 10
+            radius: Theme.cornerRadius
 
             ColumnLayout {
                 anchors.fill: parent
@@ -105,7 +105,7 @@ Item {
                 color: Theme.dark
                 border.color: Theme.light
                 border.width: 1
-                radius: 10
+                radius: Theme.cornerRadius
 
                 ColumnLayout {
                     anchors.fill: parent

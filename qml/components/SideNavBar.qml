@@ -7,7 +7,7 @@ Rectangle {
     anchors.left: parent.left
     anchors.leftMargin: -100
     anchors.verticalCenter: parent.verticalCenter
-    radius: 6
+    radius: Theme.cornerRadius
     opacity: 1
 
     Column {
@@ -34,7 +34,7 @@ Rectangle {
 
                 width: parent.width
                 height: sidePanelColumn.buttonHeight
-                radius: 6
+                radius: Theme.cornerRadius
                 color: Theme.dark
 
                 Text {

@@ -69,7 +69,7 @@ Item {
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    radius: 6
+                    radius: Theme.cornerRadius
                     color: Theme.dark
                     border.color: Theme.light
 
@@ -284,7 +284,7 @@ Item {
 
         Layout.fillWidth: true
         Layout.fillHeight: true
-        radius: 6
+        radius: Theme.cornerRadius
         color: Theme.dark
         border.color: Theme.light
 

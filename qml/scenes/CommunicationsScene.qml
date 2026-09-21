@@ -49,7 +49,7 @@ Item {
             Layout.preferredHeight: 350
             color: Theme.dark
             border.color: Theme.light
-            radius: 10
+            radius: Theme.cornerRadius
 
             ColumnLayout {
                 anchors.fill: parent
@@ -107,7 +107,7 @@ Item {
             Layout.preferredHeight: 100
             color: Theme.dark
             border.color: Theme.light
-            radius: 10
+            radius: Theme.cornerRadius
 
             ColumnLayout {
                 anchors.fill: parent

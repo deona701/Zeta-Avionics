@@ -89,7 +89,7 @@ Item {
                         Rectangle {
                             Layout.fillWidth: true
                             height: 1
-                            color: "#444444"
+                            color: Theme.grey
                         }
 
                         Text {
@@ -157,7 +157,7 @@ Item {
                         Rectangle {
                             Layout.fillWidth: true
                             height: 1
-                            color: "#222222"
+                            color: Theme.grey
                         }
 
                         Text {
@@ -213,7 +213,7 @@ Item {
                         Rectangle {
                             Layout.fillWidth: true
                             height: 1
-                            color: "#222222"
+                            color: Theme.grey
                         }
 
                         Text {
@@ -304,7 +304,7 @@ Item {
             Rectangle {
                 Layout.fillWidth: true
                 height: 1
-                color: "#333333"
+                color: Theme.grey
             }
 
             GridLayout {

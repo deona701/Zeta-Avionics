@@ -9,7 +9,7 @@ Rectangle {
     anchors.horizontalCenter: parent.horizontalCenter
     radius: 6
     opacity: 1
-    color: "white"
+    color: Theme.light
 
     readonly property var navItems: [
         { label: "Spacecraft", scene: "MAIN" },

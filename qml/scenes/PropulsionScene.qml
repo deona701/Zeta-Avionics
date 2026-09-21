@@ -14,7 +14,7 @@ Item {
         anchors.leftMargin: 95
         anchors.rightMargin: 25
         border.color: Theme.light
-        radius: 10
+        radius: Theme.cornerRadius
         color: Theme.dark
 
         RowLayout {

@@ -19,7 +19,7 @@ Item {
         Rectangle {
             width: parent.width
             height: (parent.height - parent.spacing) * 0.65
-            radius: 10
+            radius: Theme.cornerRadius
             color: "#80000000"
             border.color: Theme.light
 
@@ -107,7 +107,7 @@ Item {
         Rectangle {
             width: parent.width
             height: (parent.height - parent.spacing) * 0.35
-            radius: 10
+            radius: Theme.cornerRadius
             color: Theme.dark
             border.color: Theme.light
             border.width: 2

@@ -28,4 +28,10 @@ Item {
     // Common dimensions
     readonly property int cornerRadius: 6
 
+    // Scene Margins
+    readonly property int sceneMarginTop: 25
+    readonly property int sceneMarginBottom: 95
+    readonly property int sceneMarginLeft: 95
+    readonly property int sceneMarginRight: 25
+
 }

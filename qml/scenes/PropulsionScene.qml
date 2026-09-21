@@ -9,10 +9,10 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        anchors.topMargin: 25
-        anchors.bottomMargin: 95
-        anchors.leftMargin: 95
-        anchors.rightMargin: 25
+        anchors.topMargin: Theme.sceneMarginTop
+        anchors.bottomMargin: Theme.sceneMarginBottom
+        anchors.leftMargin: Theme.sceneMarginLeft
+        anchors.rightMargin: Theme.sceneMarginRight
         border.color: Theme.light
         radius: Theme.cornerRadius
         color: Theme.dark

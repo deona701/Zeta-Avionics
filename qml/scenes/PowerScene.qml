@@ -19,8 +19,8 @@ Item {
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 160
-            color: "black"
-            border.color: "white"
+            color: Theme.dark
+            border.color: Theme.light
             border.width: 1
             radius: 10
 
@@ -31,7 +31,7 @@ Item {
 
                 Text {
                     text: "MAIN POWER GENERATION OVERVIEW"
-                    color: "white"
+                    color: Theme.primaryText
                     font.bold: true
                     font.pixelSize: Theme.fontSmall
                     Layout.alignment: Qt.AlignHCenter
@@ -49,13 +49,13 @@ Item {
                     ColumnLayout {
                         spacing: 4
                         Text { text: "SOLAR ARRAY OUTPUT"; color: Theme.secondaryText; font.pixelSize: Theme.fontSmall }
-                        Text { text: "----"; color: "white"; font.pixelSize: Theme.fontNormal; font.bold: true }
+                        Text { text: "----"; color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
                     }
 
                     ColumnLayout {
                         spacing: 4
                         Text { text: "REACTOR CORE STATUS"; color: Theme.secondaryText; font.pixelSize: Theme.fontSmall }
-                        Text { text: "----"; color: "white"; font.pixelSize: Theme.fontNormal; font.bold: true }
+                        Text { text: "----"; color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
                     }
 
                     ColumnLayout {
@@ -67,13 +67,13 @@ Item {
                     ColumnLayout {
                         spacing: 4
                         Text { text: "TOTAL GENERATION"; color: Theme.secondaryText; font.pixelSize: Theme.fontSmall }
-                        Text { text: "----"; color: "white"; font.pixelSize: Theme.fontNormal; font.bold: true }
+                        Text { text: "----"; color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
                     }
 
                     ColumnLayout {
                         spacing: 4
                         Text { text: "TOTAL CONSUMPTION"; color: Theme.secondaryText; font.pixelSize: Theme.fontSmall }
-                        Text { text: "----"; color: "white"; font.pixelSize: Theme.fontNormal; font.bold: true }
+                        Text { text: "----"; color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
                     }
 
                     ColumnLayout {
@@ -102,8 +102,8 @@ Item {
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                color: "black"
-                border.color: "white"
+                color: Theme.dark
+                border.color: Theme.light
                 border.width: 1
                 radius: 10
 
@@ -114,7 +114,7 @@ Item {
 
                     Text {
                         text: systemName
-                        color: "white"
+                        color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontNormal
                         Layout.alignment: Qt.AlignHCenter
@@ -126,14 +126,14 @@ Item {
                         Layout.fillWidth: true
                         Text { text: "Current Draw:"; color: Theme.secondaryText; font.pixelSize: Theme.fontSmall }
                         Item { Layout.fillWidth: true }
-                        Text { text: allocatedPower; color: "white"; font.bold: true; font.pixelSize: Theme.fontSmall }
+                        Text { text: allocatedPower; color: Theme.primaryText; font.bold: true; font.pixelSize: Theme.fontSmall }
                     }
 
                     RowLayout {
                         Layout.fillWidth: true
                         Text { text: "Bus Load:"; color: Theme.secondaryText; font.pixelSize: Theme.fontSmall }
                         Item { Layout.fillWidth: true }
-                        Text { text: loadPercent; color: "white"; font.bold: true; font.pixelSize: Theme.fontSmall }
+                        Text { text: loadPercent; color: Theme.primaryText; font.bold: true; font.pixelSize: Theme.fontSmall }
                     }
 
                     RowLayout {
@@ -159,7 +159,7 @@ Item {
                             Rectangle {
                                 width: parent.width * parent.visualPosition
                                 height: parent.height
-                                color: "white"
+                                color: Theme.light
                             }
                         }
                     }
@@ -178,13 +178,13 @@ Item {
 
                             contentItem: Text {
                                 text: parent.text
-                                color: "white"
+                                color: Theme.primaryText
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
                             }
                             background: Rectangle {
-                                color: "black"
-                                border.color: "white"
+                                color: Theme.dark
+                                border.color: Theme.light
                             }
                         }
 
@@ -196,13 +196,13 @@ Item {
 
                             contentItem: Text {
                                 text: parent.text
-                                color: "white"
+                                color: Theme.primaryText
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
                             }
                             background: Rectangle {
-                                color: "black"
-                                border.color: "white"
+                                color: Theme.dark
+                                border.color: Theme.light
                             }
                         }
                     }

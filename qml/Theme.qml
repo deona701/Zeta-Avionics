@@ -16,9 +16,13 @@ Item {
     readonly property int fontLarge: 20
     readonly property int fontTitle: 28
 
-    // Font colors (only placeholders before picking the background for the main scene)
-    readonly property color primaryText: "#FFFFFF"
-    readonly property color secondaryText: "#E3E3E3"
+    // Font colors
+    readonly property color primaryText: "#FFFFFF" // White
+    readonly property color secondaryText: "#E3E3E3" // Grey
+
+    // Colors
+    readonly property color dark: "#000000" // Black
+    readonly property color light: "#FFFFFF" // White
 
     // Common dimensions
     readonly property int cornerRadius: 6

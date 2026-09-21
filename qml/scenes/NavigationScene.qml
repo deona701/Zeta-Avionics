@@ -21,7 +21,7 @@ Item {
             height: (parent.height - parent.spacing) * 0.65
             radius: 10
             color: "#80000000"
-            border.color: "white"
+            border.color: Theme.light
 
             Row {
                 anchors.centerIn: parent
@@ -108,8 +108,8 @@ Item {
             width: parent.width
             height: (parent.height - parent.spacing) * 0.35
             radius: 10
-            color: "black"
-            border.color: "white"
+            color: Theme.dark
+            border.color: Theme.light
             border.width: 2
 
             Row {
@@ -122,14 +122,14 @@ Item {
 
                     Text {
                         text: "CURRENT POSITION \n Earth"
-                        color: "white"
+                        color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
                     }
 
                     Text {
                         text: "DESTINATION \n Mars"
-                        color: "white"
+                        color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
                     }
@@ -140,14 +140,14 @@ Item {
 
                     Text {
                         text: "DISTANCE \n 225,000,000 KM"
-                        color: "white"
+                        color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
                     }
 
                     Text {
                         text: "VELOCITY \n 12 KM/S"
-                        color: "white"
+                        color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
                     }
@@ -158,14 +158,14 @@ Item {
 
                     Text {
                         text: "ESTIMATED TIME OF ARRIVAL \n 217 days"
-                        color: "white"
+                        color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
                     }
 
                     Text {
                         text: "TRAJECTORY \n Nominal"
-                        color: "white"
+                        color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
                     }

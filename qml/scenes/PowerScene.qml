@@ -37,7 +37,7 @@ Item {
                     Layout.alignment: Qt.AlignHCenter
                 }
 
-                Rectangle { Layout.fillWidth: true; height: 1; color: "#222222" }
+                Rectangle { Layout.fillWidth: true; height: 1; color: Theme.grey }
 
                 GridLayout {
                     columns: 3
@@ -120,7 +120,7 @@ Item {
                         Layout.alignment: Qt.AlignHCenter
                     }
 
-                    Rectangle { Layout.fillWidth: true; height: 1; color: "#222222" }
+                    Rectangle { Layout.fillWidth: true; height: 1; color: Theme.grey }
 
                     RowLayout {
                         Layout.fillWidth: true
@@ -151,8 +151,8 @@ Item {
 
                         background: Rectangle {
                             implicitHeight: 6
-                            color: "#111111"
-                            border.color: "#333333"
+                            color: Theme.grey
+                            border.color: Theme.grey
                         }
                         contentItem: Item {
                             implicitHeight: 6

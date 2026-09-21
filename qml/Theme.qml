@@ -23,6 +23,7 @@ Item {
     // Colors
     readonly property color dark: "#000000" // Black
     readonly property color light: "#FFFFFF" // White
+    readonly property color grey: "#333333" // Grey
 
     // Common dimensions
     readonly property int cornerRadius: 6

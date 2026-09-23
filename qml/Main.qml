@@ -18,23 +18,6 @@ ApplicationWindow {
     property bool uiActive: false
     property string currentScene: "MAIN"
 
-    readonly property var sceneMap: ({
-        "MAIN": Qt.resolvedUrl("scenes/OverviewScene.qml"),
-        "PROP": Qt.resolvedUrl("scenes/PropulsionScene.qml"),
-        "POWER": Qt.resolvedUrl("scenes/PowerScene.qml"),
-        "LIFESUPPORT": Qt.resolvedUrl("scenes/LifeSupportScene.qml"),
-        "NAV": Qt.resolvedUrl("scenes/NavigationScene.qml"),
-        "COMMS": Qt.resolvedUrl("scenes/CommunicationsScene.qml")
-    })
-
-    onCurrentSceneChanged: {
-        if (!uiActive) return;
-        var sceneUrl = sceneMap[currentScene];
-        if (sceneUrl) {
-            stackView.replace(sceneUrl);
-        }
-    }
-
     Rectangle {
         anchors.fill: parent
         color: Theme.dark
@@ -55,7 +38,9 @@ ApplicationWindow {
         visible: window.uiActive
 
         opacity: window.uiActive ? 1.0 : 0.0
-        Behavior on opacity { NumberAnimation { duration: 800 } }
+        Behavior on opacity {
+            NumberAnimation { duration: 800 }
+        }
     }
 
     SpacecraftView {
@@ -64,33 +49,22 @@ ApplicationWindow {
         isSpinning: uiActive
         opacity: window.currentScene === "MAIN" ? 1.0 : 0.0
         visible: opacity > 0
-        Behavior on opacity { NumberAnimation { duration: 400 } }
+        Behavior on opacity {
+            NumberAnimation { duration: 400 }
+        }
     }
 
-    StackView {
-        id: stackView
+    Item {
+        id: sceneContainer
         anchors.fill: parent
         visible: window.uiActive
 
-        replaceEnter: Transition {
-            NumberAnimation {
-                property: "opacity"
-                from: 0.0
-                to: 1.0
-                duration: 400
-                easing.type: Easing.InOutQuad
-            }
-        }
-
-        replaceExit: Transition {
-            NumberAnimation {
-                property: "opacity"
-                from: 1.0
-                to: 0.0
-                duration: 400
-                easing.type: Easing.InOutQuad
-            }
-        }
+        SceneWrapper { active: window.currentScene === "MAIN"; OverviewScene { anchors.fill: parent } }
+        SceneWrapper { active: window.currentScene === "PROP"; PropulsionScene { anchors.fill: parent } }
+        SceneWrapper { active: window.currentScene === "POWER"; PowerScene { anchors.fill: parent } }
+        SceneWrapper { active: window.currentScene === "LIFESUPPORT"; LifeSupportScene { anchors.fill: parent } }
+        SceneWrapper { active: window.currentScene === "NAV"; NavigationScene { anchors.fill: parent } }
+        SceneWrapper { active: window.currentScene === "COMMS"; CommunicationsScene { anchors.fill: parent } }
     }
 
     SideNavBar {}
@@ -102,9 +76,16 @@ ApplicationWindow {
         z: 1
 
         onSequenceFinished: {
-            startupScene.visible = false
-            window.uiActive = true
-            stackView.replace(window.sceneMap[window.currentScene])
+            startupScene.visible = false;
+            window.uiActive = true;
         }
+    }
+
+    component SceneWrapper : Item {
+        property bool active: false
+        anchors.fill: parent
+        opacity: active ? 1.0 : 0.0
+        visible: opacity > 0
+        Behavior on opacity { NumberAnimation { duration: 400; easing.type: Easing.InOutQuad } }
     }
 }

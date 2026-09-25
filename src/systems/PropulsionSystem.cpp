@@ -24,3 +24,18 @@ void PropulsionSystem::setThrottle(float newThrottle) {
     m_throttle = clampedThrottle;
     emit throttleChanged();
 }
+
+void PropulsionSystem::setEngineStatus(bool newEngineStatus) {
+    if (newEngineStatus == true) {
+        if (!m_mainEngineAvailability || m_propellantPercentage <= 0.0f) {
+            return;
+        }
+    }
+
+    if (m_engineStatus == newEngineStatus) {
+        return;
+    }
+
+    m_engineStatus = newEngineStatus;
+    emit engineStatusChanged();
+}

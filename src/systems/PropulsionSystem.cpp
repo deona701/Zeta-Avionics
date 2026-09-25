@@ -39,3 +39,7 @@ void PropulsionSystem::setEngineStatus(bool newEngineStatus) {
     m_engineStatus = newEngineStatus;
     emit engineStatusChanged();
 }
+
+void PropulsionSystem::updateSimulation(float deltaTime) {
+
+}

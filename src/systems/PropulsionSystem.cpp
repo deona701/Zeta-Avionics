@@ -1,4 +1,5 @@
 #include "PropulsionSystem.h"
+#include <algorithm>
 
 PropulsionSystem::PropulsionSystem(QObject *parent) : QObject(parent){
 
@@ -11,3 +12,15 @@ float PropulsionSystem::deltaV() const { return m_deltaV; }
 float PropulsionSystem::thrustOutput() const { return m_thrustOutput; }
 bool PropulsionSystem::engineStatus() const { return m_engineStatus; }
 bool PropulsionSystem::mainEngineAvailability() const { return m_mainEngineAvailability; }
+
+
+void PropulsionSystem::setThrottle(float newThrottle) {
+    float clampedThrottle = std::clamp(newThrottle, 0.0f, 100.0f);
+
+    if (m_throttle == clampedThrottle) {
+        return;
+    }
+
+    m_throttle = clampedThrottle;
+    emit throttleChanged();
+}

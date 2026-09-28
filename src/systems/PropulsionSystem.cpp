@@ -41,6 +41,13 @@ void PropulsionSystem::setEngineStatus(bool newEngineStatus) {
 }
 
 void PropulsionSystem::updateSimulation(float deltaTime) {
+    float oldTemp = m_engineTemp;
+    float oldPropellant = m_propellantPercentage;
+    float oldDeltaV = m_deltaV;
+    float oldThrust = m_thrustOutput;
+    bool oldEngineStatus = m_engineStatus;
+    bool oldAvailability = m_mainEngineAvailability;
+
     const float maxThrust = 500.0f;
     const float maxTemp = 150.0f;
     float maxPropellantBurnRate = 0.5f;
@@ -73,4 +80,11 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
         m_engineTemp -= 4.0f * deltaTime;
         m_engineTemp = std::clamp(m_engineTemp, 20.0f, maxTemp);
     }
+
+    if (m_engineTemp != oldTemp) emit engineTempChanged();
+    if (m_propellantPercentage != oldPropellant) emit propellantPercentageChanged();
+    if (m_deltaV != oldDeltaV) emit deltaVChanged();
+    if (m_thrustOutput != oldThrust) emit thrustOutputChanged();
+    if (m_engineStatus != oldEngineStatus) emit engineStatusChanged();
+    if (m_mainEngineAvailability != oldAvailability) emit mainEngineAvailabilityChanged();
 }

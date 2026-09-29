@@ -40,6 +40,7 @@ qt_add_qml_module(appZeta_Avionics
         qml/components/SideNavBar.qml
         qml/components/BottomNavBar.qml
         qml/components/PlanetsView.qml
+        qml/components/EngineView.qml
         models/SpacecraftModel/Futuristic_spacecraft_3dmodel.qml
     RESOURCES
         assets/fonts/IBMPlexMono-Regular.ttf

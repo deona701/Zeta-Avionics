@@ -2,9 +2,14 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick3D
 import "../../models/EngineModel"
+import Zeta_Avionics
 
 Item {
     id: propulsionSceneRoot
+
+    PropulsionSystem {
+        id: propulsionSystem
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -80,7 +85,7 @@ Item {
                     }
 
                     Text {
-                        text: "Status: Standby"
+                        text: "Status: " + (propulsionSystem && propulsionSystem.engineStatus ? "ACTIVE" : "STANDBY")
                         color: Theme.secondaryText
                         font.bold: true
                         font.pixelSize: Theme.fontTitle
@@ -99,14 +104,14 @@ Item {
                         Layout.alignment: Qt.AlignHCenter
 
                         Text {
-                            text: "Thrust"
+                            text: "Thrust Output"
                             color: Theme.primaryText
                             font.bold: true
                             font.pixelSize: Theme.fontLarge
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Text {
-                            text: "0%"
+                            text: propulsionSystem.thrustOutput.toFixed(1) + " kN"
                             color: Theme.primaryText
                             font.bold: true
                             font.pixelSize: Theme.fontLarge
@@ -126,7 +131,7 @@ Item {
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Text {
-                            text: "100%"
+                            text: propulsionSystem.propellantPercentage.toFixed(1) + " %"
                             color: Theme.primaryText
                             font.bold: true
                             font.pixelSize: Theme.fontLarge
@@ -146,7 +151,7 @@ Item {
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Text {
-                            text: "...."
+                            text: propulsionSystem.engineTemp.toFixed(1) + " °C"
                             color: Theme.primaryText
                             font.bold: true
                             font.pixelSize: Theme.fontLarge
@@ -159,14 +164,14 @@ Item {
                         Layout.alignment: Qt.AlignHCenter
 
                         Text {
-                            text: "Chamber Pressure"
+                            text: "Delta-V"
                             color: Theme.primaryText
                             font.bold: true
                             font.pixelSize: Theme.fontLarge
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Text {
-                            text: "...."
+                            text: propulsionSystem.deltaV.toFixed(1) + " m/s"
                             color: Theme.primaryText
                             font.bold: true
                             font.pixelSize: Theme.fontLarge

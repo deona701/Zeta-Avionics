@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick3D
 import "../components/"
@@ -9,6 +10,13 @@ Item {
 
     PropulsionSystem {
         id: propulsionSystem
+    }
+
+    Timer {
+        interval: 16
+        running: true
+        repeat: true
+        onTriggered: propulsionSystem.updateSimulation(0.016)
     }
 
     Rectangle {
@@ -36,7 +44,7 @@ Item {
             ColumnLayout {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignVCenter
-                spacing: 40
+                spacing: 30
 
                 ColumnLayout {
                     Layout.alignment: Qt.AlignHCenter
@@ -57,11 +65,56 @@ Item {
                         font.pixelSize: Theme.fontTitle
                         Layout.alignment: Qt.AlignHCenter
                     }
+
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.topMargin: 10
+
+                        contentItem: Text {
+                            text: propulsionSystem.engineStatus ? "IGNITION OFF" : "START ENGINE"
+                            color: Theme.light
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                        }
+
+                        background: Rectangle {
+                            color: Theme.dark
+                            border.color: Theme.light
+                        }
+
+                        onClicked: {
+                            propulsionSystem.setEngineStatus(!propulsionSystem.engineStatus)
+                        }
+                    }
+                }
+
+                ColumnLayout {
+                    Layout.alignment: Qt.AlignHCenter
+                    spacing: 8
+
+                    Text {
+                        text: "Throttle: " + propulsionSystem.throttle.toFixed(1) + "%"
+                        color: Theme.primaryText
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                        Layout.alignment: Qt.AlignHCenter
+                    }
+
+                    Slider {
+                        id: throttleSlider
+                        Layout.preferredWidth: 300
+                        from: 0
+                        to: 100
+                        value: propulsionSystem.throttle
+                        onValueChanged: {
+                            propulsionSystem.setThrottle(value)
+                        }
+                    }
                 }
 
                 GridLayout {
                     columns: 2
-                    rowSpacing: 30
+                    rowSpacing: 25
                     columnSpacing: 60
                     Layout.alignment: Qt.AlignHCenter
 

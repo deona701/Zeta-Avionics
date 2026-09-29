@@ -2,10 +2,12 @@
 #define PROPULSIONSYSTEM_H
 
 #include <QObject>
+#include <qqmlintegration.h>
 
 class PropulsionSystem : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(float throttle READ throttle WRITE setThrottle NOTIFY throttleChanged)
     Q_PROPERTY(float engineTemp READ engineTemp NOTIFY engineTempChanged)

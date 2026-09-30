@@ -1,8 +1,16 @@
 #include "PropulsionSystem.h"
 #include <algorithm>
 
-PropulsionSystem::PropulsionSystem(QObject *parent) : QObject(parent){
-
+PropulsionSystem::PropulsionSystem(QObject *parent)
+    : QObject(parent)
+    , m_throttle(0.0f)
+    , m_engineTemp(20.0f)
+    , m_propellantPercentage(100.0f)
+    , m_deltaV(2400.0f)
+    , m_thrustOutput(0.0f)
+    , m_engineStatus(false)
+    , m_mainEngineAvailability(true)
+{
 }
 
 float PropulsionSystem::throttle() const { return m_throttle; }
@@ -50,8 +58,9 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
 
     const float maxThrust = 500.0f;
     const float maxTemp = 150.0f;
-    float maxPropellantBurnRate = 0.5f;
-    float tempHeatRate = 12.0f;
+    float maxPropellantBurnRate = 5.0f;
+    float tempHeatRate = 25.0f;
+    float tempCoolRate = 10.0f;
 
     if (m_engineTemp >= maxTemp) {
         m_mainEngineAvailability = false;

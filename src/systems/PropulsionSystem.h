@@ -28,10 +28,11 @@ public:
     bool engineStatus() const;
     bool mainEngineAvailability() const;
 
+    Q_INVOKABLE void updateSimulation(float deltaTime);
+
+public slots:
     void setThrottle(float newThrottle);
     void setEngineStatus(bool newStatus);
-
-    Q_INVOKABLE void updateSimulation(float deltaTime);
 
 signals:
     void throttleChanged();

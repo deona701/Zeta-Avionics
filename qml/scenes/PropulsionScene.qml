@@ -109,6 +109,35 @@ Item {
                         onValueChanged: {
                             propulsionSystem.setThrottle(value)
                         }
+
+                        background: Rectangle {
+                            x: throttleSlider.leftPadding
+                            y: throttleSlider.topPadding + throttleSlider.availableHeight / 2 - height / 2
+                            implicitWidth: 200
+                            implicitHeight: 12
+                            width: throttleSlider.availableWidth
+                            height: implicitHeight
+                            radius: Theme.cornerRadius
+                            color: Theme.dark
+                            border.color: Theme.light
+
+                            Rectangle {
+                                width: throttleSlider.visualPosition * parent.width
+                                height: parent.height
+                                color: Theme.light
+                                radius: Theme.cornerRadius
+                            }
+                        }
+
+                        handle: Rectangle {
+                            x: throttleSlider.leftPadding + throttleSlider.visualPosition * (throttleSlider.availableWidth - width)
+                            y: throttleSlider.topPadding + throttleSlider.availableHeight / 2 - height / 2
+                            implicitWidth: 24
+                            implicitHeight: 28
+                            radius: Theme.cornerRadius
+                            color: Theme.dark
+                            border.color: Theme.light
+                        }
                     }
                 }
 

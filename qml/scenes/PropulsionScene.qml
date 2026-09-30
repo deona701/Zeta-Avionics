@@ -83,7 +83,7 @@ Item {
                         }
 
                         onClicked: {
-                            propulsionSystem.setEngineStatus(!propulsionSystem.engineStatus)
+                            propulsionSystem.engineStatus = !propulsionSystem.engineStatus
                         }
                     }
                 }
@@ -106,8 +106,8 @@ Item {
                         from: 0
                         to: 100
                         value: propulsionSystem.throttle
-                        onValueChanged: {
-                            propulsionSystem.setThrottle(value)
+                        onMoved: {
+                            propulsionSystem.throttle = value
                         }
 
                         background: Rectangle {

@@ -8,7 +8,7 @@ PropulsionSystem::PropulsionSystem(QObject *parent)
     , m_propellantPercentage(100.0f)
     , m_deltaV(2400.0f)
     , m_thrustOutput(0.0f)
-    , m_engineStatus(false)
+    , m_engineStatus(true)
     , m_mainEngineAvailability(true)
 {
 }

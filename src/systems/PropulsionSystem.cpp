@@ -64,7 +64,10 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
 
     if (m_engineTemp >= maxTemp) {
         m_mainEngineAvailability = false;
-        m_engineStatus = false;
+        m_throttle = 0.0f;
+    }
+    if (m_engineTemp < 80.0f && !m_mainEngineAvailability) {
+        m_mainEngineAvailability = true;
     }
 
     if (m_propellantPercentage <= 0.0f) {
@@ -82,7 +85,6 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
 
         m_engineTemp += (m_throttle / 100.0f) * tempHeatRate * deltaTime;
     }
-
     else {
         m_thrustOutput = 0.0f;
 

@@ -59,9 +59,9 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
 
     const float maxThrust = 500.0f;
     const float maxTemp = 150.0f;
-    float maxPropellantBurnRate = 5.0f;
+    float maxPropellantBurnRate = 0.15f;
     float tempHeatRate = 25.0f;
-    float tempCoolRate = 0.05f;
+    float tempCoolRate = 0.15f;
     float ambientTemp = 20.0f;
 
     float heatIn = 0.0f;

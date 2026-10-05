@@ -28,6 +28,18 @@ public:
     bool engineStatus() const;
     bool mainEngineAvailability() const;
 
+    static constexpr float GRAVITY = 9.80665f;
+    static constexpr float DRY_MASS = 1000.0f;
+    static constexpr float MAX_PROPELLANT_MASS = 2000.0f;
+    static constexpr float ISP = 310.0f;
+
+    static constexpr float MAX_THRUST = 500.0f;
+    static constexpr float MAX_TEMP = 150.0f;
+    static constexpr float MAX_PROPELLANT_BURN_RATE = 0.15f;
+    static constexpr float TEMP_HEAT_RATE = 25.0f;
+    static constexpr float TEMP_COOL_RATE = 0.15f;
+    static constexpr float AMBIENT_TEMP = 20.0f;
+
     Q_INVOKABLE void updateSimulation(float deltaTime);
 
 public slots:

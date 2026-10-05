@@ -1,5 +1,6 @@
 #include "PropulsionSystem.h"
 #include <algorithm>
+#include <cmath>
 
 PropulsionSystem::PropulsionSystem(QObject *parent)
     : QObject(parent)
@@ -57,24 +58,18 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
     bool oldEngineStatus = m_engineStatus;
     bool oldAvailability = m_mainEngineAvailability;
 
-    const float maxThrust = 500.0f;
-    const float maxTemp = 150.0f;
-    float maxPropellantBurnRate = 0.15f;
-    float tempHeatRate = 25.0f;
-    float tempCoolRate = 0.15f;
-    float ambientTemp = 20.0f;
     float throttleRatio = m_throttle / 100.0f;
 
     float heatIn = 0.0f;
     if (m_engineStatus && m_mainEngineAvailability) {
-        heatIn = (throttleRatio * throttleRatio) * tempHeatRate;
+        heatIn = (throttleRatio * throttleRatio) * TEMP_HEAT_RATE;
     }
-    float heatOut = tempCoolRate * (m_engineTemp - ambientTemp);
+    float heatOut = TEMP_COOL_RATE * (m_engineTemp - AMBIENT_TEMP);
 
     m_engineTemp += (heatIn - heatOut) * deltaTime;
-    m_engineTemp = std::clamp(m_engineTemp, ambientTemp, maxTemp);
+    m_engineTemp = std::clamp(m_engineTemp, AMBIENT_TEMP, MAX_TEMP);
 
-    if (m_engineTemp >= maxTemp) {
+    if (m_engineTemp >= MAX_TEMP) {
         m_mainEngineAvailability = false;
         m_engineStatus = false;
         m_throttle = 0.0f;
@@ -88,9 +83,9 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
     }
 
     if (m_engineStatus && m_mainEngineAvailability) {
-        m_thrustOutput = throttleRatio * maxThrust;
+        m_thrustOutput = throttleRatio * MAX_THRUST;
 
-        m_propellantPercentage -= throttleRatio * maxPropellantBurnRate * deltaTime;
+        m_propellantPercentage -= throttleRatio * MAX_PROPELLANT_BURN_RATE * deltaTime;
         m_propellantPercentage = std::clamp(m_propellantPercentage, 0.0f, 100.0f);
 
         m_deltaV = (m_propellantPercentage / 100.0f) * 2400.0f;

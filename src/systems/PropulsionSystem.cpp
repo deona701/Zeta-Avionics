@@ -67,11 +67,11 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
 
     float heatIn = 0.0f;
     if (m_engineStatus && m_mainEngineAvailability) {
-        heatIn = throttleRatio * tempHeatRate * deltaTime;
+        heatIn = (throttleRatio * throttleRatio) * tempHeatRate;
     }
-    float heatOut = tempCoolRate * (m_engineTemp - ambientTemp) * deltaTime;
+    float heatOut = tempCoolRate * (m_engineTemp - ambientTemp);
 
-    m_engineTemp += (heatIn - heatOut);
+    m_engineTemp += (heatIn - heatOut) * deltaTime;
     m_engineTemp = std::clamp(m_engineTemp, ambientTemp, maxTemp);
 
     if (m_engineTemp >= maxTemp) {

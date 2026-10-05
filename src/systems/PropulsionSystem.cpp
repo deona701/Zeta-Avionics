@@ -49,6 +49,7 @@ void PropulsionSystem::setEngineStatus(bool newEngineStatus) {
 }
 
 void PropulsionSystem::updateSimulation(float deltaTime) {
+    float oldThrottle = m_throttle;
     float oldTemp = m_engineTemp;
     float oldPropellant = m_propellantPercentage;
     float oldDeltaV = m_deltaV;
@@ -75,7 +76,7 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
     if (m_engineTemp >= maxTemp) {
         m_mainEngineAvailability = false;
         m_engineStatus = false;
-        setThrottle(0.0f);
+        m_throttle = 0.0f;
     }
     else if (m_engineTemp < 80.0f && !m_mainEngineAvailability) {
         m_mainEngineAvailability = true;
@@ -97,6 +98,7 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
         m_thrustOutput = 0.0f;
     }
 
+    if (m_throttle != oldThrottle) emit throttleChanged();
     if (m_engineTemp != oldTemp) emit engineTempChanged();
     if (m_propellantPercentage != oldPropellant) emit propellantPercentageChanged();
     if (m_deltaV != oldDeltaV) emit deltaVChanged();

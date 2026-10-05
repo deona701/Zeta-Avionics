@@ -63,10 +63,11 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
     float tempHeatRate = 25.0f;
     float tempCoolRate = 0.15f;
     float ambientTemp = 20.0f;
+    float throttleRatio = m_throttle / 100.0f;
 
     float heatIn = 0.0f;
     if (m_engineStatus && m_mainEngineAvailability) {
-        heatIn = (m_throttle / 100.0f) * tempHeatRate * deltaTime;
+        heatIn = throttleRatio * tempHeatRate * deltaTime;
     }
     float heatOut = tempCoolRate * (m_engineTemp - ambientTemp) * deltaTime;
 
@@ -87,9 +88,9 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
     }
 
     if (m_engineStatus && m_mainEngineAvailability) {
-        m_thrustOutput = (m_throttle / 100.0f) * maxThrust;
+        m_thrustOutput = throttleRatio * maxThrust;
 
-        m_propellantPercentage -= (m_throttle / 100.0f) * maxPropellantBurnRate * deltaTime;
+        m_propellantPercentage -= throttleRatio * maxPropellantBurnRate * deltaTime;
         m_propellantPercentage = std::clamp(m_propellantPercentage, 0.0f, 100.0f);
 
         m_deltaV = (m_propellantPercentage / 100.0f) * 2400.0f;

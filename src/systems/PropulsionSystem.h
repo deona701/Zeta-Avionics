@@ -59,9 +59,9 @@ private:
     float m_throttle = 0.0f;
     float m_engineTemp = 20.0f;
     float m_propellantPercentage = 100.0f;
-    float m_deltaV = 2400.0f;
+    float m_deltaV = 3340.0f;
     float m_thrustOutput = 0.0f;
-    bool m_engineStatus = false;
+    bool m_engineStatus = true;
     bool m_mainEngineAvailability = true;
 };
 

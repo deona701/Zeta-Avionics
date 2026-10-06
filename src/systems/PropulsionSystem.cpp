@@ -7,7 +7,7 @@ PropulsionSystem::PropulsionSystem(QObject *parent)
     , m_throttle(0.0f)
     , m_engineTemp(20.0f)
     , m_propellantPercentage(100.0f)
-    , m_deltaV(2400.0f)
+    , m_deltaV(3340.0f)
     , m_thrustOutput(0.0f)
     , m_engineStatus(true)
     , m_mainEngineAvailability(true)
@@ -60,6 +60,9 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
 
     float throttleRatio = m_throttle / 100.0f;
 
+    float fuelMass = (m_propellantPercentage / 100.0f) * MAX_PROPELLANT_MASS;
+    float totalMass = DRY_MASS + fuelMass;
+
     float heatIn = 0.0f;
     if (m_engineStatus && m_mainEngineAvailability) {
         heatIn = (throttleRatio * throttleRatio) * TEMP_HEAT_RATE;
@@ -72,7 +75,6 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
     if (m_engineTemp >= MAX_TEMP) {
         m_mainEngineAvailability = false;
         m_engineStatus = false;
-        m_throttle = 0.0f;
     }
     else if (m_engineTemp < 80.0f && !m_mainEngineAvailability) {
         m_mainEngineAvailability = true;
@@ -88,7 +90,9 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
         m_propellantPercentage -= throttleRatio * MAX_PROPELLANT_BURN_RATE * deltaTime;
         m_propellantPercentage = std::clamp(m_propellantPercentage, 0.0f, 100.0f);
 
-        m_deltaV = (m_propellantPercentage / 100.0f) * 2400.0f;
+        fuelMass = (m_propellantPercentage / 100.0f) * MAX_PROPELLANT_MASS;
+        totalMass = DRY_MASS + fuelMass;
+        m_deltaV = ISP * GRAVITY * std::log(totalMass / DRY_MASS);
     }
     else {
         m_thrustOutput = 0.0f;

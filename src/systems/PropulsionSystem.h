@@ -39,6 +39,7 @@ public:
     static constexpr float TEMP_HEAT_RATE = 25.0f;
     static constexpr float TEMP_COOL_RATE = 0.15f;
     static constexpr float AMBIENT_TEMP = 20.0f;
+    static constexpr float SPOOL_SPEED = 5.0f;
 
     Q_INVOKABLE void updateSimulation(float deltaTime);
 

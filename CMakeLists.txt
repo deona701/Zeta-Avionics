@@ -63,6 +63,10 @@ qt_add_qml_module(appZeta_Avionics
     SOURCES
         src/systems/PropulsionSystem.cpp
         src/systems/PropulsionSystem.h
+        src/spacecraft/SpacecraftState.h
+        src/spacecraft/SpacecraftState.cpp
+        src/spacecraft/SpacecraftSimulation.h
+        src/spacecraft/SpacecraftSimulation.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

@@ -60,11 +60,16 @@ ApplicationWindow {
         visible: window.uiActive
 
         SceneWrapper { active: window.currentScene === "MAIN"; OverviewScene { anchors.fill: parent } }
-        SceneWrapper { active: window.currentScene === "PROP"; PropulsionScene { anchors.fill: parent } }
+        SceneWrapper { active: window.currentScene === "PROP"; PropulsionScene { anchors.fill: parent; sim: mainSim } }
         SceneWrapper { active: window.currentScene === "POWER"; PowerScene { anchors.fill: parent } }
         SceneWrapper { active: window.currentScene === "LIFESUPPORT"; LifeSupportScene { anchors.fill: parent } }
         SceneWrapper { active: window.currentScene === "NAV"; NavigationScene { anchors.fill: parent } }
         SceneWrapper { active: window.currentScene === "COMMS"; CommunicationsScene { anchors.fill: parent } }
+    }
+
+    SpacecraftSimulation {
+        id: mainSim
+        Component.onCompleted: mainSim.start()
     }
 
     SideNavBar {}

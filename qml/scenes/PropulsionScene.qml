@@ -8,16 +8,8 @@ import Zeta_Avionics
 Item {
     id: propulsionSceneRoot
 
-    PropulsionSystem {
-        id: propulsionSystem
-    }
-
-    Timer {
-        interval: 16
-        running: true
-        repeat: true
-        onTriggered: propulsionSystem.updateSimulation(0.016)
-    }
+    required property SpacecraftSimulation sim
+    readonly property PropulsionSystem propulsionSystem: sim.state.propulsion
 
     Rectangle {
         anchors.fill: parent

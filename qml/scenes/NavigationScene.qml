@@ -1,9 +1,13 @@
 import QtQuick
 import QtQuick3D
 import "../components/"
+import Zeta_Avionics
 
 Item {
     id: navigationSceneRoot
+
+    required property SpacecraftSimulation sim
+    readonly property PropulsionSystem propulsionSystem: sim.state.propulsion
 
     Column {
         id: navMainColumn

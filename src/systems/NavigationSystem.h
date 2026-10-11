@@ -12,7 +12,7 @@ class NavigationSystem : public QObject
 
     Q_PROPERTY(float distance READ distance WRITE setDistance NOTIFY distanceChanged)
     Q_PROPERTY(QString currentPos READ currentPos WRITE setCurrentPos NOTIFY currentPosChanged)
-    Q_PROPERTY(QString destination READ destination WRITE setDestinationDestination NOTIFY destinationChanged)
+    Q_PROPERTY(QString destination READ destination WRITE setDestination NOTIFY destinationChanged)
 
 public:
     explicit NavigationSystem(QObject *parent = nullptr);

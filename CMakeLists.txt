@@ -86,6 +86,12 @@ target_link_libraries(appZeta_Avionics
     PRIVATE Qt6::Quick Qt6::Quick3D
 )
 
+target_include_directories(appZeta_Avionics PRIVATE
+    src
+    src/systems
+    src/spacecraft
+)
+
 install(TARGETS appZeta_Avionics
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

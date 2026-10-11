@@ -1,4 +1,5 @@
 #include "NavigationSystem.h"
+#include "SpacecraftState.h"
 
 NavigationSystem::NavigationSystem(QObject *parent)
     : QObject(parent)
@@ -36,6 +37,7 @@ void NavigationSystem::setDestination(const QString &newDestination) {
     emit destinationChanged();
 }
 
-void NavigationSystem::updateSimulation(float deltaTime) {
+void NavigationSystem::updateSimulation(float deltaTime, float currentThrust, float currentFuel) {
     // Future code
+        
 }

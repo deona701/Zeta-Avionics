@@ -21,7 +21,7 @@ public:
     QString currentPos() const;
     QString destination() const;
 
-    Q_INVOKABLE void updateSimulation(float deltaTime);
+    Q_INVOKABLE void updateSimulation(float deltaTime, float currentThrust, float currentFuel);
 
 public slots:
     void setDistance(float newDistance);

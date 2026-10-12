@@ -30,7 +30,7 @@ public:
 public slots:
     void setDistance(float newDistance);
     void setVelocity(float newVelocity);
-    void setEta(float newEta);
+    void setEta(int newEta);
     void setCurrentPos(const QString &newPos);
     void setDestination(const QString &newDestination);
 

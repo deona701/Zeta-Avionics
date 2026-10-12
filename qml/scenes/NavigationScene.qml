@@ -8,6 +8,7 @@ Item {
 
     required property SpacecraftSimulation sim
     readonly property PropulsionSystem propulsionSystem: sim.state.propulsion
+    readonly property NavigationSystem navigationSystem: sim.state.navigation
 
     Column {
         id: navMainColumn
@@ -45,32 +46,14 @@ Item {
                     spacing: 40
 
                     Text {
-                        text: "CURRENT POSITION \n Earth"
+                        text: "CURRENT POSITION \n " + navigationSystem.currentPos
                         color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
                     }
 
                     Text {
-                        text: "DESTINATION \n Mars"
-                        color: Theme.primaryText
-                        font.bold: true
-                        font.pixelSize: Theme.fontLarge
-                    }
-                }
-
-                Column {
-                    spacing: 40
-
-                    Text {
-                        text: "DISTANCE \n 225,000,000 KM"
-                        color: Theme.primaryText
-                        font.bold: true
-                        font.pixelSize: Theme.fontLarge
-                    }
-
-                    Text {
-                        text: "VELOCITY \n 12 KM/S"
+                        text: "DESTINATION \n " + navigationSystem.destination
                         color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
@@ -81,7 +64,25 @@ Item {
                     spacing: 40
 
                     Text {
-                        text: "ESTIMATED TIME OF ARRIVAL \n 217 days"
+                        text: "DISTANCE \n " + navigationSystem.distance + " KM"
+                        color: Theme.primaryText
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                    }
+
+                    Text {
+                        text: "VELOCITY \n " + navigationSystem.velocity + " KM/S"
+                        color: Theme.primaryText
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                    }
+                }
+
+                Column {
+                    spacing: 40
+
+                    Text {
+                        text: "ESTIMATED TIME OF ARRIVAL \n" + navigationSystem.eta + " days"
                         color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge

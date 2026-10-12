@@ -1,4 +1,5 @@
 #include "PropulsionSystem.h"
+#include "../spacecraft/SpacecraftState.h"
 #include <algorithm>
 #include <cmath>
 
@@ -97,9 +98,9 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
         m_propellantPercentage -= actualThrustRatio * MAX_PROPELLANT_BURN_RATE * deltaTime;
         m_propellantPercentage = std::clamp(m_propellantPercentage, 0.0f, 100.0f);
 
-        float fuelMass = (m_propellantPercentage / 100.0f) * MAX_PROPELLANT_MASS;
-        float totalMass = DRY_MASS + fuelMass;
-        m_deltaV = ISP * GRAVITY * std::log(totalMass / DRY_MASS);
+        float fuelMass = (m_propellantPercentage / 100.0f) * SpacecraftState::MAX_PROPELLANT_MASS;
+        float totalMass = SpacecraftState::DRY_MASS + fuelMass;
+        m_deltaV = ISP * SpacecraftState::GRAVITY * std::log(totalMass / SpacecraftState::DRY_MASS);
     }
 
     if (m_throttle != oldThrottle) emit throttleChanged();

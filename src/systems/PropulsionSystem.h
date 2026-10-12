@@ -28,9 +28,6 @@ public:
     bool engineStatus() const;
     bool mainEngineAvailability() const;
 
-    static constexpr float GRAVITY = 9.80665f;
-    static constexpr float DRY_MASS = 1000.0f;
-    static constexpr float MAX_PROPELLANT_MASS = 2000.0f;
     static constexpr float ISP = 310.0f;
 
     static constexpr float MAX_THRUST = 500.0f;

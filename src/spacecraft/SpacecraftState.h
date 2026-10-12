@@ -22,6 +22,10 @@ public:
 
     void updateAllSystems(float deltaTime);
 
+    static constexpr float GRAVITY = 9.80665f;
+    static constexpr float DRY_MASS = 1000.0f;
+    static constexpr float MAX_PROPELLANT_MASS = 2000.0f;
+
 private:
     PropulsionSystem m_propulsion;
     NavigationSystem m_navigation;

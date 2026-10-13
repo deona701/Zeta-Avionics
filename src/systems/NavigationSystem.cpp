@@ -60,5 +60,26 @@ void NavigationSystem::setDestination(const QString &newDestination) {
 }
 
 void NavigationSystem::updateSimulation(float deltaTime, float currentThrust, float currentFuel) {
-    // Future code
+    float oldDistance = m_distance;
+    float oldVelocity = m_velocity;
+    int oldEta = m_eta;
+    QString oldCurrentPos = m_currentPos;
+    QString oldDestination = m_destination;
+
+    float fuelMass = (currentFuel / 100.0f) * SpacecraftState::MAX_PROPELLANT_MASS;
+    float totalMass = SpacecraftState::DRY_MASS + fuelMass;
+
+    float acceleration =  currentThrust / totalMass;
+    m_velocity += (acceleration / 1000.0f) * deltaTime;
+
+    m_distance -= m_velocity * deltaTime;
+    m_distance = std::clamp(m_distance, 0.0f, 225000000.0f);
+
+    m_eta = (m_distance / m_velocity) / 86400.0;
+
+    if (m_distance != oldDistance) emit distanceChanged();
+    if (m_velocity != oldVelocity) emit velocityChanged();
+    if (m_eta != oldEta) emit etaChanged();
+    if (m_currentPos != oldCurrentPos) emit currentPosChanged();
+    if (m_destination != oldDestination) emit destinationChanged();
 }

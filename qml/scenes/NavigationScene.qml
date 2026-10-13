@@ -71,7 +71,7 @@ Item {
                     }
 
                     Text {
-                        text: "VELOCITY \n " + navigationSystem.velocity + " KM/S"
+                        text: "VELOCITY \n " + navigationSystem.velocity.toFixed(1) + " KM/S"
                         color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge

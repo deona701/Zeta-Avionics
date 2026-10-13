@@ -77,6 +77,11 @@ void NavigationSystem::updateSimulation(float deltaTime, float currentThrust, fl
 
     m_eta = (m_distance / m_velocity) / 86400.0;
 
+    if (m_distance <= 0.0f) {
+        m_currentPos = "Mars";
+        m_destination = "Arrived";
+    }
+
     if (m_distance != oldDistance) emit distanceChanged();
     if (m_velocity != oldVelocity) emit velocityChanged();
     if (m_eta != oldEta) emit etaChanged();

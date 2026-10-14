@@ -32,6 +32,10 @@ void SpacecraftSimulation::tick()
 {
     float deltaTime = m_frameTimer.restart() / 1000.0f;
 
+    if (deltaTime > 0.1f) {
+        deltaTime = 0.016f;
+    }
+
     float effectiveDelta = deltaTime * m_timeMultiplier;
 
     m_state.updateAllSystems(effectiveDelta);

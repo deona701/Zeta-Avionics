@@ -15,6 +15,7 @@ class NavigationSystem : public QObject
     Q_PROPERTY(int eta READ eta WRITE setEta NOTIFY etaChanged)
     Q_PROPERTY(QString currentPos READ currentPos WRITE setCurrentPos NOTIFY currentPosChanged)
     Q_PROPERTY(QString destination READ destination WRITE setDestination NOTIFY destinationChanged)
+    Q_PROPERTY(QString trajectory READ trajectory WRITE setTrajectory NOTIFY trajectoryChanged)
 
 public:
     explicit NavigationSystem(QObject *parent = nullptr);
@@ -24,8 +25,9 @@ public:
     int eta() const;
     QString currentPos() const;
     QString destination() const;
+    QString trajectory() const;
 
-    Q_INVOKABLE void updateSimulation(float deltaTime, float currentThrust, float currentFuel);
+    Q_INVOKABLE void updateSimulation(float deltaTime, float currentThrust, float currentFuel, bool engineStatus);
 
 public slots:
     void setDistance(float newDistance);
@@ -33,6 +35,7 @@ public slots:
     void setEta(int newEta);
     void setCurrentPos(const QString &newPos);
     void setDestination(const QString &newDestination);
+    void setTrajectory(const QString &newTrajectory);
 
 signals:
     void distanceChanged();
@@ -40,6 +43,7 @@ signals:
     void etaChanged();
     void currentPosChanged();
     void destinationChanged();
+    void trajectoryChanged();
 
 private:
     float m_distance = 225000000.0f;
@@ -47,6 +51,7 @@ private:
     int m_eta = 217;
     QString m_currentPos = "Earth";
     QString m_destination = "Mars";
+    QString m_trajectory = "Nominal Coast";
 };
 
 #endif // NAVIGATIONSYSTEM_H

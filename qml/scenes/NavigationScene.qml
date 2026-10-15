@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick3D
 import "../components/"
 import Zeta_Avionics
 
@@ -46,32 +45,14 @@ Item {
                     spacing: 40
 
                     Text {
-                        text: "CURRENT POSITION \n " + navigationSystem.currentPos
+                        text: "CURRENT POSITION \n " + navigationSceneRoot.navigationSystem.currentPos
                         color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
                     }
 
                     Text {
-                        text: "DESTINATION \n " + navigationSystem.destination
-                        color: Theme.primaryText
-                        font.bold: true
-                        font.pixelSize: Theme.fontLarge
-                    }
-                }
-
-                Column {
-                    spacing: 40
-
-                    Text {
-                        text: "DISTANCE \n " + navigationSystem.distance + " KM"
-                        color: Theme.primaryText
-                        font.bold: true
-                        font.pixelSize: Theme.fontLarge
-                    }
-
-                    Text {
-                        text: "VELOCITY \n " + navigationSystem.velocity.toFixed(1) + " KM/S"
+                        text: "DESTINATION \n " + navigationSceneRoot.navigationSystem.destination
                         color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
@@ -82,14 +63,32 @@ Item {
                     spacing: 40
 
                     Text {
-                        text: "ESTIMATED TIME OF ARRIVAL \n" + navigationSystem.eta + " days"
+                        text: "DISTANCE \n " + navigationSceneRoot.navigationSystem.distance + " KM"
                         color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
                     }
 
                     Text {
-                        text: "TRAJECTORY \n Nominal"
+                        text: "VELOCITY \n " + navigationSceneRoot.navigationSystem.velocity.toFixed(1) + " KM/S"
+                        color: Theme.primaryText
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                    }
+                }
+
+                Column {
+                    spacing: 40
+
+                    Text {
+                        text: "ESTIMATED TIME OF ARRIVAL \n" + navigationSceneRoot.navigationSystem.eta + " days"
+                        color: Theme.primaryText
+                        font.bold: true
+                        font.pixelSize: Theme.fontLarge
+                    }
+
+                    Text {
+                        text: "TRAJECTORY \n" + navigationSceneRoot.navigationSystem.trajectory
                         color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge

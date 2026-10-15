@@ -16,6 +16,7 @@ float NavigationSystem::velocity() const { return m_velocity; }
 int NavigationSystem::eta() const { return m_eta; }
 QString NavigationSystem::currentPos() const { return m_currentPos; }
 QString NavigationSystem::destination() const { return m_destination; }
+QString NavigationSystem::trajectory() const { return m_trajectory; }
 
 void NavigationSystem::setDistance(float newDistance) {
     if (qFuzzyCompare(m_distance, newDistance)) {

@@ -37,7 +37,7 @@ View3D {
 
         Timeworx_world_4045 {
             id: earth
-            scale: Qt.vector3d(5.5, 5.5, 5.5)
+            scale: Qt.vector3d(5, 5, 5)
 
             NumberAnimation on eulerRotation.y {
                 from: 0
@@ -54,7 +54,7 @@ View3D {
 
         Timeworx_mars_4071 {
             id: mars
-            scale: Qt.vector3d(60, 60, 60)
+            scale: Qt.vector3d(40, 40, 40)
 
             NumberAnimation on eulerRotation.y {
                 from: 0

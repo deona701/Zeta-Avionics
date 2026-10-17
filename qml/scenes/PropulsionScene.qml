@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QtQuick3D
 import "../components/"
 import Zeta_Avionics
 
@@ -51,7 +50,7 @@ Item {
                     }
 
                     Text {
-                        text: "Status: " + (propulsionSystem && propulsionSystem.engineStatus ? "ACTIVE" : "STANDBY")
+                        text: "Status: " + (propulsionSceneRoot.propulsionSystem && propulsionSceneRoot.propulsionSystem.engineStatus ? "ACTIVE" : "STANDBY")
                         color: Theme.secondaryText
                         font.bold: true
                         font.pixelSize: Theme.fontTitle
@@ -63,7 +62,7 @@ Item {
                         Layout.topMargin: 10
 
                         contentItem: Text {
-                            text: propulsionSystem.engineStatus ? "IGNITION OFF" : "START ENGINE"
+                            text: propulsionSceneRoot.propulsionSystem.engineStatus ? "IGNITION OFF" : "START ENGINE"
                             color: Theme.light
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
@@ -75,7 +74,7 @@ Item {
                         }
 
                         onClicked: {
-                            propulsionSystem.engineStatus = !propulsionSystem.engineStatus
+                            propulsionSceneRoot.propulsionSystem.engineStatus = !propulsionSceneRoot.propulsionSystem.engineStatus
                         }
                     }
                 }
@@ -85,7 +84,7 @@ Item {
                     spacing: 8
 
                     Text {
-                        text: "Throttle: " + propulsionSystem.throttle.toFixed(1) + "%"
+                        text: "Throttle: " + propulsionSceneRoot.propulsionSystem.throttle.toFixed(1) + "%"
                         color: Theme.primaryText
                         font.bold: true
                         font.pixelSize: Theme.fontLarge
@@ -97,9 +96,9 @@ Item {
                         Layout.preferredWidth: 300
                         from: 0
                         to: 100
-                        value: propulsionSystem.throttle
+                        value: propulsionSceneRoot.propulsionSystem.throttle
                         onMoved: {
-                            propulsionSystem.throttle = value
+                            propulsionSceneRoot.propulsionSystem.throttle = value
                         }
 
                         background: Rectangle {
@@ -151,7 +150,7 @@ Item {
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Text {
-                            text: propulsionSystem.thrustOutput.toFixed(1) + " kN"
+                            text: propulsionSceneRoot.propulsionSystem.thrustOutput.toFixed(1) + " kN"
                             color: Theme.primaryText
                             font.bold: true
                             font.pixelSize: Theme.fontLarge
@@ -171,7 +170,7 @@ Item {
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Text {
-                            text: propulsionSystem.propellantPercentage.toFixed(1) + " %"
+                            text: propulsionSceneRoot.propulsionSystem.propellantPercentage.toFixed(1) + " %"
                             color: Theme.primaryText
                             font.bold: true
                             font.pixelSize: Theme.fontLarge
@@ -191,7 +190,7 @@ Item {
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Text {
-                            text: propulsionSystem.engineTemp.toFixed(1) + " °C"
+                            text: propulsionSceneRoot.propulsionSystem.engineTemp.toFixed(1) + " °C"
                             color: Theme.primaryText
                             font.bold: true
                             font.pixelSize: Theme.fontLarge
@@ -211,7 +210,7 @@ Item {
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Text {
-                            text: propulsionSystem.deltaV.toFixed(1) + " m/s"
+                            text: propulsionSceneRoot.propulsionSystem.deltaV.toFixed(1) + " m/s"
                             color: Theme.primaryText
                             font.bold: true
                             font.pixelSize: Theme.fontLarge

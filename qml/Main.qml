@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Layouts
 import QtQuick.Controls.Basic
 import Zeta_Avionics
 import QtMultimedia
@@ -46,7 +45,7 @@ ApplicationWindow {
     SpacecraftView {
         id: spacecraftView
         anchors.fill: parent
-        isSpinning: uiActive
+        isSpinning: window.uiActive
         opacity: window.currentScene === "MAIN" ? 1.0 : 0.0
         visible: opacity > 0
         Behavior on opacity {

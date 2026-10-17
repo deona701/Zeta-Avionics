@@ -91,7 +91,7 @@ Item {
                 Rectangle {
                     id: transmitBar
                     Layout.fillWidth: true
-                    height: 10
+                    Layout.preferredHeight: 10
                     color: Theme.dark
                     border.color: Theme.light
 
@@ -129,8 +129,11 @@ Item {
                     spacing: 15
 
                     Button {
+                        id: burstButton
+                        text: "SEND TELEMETRY BURST"
+
                         contentItem: Text {
-                            text: parent.text
+                            text: burstButton.text
                             color: Theme.light
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
@@ -141,7 +144,6 @@ Item {
                             border.color: Theme.light
                         }
 
-                        text: "SEND TELEMETRY BURST"
                         onClicked: {
                             sendAnimation.targetAction = "telemetry"
                             sendAnimation.duration = 2000;
@@ -150,8 +152,11 @@ Item {
                     }
 
                     Button {
+                        id: distressButton
+                        text: "DISTRESS BEACON"
+
                         contentItem: Text {
-                            text: parent.text
+                            text: distressButton.text
                             color: Theme.light
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
@@ -162,7 +167,6 @@ Item {
                             border.color: Theme.light
                         }
 
-                        text: "DISTRESS BEACON"
                         onClicked: {
                             sendAnimation.targetAction = "distress"
                             sendAnimation.duration = 500;

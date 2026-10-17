@@ -1,38 +1,13 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import Zeta_Avionics
 
 Item {
     id: communicationsSceneRoot
 
-    property string pendingTitle: ""
-    property string pendingMessage: ""
-
-    function sendNtfyNotification(title, message) {
-        var xhr = new XMLHttpRequest();
-        var url = "https://ntfy.sh/zeta_avionics";
-
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Title", title);
-
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                console.log("ntfy response status:", xhr.status);
-            }
-        }
-
-        xhr.send(message);
-    }
-
-    function transmit(title, message, durationMs) {
-        if (sendAnimation.running) return;
-
-        pendingTitle = title;
-        pendingMessage = message;
-        sendAnimation.duration = durationMs || 2000;
-        sendAnimation.to = transmitBar.width;
-        sendAnimation.start();
-    }
+    required property SpacecraftSimulation sim
+    readonly property CommunicationsSystem communicationsSystem: sim.state.communications
 
     ColumnLayout {
         anchors.fill: parent
@@ -136,8 +111,15 @@ Item {
                     to: transmitBar.width
                     duration: 2000
 
+                    property string targetAction: "telemetry"
+
                     onFinished: {
-                        sendNtfyNotification(pendingTitle, pendingMessage);
+                        if (targetAction === "telemetry") {
+                            communicationsSceneRoot.communicationsSystem.sendTelemetryBurst();
+                        }
+                        else {
+                            communicationsSceneRoot.communicationsSystem.triggerDistressBeacon();
+                        }
                         progressFill.width = 0;
                     }
                 }
@@ -161,11 +143,9 @@ Item {
 
                         text: "SEND TELEMETRY BURST"
                         onClicked: {
-                            transmit(
-                                "ZETA AVIONICS: Telemetry Burst",
-                                "Outbound telemetry package transmitted to Earth Relay successfully.",
-                                2000
-                            )
+                            sendAnimation.targetAction = "telemetry"
+                            sendAnimation.duration = 2000;
+                            sendAnimation.start();
                         }
                     }
 
@@ -184,11 +164,9 @@ Item {
 
                         text: "DISTRESS BEACON"
                         onClicked: {
-                            transmit(
-                                "CRITICAL ALERT: Zeta Avionics",
-                                "Master Caution triggered. Emergency broadcast sequence active.",
-                                500
-                            )
+                            sendAnimation.targetAction = "distress"
+                            sendAnimation.duration = 500;
+                            sendAnimation.start();
                         }
                     }
                 }

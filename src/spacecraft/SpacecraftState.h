@@ -5,6 +5,7 @@
 #include <qqmlintegration.h>
 #include "../systems/PropulsionSystem.h"
 #include "../systems/NavigationSystem.h"
+#include "../systems/CommunicationsSystem.h"
 
 class SpacecraftState : public QObject
 {
@@ -13,12 +14,14 @@ class SpacecraftState : public QObject
 
     Q_PROPERTY(PropulsionSystem* propulsion READ propulsion CONSTANT)
     Q_PROPERTY(NavigationSystem* navigation READ navigation CONSTANT)
+    Q_PROPERTY(CommunicationsSystem* communications READ communications CONSTANT)
 
 public:
     explicit SpacecraftState(QObject *parent = nullptr);
 
     PropulsionSystem* propulsion() { return &m_propulsion; }
     NavigationSystem* navigation() { return &m_navigation; }
+    CommunicationsSystem* communications() { return &m_communications; }
 
     void updateAllSystems(float deltaTime);
 
@@ -29,6 +32,7 @@ public:
 private:
     PropulsionSystem m_propulsion;
     NavigationSystem m_navigation;
+    CommunicationsSystem m_communications;
 };
 
 #endif // SPACECRAFTSTATE_H

@@ -5,6 +5,8 @@
 #include <QString>
 #include <qqmlintegration.h>
 
+class QNetworkAccessManager;
+
 class CommunicationsSystem : public QObject
 {
     Q_OBJECT
@@ -28,6 +30,8 @@ public:
     QString activeLink() const;
 
     Q_INVOKABLE void updateSimulation(float deltaTime);
+    Q_INVOKABLE void sendTelemetryBurst();
+    Q_INVOKABLE void triggerDistressBeacon();
 
 signals:
     void signalStrengthChanged();
@@ -38,6 +42,9 @@ signals:
     void activeLinkChanged();
 
 private:
+    QNetworkAccessManager *m_networkManager;
+    void sendNtfyNotification(const QString &title, const QString &message);
+
     float m_signalStrength = 90.0f;
     float m_dataTransferRate = 00.0f;
     int m_telemetryPackets = 0;

@@ -1,10 +1,49 @@
 #ifndef COMMUNICATIONSSYSTEM_H
 #define COMMUNICATIONSSYSTEM_H
 
-class CommunicationsSystem
+#include <QObject>
+#include <QString>
+#include <qqmlintegration.h>
+
+class CommunicationsSystem : public QObject
 {
+    Q_OBJECT
+    QML_ELEMENT
+
+    Q_PROPERTY(float signalStrength READ signalStrength NOTIFY signalStrengthChanged)
+    Q_PROPERTY(float dataTransferRate READ dataTransferRate NOTIFY dataTransferRateChanged)
+    Q_PROPERTY(int telemetryPackets READ telemetryPackets NOTIFY telemetryPacketsChanged)
+    Q_PROPERTY(bool downlinkStatus READ downlinkStatus NOTIFY downlinkStatusChanged)
+    Q_PROPERTY(QString antennaTargetLock READ antennaTargetLock NOTIFY antennaTargetLockChanged)
+    Q_PROPERTY(QString activeLink READ activeLink NOTIFY activeLinkChanged)
+    
 public:
-    CommunicationsSystem();
+    explicit CommunicationsSystem(QObject *parent = nullptr);
+
+    float signalStrength() const;
+    float dataTransferRate() const;
+    int telemetryPackets() const;
+    bool downlinkStatus() const;
+    QString antennaTargetLock() const;
+    QString activeLink() const;
+
+    Q_INVOKABLE void updateSimulation(float deltaTime);
+
+signals:
+    void signalStrengthChanged();
+    void dataTransferRateChanged();
+    void telemetryPacketsChanged();
+    void downlinkStatusChanged();
+    void antennaTargetLockChanged();
+    void activeLinkChanged();
+
+private:
+    float m_signalStrength = 90.0f;
+    float m_dataTransferRate = 00.0f;
+    int m_telemetryPackets = 0;
+    bool m_downlinkStatus = true;
+    QString m_antennaTargetLock = "LOCKED";
+    QString m_activeLink = "EARTH RELAY";
 };
 
 #endif // COMMUNICATIONSSYSTEM_H

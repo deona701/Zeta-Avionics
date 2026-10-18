@@ -10,12 +10,12 @@ class NavigationSystem : public QObject
     Q_OBJECT
     QML_ELEMENT
 
-    Q_PROPERTY(float distance READ distance WRITE setDistance NOTIFY distanceChanged)
-    Q_PROPERTY(float velocity READ velocity WRITE setVelocity NOTIFY velocityChanged)
-    Q_PROPERTY(int eta READ eta WRITE setEta NOTIFY etaChanged)
-    Q_PROPERTY(QString currentPos READ currentPos WRITE setCurrentPos NOTIFY currentPosChanged)
-    Q_PROPERTY(QString destination READ destination WRITE setDestination NOTIFY destinationChanged)
-    Q_PROPERTY(QString trajectory READ trajectory WRITE setTrajectory NOTIFY trajectoryChanged)
+    Q_PROPERTY(float distance READ distance NOTIFY distanceChanged)
+    Q_PROPERTY(float velocity READ velocity NOTIFY velocityChanged)
+    Q_PROPERTY(int eta READ eta NOTIFY etaChanged)
+    Q_PROPERTY(QString currentPos READ currentPos NOTIFY currentPosChanged)
+    Q_PROPERTY(QString destination READ destination NOTIFY destinationChanged)
+    Q_PROPERTY(QString trajectory READ trajectory NOTIFY trajectoryChanged)
 
 public:
     explicit NavigationSystem(QObject *parent = nullptr);
@@ -28,14 +28,6 @@ public:
     QString trajectory() const;
 
     Q_INVOKABLE void updateSimulation(float deltaTime, float currentThrust, float currentFuel, bool engineStatus);
-
-public slots:
-    void setDistance(float newDistance);
-    void setVelocity(float newVelocity);
-    void setEta(int newEta);
-    void setCurrentPos(const QString &newPos);
-    void setDestination(const QString &newDestination);
-    void setTrajectory(const QString &newTrajectory);
 
 signals:
     void distanceChanged();

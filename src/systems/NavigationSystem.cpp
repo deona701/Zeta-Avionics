@@ -18,56 +18,6 @@ QString NavigationSystem::currentPos() const { return m_currentPos; }
 QString NavigationSystem::destination() const { return m_destination; }
 QString NavigationSystem::trajectory() const { return m_trajectory; }
 
-void NavigationSystem::setDistance(float newDistance) {
-    if (qFuzzyCompare(m_distance, newDistance)) {
-        return;
-    }
-    m_distance = newDistance;
-    emit distanceChanged();
-}
-
-void NavigationSystem::setVelocity(float newVelocity) {
-    if (qFuzzyCompare(m_velocity, newVelocity)) {
-        return;
-    }
-    m_velocity = newVelocity;
-    emit velocityChanged();
-}
-
-
-void NavigationSystem::setEta(int newEta) {
-    if (m_eta == newEta) {
-        return;
-    }
-    m_eta = newEta;
-    emit etaChanged();
-}
-
-
-void NavigationSystem::setCurrentPos(const QString &newPos) {
-    if (m_currentPos == newPos) {
-        return;
-    }
-    m_currentPos = newPos;
-    emit currentPosChanged();
-}
-
-void NavigationSystem::setDestination(const QString &newDestination) {
-    if (m_destination == newDestination) {
-        return;
-    }
-    m_destination = newDestination;
-    emit destinationChanged();
-}
-
-void NavigationSystem::setTrajectory(const QString &newTrajectory) {
-    if (m_trajectory == newTrajectory) {
-        return;
-    }
-    m_trajectory = newTrajectory;
-    emit trajectoryChanged();
-}
-
 void NavigationSystem::updateSimulation(float deltaTime, float currentThrust, float currentFuel, bool engineStatus) {
     float oldDistance = m_distance;
     float oldVelocity = m_velocity;

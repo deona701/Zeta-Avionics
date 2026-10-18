@@ -40,37 +40,37 @@ Item {
                     ColumnLayout {
                         spacing: 4
                         Text { text: "ANTENNA TARGET LOCK"; color: Theme.secondaryText; font.pixelSize: 12 }
-                        Text { text: "LOCKED"; color: Theme.primaryText; font.pixelSize: Theme.fontLarge; font.bold: true }
+                        Text { text: communicationsSceneRoot.communicationsSystem.antennaTargetLock; color: Theme.primaryText; font.pixelSize: Theme.fontLarge; font.bold: true }
                     }
 
                     ColumnLayout {
                         spacing: 4
                         Text { text: "SIGNAL STRENGTH"; color: Theme.secondaryText; font.pixelSize: 12 }
-                        Text { text: "91% STRONG"; color: Theme.primaryText; font.pixelSize: Theme.fontLarge; font.bold: true }
+                        Text { text: communicationsSceneRoot.communicationsSystem.signalStrength.toFixed(1); color: Theme.primaryText; font.pixelSize: Theme.fontLarge; font.bold: true }
                     }
 
                     ColumnLayout {
                         spacing: 4
                         Text { text: "DOWNLINK STATUS"; color: Theme.secondaryText; font.pixelSize: 12 }
-                        Text { text: "ACTIVE"; color: Theme.primaryText; font.pixelSize: Theme.fontLarge; font.bold: true }
+                        Text { text: communicationsSceneRoot.communicationsSystem.downlinkStatus ? "ACTIVE" : "OFFLINE"; color: Theme.primaryText; font.pixelSize: Theme.fontLarge; font.bold: true }
                     }
 
                     ColumnLayout {
                         spacing: 4
                         Text { text: "DATA TRANSFER RATE"; color: Theme.secondaryText; font.pixelSize: 12 }
-                        Text { text: "--- kbps"; color: Theme.primaryText; font.pixelSize: Theme.fontLarge; font.bold: true }
+                        Text { text: communicationsSceneRoot.communicationsSystem.dataTransferRate.toFixed(1) + " kbps"; color: Theme.primaryText; font.pixelSize: Theme.fontLarge; font.bold: true }
                     }
 
                     ColumnLayout {
                         spacing: 4
                         Text { text: "TELEMETRY PACKETS"; color: Theme.secondaryText; font.pixelSize: 12 }
-                        Text { text: "-------"; color: Theme.primaryText; font.pixelSize: Theme.fontLarge; font.bold: true }
+                        Text { text: communicationsSceneRoot.communicationsSystem.telemetryPackets; color: Theme.primaryText; font.pixelSize: Theme.fontLarge; font.bold: true }
                     }
 
                     ColumnLayout {
                         spacing: 4
                         Text { text: "ACTIVE LINK"; color: Theme.secondaryText; font.pixelSize: 12 }
-                        Text { text: "EARTH RELAY"; color: Theme.primaryText; font.pixelSize: Theme.fontLarge; font.bold: true }
+                        Text { text: communicationsSceneRoot.communicationsSystem.activeLink; color: Theme.primaryText; font.pixelSize: Theme.fontLarge; font.bold: true }
                     }
                 }
             }

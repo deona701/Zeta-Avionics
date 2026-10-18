@@ -52,12 +52,24 @@ void CommunicationsSystem::triggerDistressBeacon() {
 }
 
 void CommunicationsSystem::updateSimulation(float deltaTime) {
+    float oldSignalStrength = m_signalStrength;
+    float oldDataTransferRate = m_dataTransferRate;
+    int oldTelemetryPackets = m_telemetryPackets;
+    bool oldDownlinkStatus = m_downlinkStatus;
+    QString oldAntennaTargetLock = m_antennaTargetLock;
+    QString oldActiveLink = m_activeLink;
+
     if (m_downlinkStatus) {
         m_dataTransferRate = 128.5f;
-        emit dataTransferRateChanged();
     }
     else {
         m_dataTransferRate = 0.0f;
-        emit dataTransferRateChanged();
     }
+
+    if (m_signalStrength != oldSignalStrength) emit signalStrengthChanged();
+    if (m_dataTransferRate != oldDataTransferRate) emit dataTransferRateChanged();
+    if (m_telemetryPackets != oldTelemetryPackets) emit telemetryPacketsChanged();
+    if (m_downlinkStatus != oldDownlinkStatus) emit downlinkStatusChanged();
+    if (m_antennaTargetLock != oldAntennaTargetLock) emit antennaTargetLockChanged();
+    if (m_activeLink != oldActiveLink) emit activeLinkChanged();
 }

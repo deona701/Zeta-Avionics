@@ -13,7 +13,7 @@ CommunicationsSystem::CommunicationsSystem(QObject *parent)
     , m_telemetryPackets(0)
     , m_downlinkStatus(true)
     , m_antennaTargetLock("LOCKED")
-    , m_activeLink("EARTH RELAY")
+    , m_activeLink("EARTH RELAY / DSN")
 {
 }
 

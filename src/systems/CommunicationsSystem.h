@@ -59,7 +59,7 @@ private:
     int m_telemetryPackets = 0;
     bool m_downlinkStatus = true;
     QString m_antennaTargetLock = "LOCKED";
-    QString m_activeLink = "EARTH RELAY";
+    QString m_activeLink = "EARTH RELAY / DSN";
 };
 
 #endif // COMMUNICATIONSSYSTEM_H

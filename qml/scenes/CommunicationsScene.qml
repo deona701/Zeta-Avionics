@@ -87,6 +87,8 @@ Item {
                         Button {
                             Layout.alignment: Qt.AlignCenter
                             Layout.topMargin: 10
+                            Layout.preferredWidth: 100
+                            Layout.preferredHeight: 50
 
                             contentItem: Text {
                                 text: communicationsSceneRoot.communicationsSystem.downlinkStatus ? "ACTIVE" : "OFFLINE"

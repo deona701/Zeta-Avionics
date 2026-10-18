@@ -9,6 +9,7 @@ CommunicationsSystem::CommunicationsSystem(QObject *parent)
     , m_networkManager(new QNetworkAccessManager(this))
     , m_signalStrength(90.0f)
     , m_dataTransferRate(00.0f)
+    , m_antennaAlignment(91.7f)
     , m_telemetryPackets(0)
     , m_downlinkStatus(true)
     , m_antennaTargetLock("LOCKED")
@@ -18,10 +19,45 @@ CommunicationsSystem::CommunicationsSystem(QObject *parent)
 
 float CommunicationsSystem::signalStrength() const { return m_signalStrength; }
 float CommunicationsSystem::dataTransferRate() const { return m_dataTransferRate; }
+float CommunicationsSystem::antennaAlignment() const { return m_antennaAlignment; }
 int CommunicationsSystem::telemetryPackets() const { return m_telemetryPackets; }
 bool CommunicationsSystem::downlinkStatus() const { return m_downlinkStatus; }
 QString CommunicationsSystem::antennaTargetLock() const { return m_antennaTargetLock; }
 QString CommunicationsSystem::activeLink() const { return m_activeLink; }
+
+
+void CommunicationsSystem::setAntennaAlignment(float newAntennaAlignment) {
+    float clampedAntennaAlignment = std::clamp(newAntennaAlignment, 0.0f, 100.0f);
+
+    if (m_antennaAlignment == clampedAntennaAlignment) {
+        return;
+    }
+
+    m_antennaAlignment = clampedAntennaAlignment;
+    emit antennaAlignmentChanged();
+}
+
+
+void CommunicationsSystem::setDownlinkStatus(bool newDownlinkStatus) {
+
+    if (m_downlinkStatus == newDownlinkStatus) {
+        return;
+    }
+
+    m_downlinkStatus = newDownlinkStatus;
+    emit downlinkStatusChanged();
+}
+
+
+void CommunicationsSystem::setActiveLink(QString newActiveLink) {
+
+    if (m_activeLink == newActiveLink) {
+        return;
+    }
+
+    m_activeLink = newActiveLink;
+    emit activeLinkChanged();
+}
 
 
 void CommunicationsSystem::sendNtfyNotification(const QString &title, const QString &message) {
@@ -54,6 +90,7 @@ void CommunicationsSystem::triggerDistressBeacon() {
 void CommunicationsSystem::updateSimulation(float deltaTime) {
     float oldSignalStrength = m_signalStrength;
     float oldDataTransferRate = m_dataTransferRate;
+    float oldAntennaAlignment = m_antennaAlignment;
     int oldTelemetryPackets = m_telemetryPackets;
     bool oldDownlinkStatus = m_downlinkStatus;
     QString oldAntennaTargetLock = m_antennaTargetLock;
@@ -68,6 +105,7 @@ void CommunicationsSystem::updateSimulation(float deltaTime) {
 
     if (m_signalStrength != oldSignalStrength) emit signalStrengthChanged();
     if (m_dataTransferRate != oldDataTransferRate) emit dataTransferRateChanged();
+    if (m_antennaAlignment != oldAntennaAlignment) emit antennaAlignmentChanged();
     if (m_telemetryPackets != oldTelemetryPackets) emit telemetryPacketsChanged();
     if (m_downlinkStatus != oldDownlinkStatus) emit downlinkStatusChanged();
     if (m_antennaTargetLock != oldAntennaTargetLock) emit antennaTargetLockChanged();

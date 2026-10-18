@@ -103,6 +103,13 @@ void CommunicationsSystem::updateSimulation(float deltaTime) {
         m_dataTransferRate = 0.0f;
     }
 
+    if (m_antennaAlignment >= 86.0f) {
+        m_antennaTargetLock = "LOCKED";
+    }
+    else {
+        m_antennaTargetLock = "LOST...";
+    }
+
     if (m_signalStrength != oldSignalStrength) emit signalStrengthChanged();
     if (m_dataTransferRate != oldDataTransferRate) emit dataTransferRateChanged();
     if (m_antennaAlignment != oldAntennaAlignment) emit antennaAlignmentChanged();

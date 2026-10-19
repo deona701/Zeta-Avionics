@@ -33,8 +33,8 @@ Item {
                 RowLayout {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    Layout.margins: 200
-                    spacing: 120
+                    Layout.margins: 120
+                    spacing: 100
 
                     GridLayout {
                         columns: 3

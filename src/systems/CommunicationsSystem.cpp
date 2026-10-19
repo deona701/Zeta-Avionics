@@ -85,6 +85,8 @@ void CommunicationsSystem::triggerDistressBeacon() {
         "CRITICAL ALERT: Zeta Avionics",
         "Master Caution triggered. Emergency broadcast sequence active."
     );
+    m_telemetryPackets += 20;
+    emit telemetryPacketsChanged();
 }
 
 void CommunicationsSystem::updateSimulation(float deltaTime) {

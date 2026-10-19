@@ -71,22 +71,32 @@ void CommunicationsSystem::sendNtfyNotification(const QString &title, const QStr
 
 
 void CommunicationsSystem::sendTelemetryBurst() {
-    sendNtfyNotification(
+    if (m_downlinkStatus && m_antennaTargetLock == "LOCKED") {
+        sendNtfyNotification(
         "ZETA AVIONICS: Telemetry Burst",
         "Outbound telemetry package transmitted to Earth Relay successfully."
     );
     m_telemetryPackets += 15;
     emit telemetryPacketsChanged();
+    }
+    else {
+        return;
+    }
 }
 
 
 void CommunicationsSystem::triggerDistressBeacon() {
-    sendNtfyNotification(
-        "CRITICAL ALERT: Zeta Avionics",
-        "Master Caution triggered. Emergency broadcast sequence active."
-    );
-    m_telemetryPackets += 20;
-    emit telemetryPacketsChanged();
+    if (m_downlinkStatus && m_antennaTargetLock == "LOCKED") {
+        sendNtfyNotification(
+            "CRITICAL ALERT: Zeta Avionics",
+            "Master Caution triggered. Emergency broadcast sequence active."
+        );
+        m_telemetryPackets += 20;
+        emit telemetryPacketsChanged();
+    }
+    else {
+        return;
+    }
 }
 
 void CommunicationsSystem::updateSimulation(float deltaTime) {

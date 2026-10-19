@@ -96,18 +96,63 @@ void CommunicationsSystem::updateSimulation(float deltaTime) {
     QString oldAntennaTargetLock = m_antennaTargetLock;
     QString oldActiveLink = m_activeLink;
 
-    if (m_downlinkStatus) {
-        m_dataTransferRate = 128.5f;
-    }
-    else {
+    if (!m_downlinkStatus) {
+        m_antennaTargetLock = "OFFLINE...";
         m_dataTransferRate = 0.0f;
-    }
-
-    if (m_antennaAlignment >= 86.0f) {
-        m_antennaTargetLock = "LOCKED";
+        m_signalStrength = 0.0f;
     }
     else {
-        m_antennaTargetLock = "LOST...";
+        float distanceToCenter = 0.0f;
+        float maxAllowedDistance = 0.0f;
+
+        if (m_activeLink == "EARTH RELAY / DSN") {
+            float center = 93.0f;
+            maxAllowedDistance = 7.0f;
+            distanceToCenter = std::abs(m_antennaAlignment - center);
+
+            if (m_antennaAlignment >= 86.0f) {
+                m_antennaTargetLock = "LOCKED";
+            }
+            else {
+                m_antennaTargetLock = "LOST...";
+            }
+        }
+        else if (m_activeLink == "MARS ORBITER RELAY") {
+            float center = 39.5f;
+            maxAllowedDistance = 3.5f;
+            distanceToCenter = std::abs(m_antennaAlignment - center);
+
+            if (m_antennaAlignment >= 36.0f && m_antennaAlignment <= 43.0f) {
+                m_antennaTargetLock = "LOCKED";
+            }
+            else {
+                m_antennaTargetLock = "LOST...";
+            }
+        }
+        else if (m_activeLink == "DEEP SPACE GATEWAY") {
+            float center = 55.5f;
+            maxAllowedDistance = 2.5f;
+            distanceToCenter = std::abs(m_antennaAlignment - center);
+
+            if (m_antennaAlignment >= 53.0f && m_antennaAlignment <= 58.0f) {
+                m_antennaTargetLock = "LOCKED";
+            }
+            else {
+                m_antennaTargetLock = "LOST...";
+            }
+        }
+
+        if (distanceToCenter <= maxAllowedDistance) {
+            float signalPercent = (1.0f - (distanceToCenter / maxAllowedDistance)) * 100.0f;
+            m_signalStrength = std::clamp(signalPercent, 10.0f, 100.0f);
+
+            m_dataTransferRate = (m_signalStrength / 100.0f) * 256.0f;
+        }
+        else {
+            m_antennaTargetLock = "LOST...";
+            m_signalStrength = 0.0f;
+            m_dataTransferRate = 0.0f;
+        }
     }
 
     if (m_signalStrength != oldSignalStrength) emit signalStrengthChanged();

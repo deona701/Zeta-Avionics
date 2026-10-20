@@ -6,6 +6,7 @@ void SpacecraftState::updateAllSystems(float deltaTime)
 {
     m_propulsion.updateSimulation(deltaTime);
     m_communications.updateSimulation(deltaTime);
+    m_lifeSupport.updateSimulation(deltaTime);
 
     float currentThrust = m_propulsion.thrustOutput();
     float currentFuel = m_propulsion.propellantPercentage();

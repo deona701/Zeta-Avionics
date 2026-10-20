@@ -1,8 +1,12 @@
 import QtQuick
 import QtQuick.Layouts
+import Zeta_Avionics
 
 Item {
     id: lifeSupportSceneRoot
+
+    required property SpacecraftSimulation sim
+    readonly property LifeSupportSystem lifeSupportSystem: sim.state.lifeSupport
 
     Rectangle {
         anchors.fill: parent

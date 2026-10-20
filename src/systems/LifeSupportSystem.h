@@ -1,10 +1,22 @@
 #ifndef LIFESUPPORTSYSTEM_H
 #define LIFESUPPORTSYSTEM_H
 
-class LifeSupportSystem
+#include <QObject>
+#include <QString>
+#include <qqmlintegration.h>
+
+class LifeSupportSystem : public QObject
 {
+    Q_OBJECT
+    QML_ELEMENT
+
+
 public:
-    LifeSupportSystem();
+    explicit LifeSupportSystem(QObject *parent = nullptr);
+
+
+    
+    Q_INVOKABLE void updateSimulation(float deltaTime);
 };
 
 #endif // LIFESUPPORTSYSTEM_H

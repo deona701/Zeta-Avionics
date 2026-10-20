@@ -4,7 +4,7 @@ project(Zeta_Avionics VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick Quick3D)
+find_package(Qt6 REQUIRED COMPONENTS Quick Quick3D HttpServer)
 
 qt_standard_project_setup(REQUIRES 6.10)
 
@@ -87,7 +87,7 @@ set_target_properties(appZeta_Avionics PROPERTIES
 )
 
 target_link_libraries(appZeta_Avionics
-    PRIVATE Qt6::Quick Qt6::Quick3D
+    PRIVATE Qt6::Quick Qt6::Quick3D Qt6::HttpServer
 )
 
 target_include_directories(appZeta_Avionics PRIVATE

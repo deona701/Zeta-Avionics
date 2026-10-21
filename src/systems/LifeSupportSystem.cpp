@@ -1,6 +1,7 @@
 #include "LifeSupportSystem.h"
 #include <QHostAddress>
 #include <QTcpServer>
+#include <QFile>
 
 LifeSupportSystem::LifeSupportSystem(QObject *parent) 
 : QObject(parent)
@@ -28,7 +29,10 @@ LifeSupportSystem::LifeSupportSystem(QObject *parent)
     }
 
     m_server->route("/astronaut1", []() {
-        return "Astronaut #1 - Active";
+        QFile file(":/web/astronaut_control.html");
+        file.open(QIODevice::ReadOnly);
+        return QHttpServerResponse::fromFile(":/assets/web/astronaut_control.html");
+
     });
     m_server->route("/astronaut2", []() {
         return "Astronaut #2 - Active";
@@ -40,6 +44,26 @@ LifeSupportSystem::LifeSupportSystem(QObject *parent)
         return "Astronaut #4 - Active";
     });
 }
+
+float LifeSupportSystem::astronaut1Temp() const { return m_astronaut1Temp; }
+int LifeSupportSystem::astronaut1BPM() const { return m_astronaut1BPM; }
+int LifeSupportSystem::astronaut1SPO2() const { return m_astronaut1SPO2; }
+int LifeSupportSystem::astronaut1Resp() const { return m_astronaut1Resp; }
+
+float LifeSupportSystem::astronaut2Temp() const { return m_astronaut2Temp; }
+int LifeSupportSystem::astronaut2BPM() const { return m_astronaut2BPM; }
+int LifeSupportSystem::astronaut2SPO2() const { return m_astronaut2SPO2; }
+int LifeSupportSystem::astronaut2Resp() const { return m_astronaut2Resp; }
+
+float LifeSupportSystem::astronaut3Temp() const { return m_astronaut3Temp; }
+int LifeSupportSystem::astronaut3BPM() const { return m_astronaut3BPM; }
+int LifeSupportSystem::astronaut3SPO2() const { return m_astronaut3SPO2; }
+int LifeSupportSystem::astronaut3Resp() const { return m_astronaut3Resp; }
+
+float LifeSupportSystem::astronaut4Temp() const { return m_astronaut4Temp; }
+int LifeSupportSystem::astronaut4BPM() const { return m_astronaut4BPM; }
+int LifeSupportSystem::astronaut4SPO2() const { return m_astronaut4SPO2; }
+int LifeSupportSystem::astronaut4Resp() const { return m_astronaut4Resp; }
 
 void LifeSupportSystem::updateSimulation(float deltaTime) {
     

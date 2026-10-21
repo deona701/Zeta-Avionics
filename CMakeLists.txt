@@ -48,6 +48,7 @@ qt_add_qml_module(appZeta_Avionics
         assets/fonts/IBMPlexMono-SemiBold.ttf
         assets/fonts/IBMPlexMono-Bold.ttf
         assets/background/Photoman61.mp4
+        assets/web/astronaut_control.html
         models/SpacecraftModel/meshes/meshes_0__mesh.mesh
         models/SpacecraftModel/maps/textureData.jpg
         models/SpacecraftModel/maps/textureData8.png

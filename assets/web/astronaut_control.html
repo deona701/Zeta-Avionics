@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body { background: black; color: white; font-family: monospace; text-align: center; }
+            button { background: #222; color: white; border: 1px solid white; }
+        </style>
+    </head>
+
+    <body>
+        <h2>Astronaut 1</h2>
+        <br>
+        <button onclick="spikeHeartRate()">Spike heart rate</button>
+
+        <script> 
+            function spikeHeartRate() {
+                fetch('/astronaut1/spike');
+                alert('Signal sent to the computer.')
+            }
+        </script>
+    </body>
+</html>

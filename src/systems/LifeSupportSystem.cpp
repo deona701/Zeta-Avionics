@@ -29,10 +29,12 @@ LifeSupportSystem::LifeSupportSystem(QObject *parent)
     }
 
     m_server->route("/astronaut1", []() {
-        QFile file(":/web/astronaut_control.html");
-        file.open(QIODevice::ReadOnly);
-        return QHttpServerResponse::fromFile(":/assets/web/astronaut_control.html");
-
+        QFile file("assets/web/astronaut_control.html");
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QByteArray content = file.readAll();
+            return QHttpServerResponse("text/html", content);
+        }
+        return QHttpServerResponse("text/html", QByteArray("Error loading control panel."));
     });
     m_server->route("/astronaut2", []() {
         return "Astronaut #2 - Active";

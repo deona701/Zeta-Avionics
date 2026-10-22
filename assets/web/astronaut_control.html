@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <h2>Astronaut 1</h2>
+        <h2 id="astronautHeader">Astronaut</h2>
         <br>
 
         <div class="button-container">
@@ -31,6 +31,8 @@
         <script> 
             const pathSegments = window.location.pathname.split('/');
             const astronautId = pathSegments[2];
+
+            document.getElementById('astronautHeader').innerText = `Astronaut ${astronautId}`;
 
             function increaseHeartRate() { fetch(`/astronaut/${astronautId}/increaseHeartRate`); }
             function decreaseHeartRate() { fetch(`/astronaut/${astronautId}/decreaseHeartRate`); }

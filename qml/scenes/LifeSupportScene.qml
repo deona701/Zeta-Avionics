@@ -30,7 +30,7 @@ Item {
                     bpm: lifeSupportSceneRoot.lifeSupportSystem.astronaut1BPM
                     spo2: lifeSupportSceneRoot.lifeSupportSystem.astronaut1SPO2 + "%"
                     resp: lifeSupportSceneRoot.lifeSupportSystem.astronaut1Resp + "/min"
-                    temp: lifeSupportSceneRoot.lifeSupportSystem.astronaut1Temp + "°C"
+                    temp: lifeSupportSceneRoot.lifeSupportSystem.astronaut1Temp.toFixed(1) + "°C"
                 }
 
                 CrewCard {
@@ -38,7 +38,7 @@ Item {
                     bpm: lifeSupportSceneRoot.lifeSupportSystem.astronaut2BPM
                     spo2: lifeSupportSceneRoot.lifeSupportSystem.astronaut2SPO2 + "%"
                     resp: lifeSupportSceneRoot.lifeSupportSystem.astronaut2Resp + "/min"
-                    temp: lifeSupportSceneRoot.lifeSupportSystem.astronaut2Temp + "°C"
+                    temp: lifeSupportSceneRoot.lifeSupportSystem.astronaut2Temp.toFixed(1) + "°C"
                 }
             }
 
@@ -52,7 +52,7 @@ Item {
                     bpm: lifeSupportSceneRoot.lifeSupportSystem.astronaut3BPM
                     spo2: lifeSupportSceneRoot.lifeSupportSystem.astronaut3SPO2 + "%"
                     resp: lifeSupportSceneRoot.lifeSupportSystem.astronaut3Resp + "/min"
-                    temp: lifeSupportSceneRoot.lifeSupportSystem.astronaut3Temp + "°C"
+                    temp: lifeSupportSceneRoot.lifeSupportSystem.astronaut3Temp.toFixed(1) + "°C"
                 }
 
                 CrewCard {
@@ -60,7 +60,7 @@ Item {
                     bpm: lifeSupportSceneRoot.lifeSupportSystem.astronaut4BPM
                     spo2: lifeSupportSceneRoot.lifeSupportSystem.astronaut4SPO2 + "%"
                     resp: lifeSupportSceneRoot.lifeSupportSystem.astronaut4Resp + "/min"
-                    temp: lifeSupportSceneRoot.lifeSupportSystem.astronaut4Temp + "°C"
+                    temp: lifeSupportSceneRoot.lifeSupportSystem.astronaut4Temp.toFixed(1) + "°C"
                 }
             }
 

@@ -29,7 +29,7 @@ LifeSupportSystem::LifeSupportSystem(QObject *parent)
     }
 
     m_server->route("/astronaut1", []() {
-        QFile file("assets/web/astronaut_control.html");
+        QFile file(":/qt/qml/Zeta_Avionics/assets/web/astronaut_control.html");
         if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
             QByteArray content = file.readAll();
             return QHttpServerResponse("text/html", content);

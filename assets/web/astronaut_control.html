@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <style>
             body { background: black; color: white; font-family: monospace; text-align: center; }
+            .button-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 400px; margin: 0 auto; }
             button { background: #222; color: white; border: 1px solid white; }
         </style>
     </head>
@@ -10,13 +13,33 @@
     <body>
         <h2>Astronaut 1</h2>
         <br>
-        <button onclick="spikeHeartRate()">Spike heart rate</button>
+
+        <div class="button-container">
+            <button onclick="increaseHeartRate()">Increase heart rate</button>
+            <button onclick="decreaseHeartRate()">Lower heart rate</button>
+            
+            <button onclick="increaseSPO2()">Increase SPO2 Level</button>
+            <button onclick="decreaseSPO2()">Lower SPO2 Level</button>
+
+            <button onclick="increaseRespRate()">Increase respiration rate</button>
+            <button onclick="decreaseRespRate()">Lower respiration rate</button>
+
+            <button onclick="increaseTemp()">Increase temperature</button>
+            <button onclick="decreaseTemp()">Lower temperature</button>
+        </div>
 
         <script> 
-            function spikeHeartRate() {
-                fetch('/astronaut1/spike');
-                alert('Signal sent to the computer.')
-            }
+            function increaseHeartRate() { fetch('/astronaut1/increaseHeartRate'); alert('Heart rate increased.') }
+            function decreaseHeartRate() { fetch('/astronaut1/decreaseHeartRate'); alert('Heart rate decreased.') }
+
+            function increaseSPO2() { fetch('/astronaut1/increaseSPO2');alert('SPO2 increased.') }
+            function decreaseSPO2() { fetch('/astronaut1/decreaseSPO2'); alert('SPO2 decreased.') }
+
+            function increaseRespRate() { fetch('/astronaut1/increaseResp'); alert('Respiration Rate increased.') }
+            function decreaseRespRate() { fetch('/astronaut1/decreaseResp'); alert('Respiration Rate decreased.') }
+
+            function increaseTemp() { fetch('/astronaut1/increaseTemp'); alert('Temperature increased.') }
+            function decreaseTemp() { fetch('/astronaut1/decreaseTemp'); alert('Temperature decreased.') }
         </script>
     </body>
 </html>

@@ -29,17 +29,20 @@
         </div>
 
         <script> 
-            function increaseHeartRate() { fetch('/astronaut1/increaseHeartRate'); alert('Heart rate increased.') }
-            function decreaseHeartRate() { fetch('/astronaut1/decreaseHeartRate'); alert('Heart rate decreased.') }
+            const pathSegments = window.location.pathname.split('/');
+            const astronautId = pathSegments[2];
 
-            function increaseSPO2() { fetch('/astronaut1/increaseSPO2');alert('SPO2 increased.') }
-            function decreaseSPO2() { fetch('/astronaut1/decreaseSPO2'); alert('SPO2 decreased.') }
+            function increaseHeartRate() { fetch(`/astronaut/${astronautId}/increaseHeartRate`); }
+            function decreaseHeartRate() { fetch(`/astronaut/${astronautId}/decreaseHeartRate`); }
 
-            function increaseRespRate() { fetch('/astronaut1/increaseResp'); alert('Respiration Rate increased.') }
-            function decreaseRespRate() { fetch('/astronaut1/decreaseResp'); alert('Respiration Rate decreased.') }
+            function increaseSPO2() { fetch(`/astronaut/${astronautId}/increaseSPO2`); }
+            function decreaseSPO2() { fetch(`/astronaut/${astronautId}/decreaseSPO2`); }
 
-            function increaseTemp() { fetch('/astronaut1/increaseTemp'); alert('Temperature increased.') }
-            function decreaseTemp() { fetch('/astronaut1/decreaseTemp'); alert('Temperature decreased.') }
-        </script>
+            function increaseRespRate() { fetch(`/astronaut/${astronautId}/increaseRespRate`); }
+            function decreaseRespRate() { fetch(`/astronaut/${astronautId}/decreaseRespRate`); }
+
+            function increaseTemp() { fetch(`/astronaut/${astronautId}/increaseTemp`); }
+            function decreaseTemp() { fetch(`/astronaut/${astronautId}/decreaseTemp`); }
+    </script>
     </body>
 </html>

@@ -114,7 +114,7 @@ Item {
                                 font.pixelSize: Theme.fontSmall
                             }
                             Text {
-                                text: "101.3 kPa"
+                                text: lifeSupportSceneRoot.lifeSupportSystem.cabinPressure.toFixed(1) + " kPa"
                                 color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
@@ -126,7 +126,7 @@ Item {
                                 font.pixelSize: Theme.fontSmall
                             }
                             Text {
-                                text: "21.1 kPa"
+                                text: lifeSupportSceneRoot.lifeSupportSystem.o2PartialPress.toFixed(1) + " kPa"
                                 color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
@@ -138,7 +138,7 @@ Item {
                                 font.pixelSize: Theme.fontSmall
                             }
                             Text {
-                                text: "0.31 %"
+                                text: lifeSupportSceneRoot.lifeSupportSystem.co2Concentration.toFixed(1) + " %"
                                 color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
@@ -150,7 +150,7 @@ Item {
                                 font.pixelSize: Theme.fontSmall
                             }
                             Text {
-                                text: "45 %"
+                                text: lifeSupportSceneRoot.lifeSupportSystem.relativeHumidity.toFixed(1) + " %"
                                 color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
@@ -182,7 +182,7 @@ Item {
                                 font.pixelSize: Theme.fontSmall
                             }
                             Text {
-                                text: "21.5°C"
+                                text: lifeSupportSceneRoot.lifeSupportSystem.cabinTemp.toFixed(1) + "°C"
                                 color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
@@ -238,7 +238,7 @@ Item {
                                 font.pixelSize: Theme.fontSmall
                             }
                             Text {
-                                text: "88.4 %"
+                                text: lifeSupportSceneRoot.lifeSupportSystem.portableWater.toFixed(1) + " %"
                                 color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
@@ -250,7 +250,7 @@ Item {
                                 font.pixelSize: Theme.fontSmall
                             }
                             Text {
-                                text: "32.1 %"
+                                text: lifeSupportSceneRoot.lifeSupportSystem.greywaterTank.toFixed(1) + " %"
                                 color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
@@ -262,7 +262,7 @@ Item {
                                 font.pixelSize: Theme.fontSmall
                             }
                             Text {
-                                text: "94.8 %"
+                                text: lifeSupportSceneRoot.lifeSupportSystem.wpaEfficiency.toFixed(1) + " %"
                                 color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall

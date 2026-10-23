@@ -11,6 +11,15 @@ class LifeSupportSystem : public QObject
     Q_OBJECT
     QML_ELEMENT
 
+    Q_PROPERTY(float cabinPressure READ cabinPressure NOTIFY cabinPressureChanged)
+    Q_PROPERTY(float o2PartialPress READ o2PartialPress NOTIFY o2PartialPressChanged)
+    Q_PROPERTY(float co2Concentration READ co2Concentration NOTIFY co2ConcentrationChanged)
+    Q_PROPERTY(float relativeHumidity READ relativeHumidity NOTIFY relativeHumidityChanged)
+    Q_PROPERTY(float cabinTemp READ cabinTemp NOTIFY cabinTempChanged)
+    Q_PROPERTY(float portableWater READ portableWater NOTIFY portableWaterChanged)
+    Q_PROPERTY(float greywaterTank READ greywaterTank NOTIFY greywaterTankChanged)
+    Q_PROPERTY(float wpaEfficiency READ wpaEfficiency NOTIFY wpaEfficiencyChanged)
+
     Q_PROPERTY(float astronaut1Temp READ astronaut1Temp NOTIFY astronaut1TempChanged)
     Q_PROPERTY(int astronaut1BPM READ astronaut1BPM NOTIFY astronaut1BPMChanged)
     Q_PROPERTY(int astronaut1SPO2 READ astronaut1SPO2 NOTIFY astronaut1SPO2Changed)
@@ -33,6 +42,15 @@ class LifeSupportSystem : public QObject
 
 public:
     explicit LifeSupportSystem(QObject *parent = nullptr);
+
+    float cabinPressure() const;
+    float o2PartialPress() const;
+    float co2Concentration() const;
+    float relativeHumidity() const;
+    float cabinTemp() const;
+    float portableWater() const;
+    float greywaterTank() const;
+    float wpaEfficiency() const;
 
     float astronaut1Temp() const;
     int astronaut1BPM() const;
@@ -57,6 +75,15 @@ public:
     Q_INVOKABLE void updateSimulation(float deltaTime);
 
 signals:
+    void cabinPressureChanged();
+    void o2PartialPressChanged();
+    void co2ConcentrationChanged();
+    void relativeHumidityChanged();
+    void cabinTempChanged();
+    void portableWaterChanged();
+    void greywaterTankChanged();
+    void wpaEfficiencyChanged();
+
     void astronaut1TempChanged();
     void astronaut1BPMChanged();
     void astronaut1SPO2Changed();
@@ -79,6 +106,15 @@ signals:
 
 private:
     QHttpServer *m_server;
+
+    float m_cabinPressure = 101.3f;
+    float m_o2PartialPress = 21.1f;
+    float m_co2Concentration = 0.31f;
+    float m_relativeHumidity = 45.0f;
+    float m_cabinTemp = 21.5f;
+    float m_portableWater = 88.4f;
+    float m_greywaterTank = 32.1f;
+    float m_wpaEfficiency = 94.8f;
 
     float m_astronaut1Temp = 36.8f;
     int m_astronaut1BPM = 72;

@@ -194,7 +194,9 @@ Item {
                                 font.pixelSize: Theme.fontSmall
                             }
                             Text {
-                                text: "ACTIVE (92%)"
+                                text: lifeSupportSceneRoot.lifeSupportSystem.liOHScrubbersActive  
+                                ? "ACTIVE (" + lifeSupportSceneRoot.lifeSupportSystem.liOHScrubbersPercent.toFixed(1) + "%)"
+                                : "OFF"
                                 color: "green"
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
@@ -206,7 +208,7 @@ Item {
                                 font.pixelSize: Theme.fontSmall
                             }
                             Text {
-                                text: "4.2°C (NOMINAL)"
+                                text: lifeSupportSceneRoot.lifeSupportSystem.coolantLoopA.toFixed(1) + "°C (NOMINAL)"
                                 color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall

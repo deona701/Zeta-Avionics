@@ -19,6 +19,9 @@ class LifeSupportSystem : public QObject
     Q_PROPERTY(float portableWater READ portableWater NOTIFY portableWaterChanged)
     Q_PROPERTY(float greywaterTank READ greywaterTank NOTIFY greywaterTankChanged)
     Q_PROPERTY(float wpaEfficiency READ wpaEfficiency NOTIFY wpaEfficiencyChanged)
+    Q_PROPERTY(float liOHScrubbersPercent READ liOHScrubbersPercent NOTIFY liOHScrubbersPercentChanged)
+    Q_PROPERTY(float coolantLoopA READ coolantLoopA NOTIFY coolantLoopAChanged)
+    Q_PROPERTY(bool liOHScrubbersActive READ liOHScrubbersActive NOTIFY liOHScrubbersActiveChanged)
 
     Q_PROPERTY(float astronaut1Temp READ astronaut1Temp NOTIFY astronaut1TempChanged)
     Q_PROPERTY(int astronaut1BPM READ astronaut1BPM NOTIFY astronaut1BPMChanged)
@@ -51,6 +54,9 @@ public:
     float portableWater() const;
     float greywaterTank() const;
     float wpaEfficiency() const;
+    float liOHScrubbersPercent() const;
+    float coolantLoopA() const;
+    bool liOHScrubbersActive() const;
 
     float astronaut1Temp() const;
     int astronaut1BPM() const;
@@ -83,6 +89,9 @@ signals:
     void portableWaterChanged();
     void greywaterTankChanged();
     void wpaEfficiencyChanged();
+    void liOHScrubbersPercentChanged();
+    void coolantLoopAChanged();
+    void liOHScrubbersActiveChanged();
 
     void astronaut1TempChanged();
     void astronaut1BPMChanged();
@@ -115,6 +124,9 @@ private:
     float m_portableWater = 88.4f;
     float m_greywaterTank = 32.1f;
     float m_wpaEfficiency = 94.8f;
+    float m_liOHScrubbersPercent = 92.0f;
+    float m_coolantLoopA = 4.2f;
+    bool m_liOHScrubbersActive = false;
 
     float m_astronaut1Temp = 36.8f;
     int m_astronaut1BPM = 72;

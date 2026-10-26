@@ -107,5 +107,22 @@ int LifeSupportSystem::astronaut4SPO2() const { return m_astronaut4SPO2; }
 int LifeSupportSystem::astronaut4Resp() const { return m_astronaut4Resp; }
 
 void LifeSupportSystem::updateSimulation(float deltaTime) {
-    
+    float oldCabinPressure = m_cabinPressure;
+    float oldO2PartialPress = m_o2PartialPress;
+    float oldCO2Concentration = m_co2Concentration;
+    float oldRelativeHumidity = m_relativeHumidity;
+    float oldCabinTemp = m_cabinTemp;
+    float oldPortableWater = m_portableWater;
+    float oldGreywaterTank = m_greywaterTank;
+    float oldWpaEfficiency = m_wpaEfficiency;
+
+
+    if (m_cabinPressure != oldCabinPressure) emit cabinPressureChanged();
+    if (m_o2PartialPress != oldO2PartialPress) emit o2PartialPressChanged();
+    if (m_co2Concentration != oldCO2Concentration) emit co2ConcentrationChanged();
+    if (m_relativeHumidity != oldRelativeHumidity) emit relativeHumidityChanged();
+    if (m_cabinTemp != oldCabinTemp) emit cabinTempChanged();
+    if (m_portableWater != oldPortableWater) emit portableWaterChanged();
+    if (m_greywaterTank != oldGreywaterTank) emit greywaterTankChanged();
+    if (m_wpaEfficiency != oldWpaEfficiency) emit wpaEfficiencyChanged();
 }

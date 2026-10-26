@@ -7,7 +7,8 @@
 LifeSupportSystem::LifeSupportSystem(QObject *parent) 
 : QObject(parent)
 , m_cabinPressure(101.3f), m_o2PartialPress(21.1f), m_co2Concentration(0.31f), m_relativeHumidity(45.0f)
-, m_cabinTemp(21.5f), m_portableWater(88.4f), m_greywaterTank(32.1f), m_wpaEfficiency(94.8f)
+, m_cabinTemp(21.5f), m_portableWater(88.4f), m_greywaterTank(32.1f), m_wpaEfficiency(94.8f), m_liOHScrubbersPercent(92.0f)
+, m_coolantLoopA(4.2f), m_liOHScrubbersActive(false)
 , m_astronaut1Temp(36.8f), m_astronaut1BPM(72), m_astronaut1SPO2(98), m_astronaut1Resp(12)
 , m_astronaut2Temp(36.8f), m_astronaut2BPM(72), m_astronaut2SPO2(98), m_astronaut2Resp(12)
 , m_astronaut3Temp(36.8f), m_astronaut3BPM(72), m_astronaut3SPO2(98), m_astronaut3Resp(12)
@@ -85,6 +86,9 @@ float LifeSupportSystem::cabinTemp() const { return m_cabinTemp; }
 float LifeSupportSystem::portableWater() const { return m_portableWater; }
 float LifeSupportSystem::greywaterTank() const { return m_greywaterTank; }
 float LifeSupportSystem::wpaEfficiency() const { return m_wpaEfficiency; }
+float LifeSupportSystem::liOHScrubbersPercent() const { return m_liOHScrubbersPercent; }
+float LifeSupportSystem::coolantLoopA() const { return m_coolantLoopA; }
+bool LifeSupportSystem::liOHScrubbersActive() const { return m_liOHScrubbersActive; }
 
 float LifeSupportSystem::astronaut1Temp() const { return m_astronaut1Temp; }
 int LifeSupportSystem::astronaut1BPM() const { return m_astronaut1BPM; }
@@ -115,8 +119,19 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     float oldPortableWater = m_portableWater;
     float oldGreywaterTank = m_greywaterTank;
     float oldWpaEfficiency = m_wpaEfficiency;
+    float oldLiOHScrubbersPercent = m_liOHScrubbersPercent;
+    float oldCoolantLoopA = m_coolantLoopA;
+    bool oldLiOHScrubbersActive = m_liOHScrubbersActive;
 
+    float totalRespRates = m_astronaut1Resp + m_astronaut2Resp + m_astronaut3Resp + m_astronaut4Resp;
+    m_o2PartialPress -= (totalRespRates * 0.0001) * deltaTime;
+    m_o2PartialPress = std::clamp(m_o2PartialPress, 0.0f, 100.0f);
 
+    if (!m_liOHScrubbersActive) {
+        m_co2Concentration += (totalRespRates * 0.0001) * deltaTime;
+    }
+    m_co2Concentration = std::clamp(m_co2Concentration, 0.0f, 100.0f);
+    
     if (m_cabinPressure != oldCabinPressure) emit cabinPressureChanged();
     if (m_o2PartialPress != oldO2PartialPress) emit o2PartialPressChanged();
     if (m_co2Concentration != oldCO2Concentration) emit co2ConcentrationChanged();
@@ -125,4 +140,7 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     if (m_portableWater != oldPortableWater) emit portableWaterChanged();
     if (m_greywaterTank != oldGreywaterTank) emit greywaterTankChanged();
     if (m_wpaEfficiency != oldWpaEfficiency) emit wpaEfficiencyChanged();
+    if (m_liOHScrubbersPercent != oldLiOHScrubbersPercent) emit liOHScrubbersPercentChanged();
+    if (m_coolantLoopA != oldCoolantLoopA) emit coolantLoopAChanged();
+    if (m_liOHScrubbersActive != oldLiOHScrubbersActive) emit liOHScrubbersActiveChanged();
 }

@@ -124,6 +124,7 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     bool oldLiOHScrubbersActive = m_liOHScrubbersActive;
 
     float targetPressure = 101.3f;
+    float recyclingRate = 0.00008f;
     float totalRespRates = m_astronaut1Resp + m_astronaut2Resp + m_astronaut3Resp + m_astronaut4Resp;
     m_o2PartialPress -= (totalRespRates * 0.0001) * deltaTime;
     m_o2PartialPress = std::clamp(m_o2PartialPress, 0.0f, 100.0f);
@@ -146,7 +147,17 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     else if (m_cabinTemp < 10.5f) {
         m_cabinTemp += (0.002 * deltaTime);
     }
-    
+
+    float waterConsumedThisFrame = (totalRespRates * 0.0001f) * deltaTime;
+    float processedAmount = m_greywaterTank * (m_wpaEfficiency / 100.0f) * recyclingRate * deltaTime;
+    processedAmount = std::min(processedAmount, m_greywaterTank);
+
+    m_portableWater += (processedAmount - waterConsumedThisFrame);
+    m_portableWater = std::clamp(m_portableWater, 0.0f, 100.0f);
+
+    m_greywaterTank += (waterConsumedThisFrame - processedAmount);
+    m_greywaterTank = std::clamp(m_greywaterTank, 0.0f, 100.0f);
+
     if (m_cabinPressure != oldCabinPressure) emit cabinPressureChanged();
     if (m_o2PartialPress != oldO2PartialPress) emit o2PartialPressChanged();
     if (m_co2Concentration != oldCO2Concentration) emit co2ConcentrationChanged();

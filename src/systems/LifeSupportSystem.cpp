@@ -123,6 +123,7 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     float oldCoolantLoopA = m_coolantLoopA;
     bool oldLiOHScrubbersActive = m_liOHScrubbersActive;
 
+    float targetPressure = 101.3f;
     float totalRespRates = m_astronaut1Resp + m_astronaut2Resp + m_astronaut3Resp + m_astronaut4Resp;
     m_o2PartialPress -= (totalRespRates * 0.0001) * deltaTime;
     m_o2PartialPress = std::clamp(m_o2PartialPress, 0.0f, 100.0f);
@@ -131,6 +132,12 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
         m_co2Concentration += (totalRespRates * 0.0001) * deltaTime;
     }
     m_co2Concentration = std::clamp(m_co2Concentration, 0.0f, 100.0f);
+
+    m_relativeHumidity += totalRespRates * 0.01 * deltaTime;
+
+    m_cabinPressure -= (totalRespRates * 0.00005) * deltaTime;
+    float pressureDifference = (m_cabinPressure - targetPressure) * -1.0f;
+    m_cabinPressure += (pressureDifference / 2) * deltaTime;
     
     if (m_cabinPressure != oldCabinPressure) emit cabinPressureChanged();
     if (m_o2PartialPress != oldO2PartialPress) emit o2PartialPressChanged();

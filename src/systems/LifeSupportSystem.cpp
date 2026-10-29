@@ -133,11 +133,19 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     }
     m_co2Concentration = std::clamp(m_co2Concentration, 0.0f, 100.0f);
 
-    m_relativeHumidity += totalRespRates * 0.01 * deltaTime;
+    m_relativeHumidity += totalRespRates * 0.0001 * deltaTime;
 
     m_cabinPressure -= (totalRespRates * 0.00005) * deltaTime;
     float pressureDifference = (m_cabinPressure - targetPressure) * -1.0f;
     m_cabinPressure += (pressureDifference / 2) * deltaTime;
+
+    m_cabinTemp += totalRespRates * 0.0001 * deltaTime;
+    if (m_cabinTemp > 21.5f) {
+        m_cabinTemp -= (m_coolantLoopA * 0.01 * deltaTime);
+    }
+    else if (m_cabinTemp < 10.5f) {
+        m_cabinTemp += (0.002 * deltaTime);
+    }
     
     if (m_cabinPressure != oldCabinPressure) emit cabinPressureChanged();
     if (m_o2PartialPress != oldO2PartialPress) emit o2PartialPressChanged();

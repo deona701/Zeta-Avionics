@@ -1,4 +1,6 @@
+pragma ComponentBehavior: Bound
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Zeta_Avionics
 
@@ -194,9 +196,7 @@ Item {
                                 font.pixelSize: Theme.fontSmall
                             }
                             Text {
-                                text: lifeSupportSceneRoot.lifeSupportSystem.liOHScrubbersActive  
-                                ? "ACTIVE (" + lifeSupportSceneRoot.lifeSupportSystem.liOHScrubbersPercent.toFixed(1) + "%)"
-                                : "OFF"
+                                text: lifeSupportSceneRoot.lifeSupportSystem.liOHScrubbersActive ? "ACTIVE (" + lifeSupportSceneRoot.lifeSupportSystem.liOHScrubbersPercent.toFixed(1) + "%)" : "OFF"
                                 color: "green"
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
@@ -268,6 +268,32 @@ Item {
                                 color: Theme.primaryText
                                 font.bold: true
                                 font.pixelSize: Theme.fontSmall
+                            }
+                        }
+
+                        Item {
+                            Layout.preferredHeight: 10
+                        }
+
+                        Button {
+                            Layout.alignment: Qt.AlignHCenter
+                            Layout.topMargin: 5
+                            Layout.bottomMargin: 10
+
+                            contentItem: Text {
+                                text: lifeSupportSceneRoot.lifeSupportSystem.liOHScrubbersActive ? "LIOH SCRUBBERS - DEACTIVATE" : "LIOH SCRUBBERS - ACTIVATE"
+                                color: Theme.light
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
+
+                            background: Rectangle {
+                                color: Theme.dark
+                                border.color: Theme.light
+                            }
+
+                            onClicked: {
+                                lifeSupportSceneRoot.lifeSupportSystem.liOHScrubbersActive = !lifeSupportSceneRoot.lifeSupportSystem.liOHScrubbersActive;
                             }
                         }
 

@@ -21,7 +21,7 @@ class LifeSupportSystem : public QObject
     Q_PROPERTY(float wpaEfficiency READ wpaEfficiency NOTIFY wpaEfficiencyChanged)
     Q_PROPERTY(float liOHScrubbersPercent READ liOHScrubbersPercent NOTIFY liOHScrubbersPercentChanged)
     Q_PROPERTY(float coolantLoopA READ coolantLoopA NOTIFY coolantLoopAChanged)
-    Q_PROPERTY(bool liOHScrubbersActive READ liOHScrubbersActive NOTIFY liOHScrubbersActiveChanged)
+    Q_PROPERTY(bool liOHScrubbersActive READ liOHScrubbersActive WRITE setLiOHScrubbersActive NOTIFY liOHScrubbersActiveChanged)
 
     Q_PROPERTY(float astronaut1Temp READ astronaut1Temp NOTIFY astronaut1TempChanged)
     Q_PROPERTY(int astronaut1BPM READ astronaut1BPM NOTIFY astronaut1BPMChanged)
@@ -79,6 +79,9 @@ public:
     int astronaut4Resp() const;
 
     Q_INVOKABLE void updateSimulation(float deltaTime);
+
+public slots:
+    void setLiOHScrubbersActive(bool newLiOHScrubbersActive);
 
 signals:
     void cabinPressureChanged();

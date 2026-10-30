@@ -110,6 +110,16 @@ int LifeSupportSystem::astronaut4BPM() const { return m_astronaut4BPM; }
 int LifeSupportSystem::astronaut4SPO2() const { return m_astronaut4SPO2; }
 int LifeSupportSystem::astronaut4Resp() const { return m_astronaut4Resp; }
 
+void LifeSupportSystem::setLiOHScrubbersActive(bool newLiOHScrubbersActive) {
+
+    if (m_liOHScrubbersActive == newLiOHScrubbersActive) {
+        return;
+    }
+
+    m_liOHScrubbersActive = newLiOHScrubbersActive;
+    emit liOHScrubbersActiveChanged();
+}
+
 void LifeSupportSystem::updateSimulation(float deltaTime) {
     float oldCabinPressure = m_cabinPressure;
     float oldO2PartialPress = m_o2PartialPress;
@@ -129,9 +139,19 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     m_o2PartialPress -= (totalRespRates * 0.0001) * deltaTime;
     m_o2PartialPress = std::clamp(m_o2PartialPress, 0.0f, 100.0f);
 
-    if (!m_liOHScrubbersActive) {
-        m_co2Concentration += (totalRespRates * 0.0001) * deltaTime;
+    float co2Production = totalRespRates * 0.0001f;
+    float co2Removal = 0.0f;
+
+    if (m_liOHScrubbersActive && m_liOHScrubbersPercent > 0.0f) {
+        co2Removal = (m_liOHScrubbersPercent / 100.0f) * 0.00015f;
+
+        m_liOHScrubbersPercent -= 0.001f * deltaTime;
+        m_liOHScrubbersPercent = std::clamp(m_liOHScrubbersPercent, 0.0f, 100.0f);
     }
+    else if (m_liOHScrubbersActive && m_liOHScrubbersPercent <= 0.0f) {
+        m_liOHScrubbersActive = false;
+    }
+    m_co2Concentration += (co2Production - co2Removal) * deltaTime;
     m_co2Concentration = std::clamp(m_co2Concentration, 0.0f, 100.0f);
 
     m_relativeHumidity += totalRespRates * 0.0001 * deltaTime;

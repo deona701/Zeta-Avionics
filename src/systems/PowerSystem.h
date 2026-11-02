@@ -38,6 +38,7 @@ public:
 
 
     Q_INVOKABLE void updateSimulation(float deltaTime);
+    Q_INVOKABLE void requestPowerReroute(const QString &systemId, float deltaKw);
 
 public slots:
     void setPropulsionPower(float newPower);

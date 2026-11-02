@@ -70,6 +70,21 @@ void PowerSystem::setCommunicationsPower(float newCommunicationsPower) {
     emit communicationsPowerChanged();
 }
 
+void PowerSystem::requestPowerReroute(const QString &systemId, float deltaKw) {
+    if (systemId == "propulsion") {
+        setPropulsionPower(std::clamp(m_propulsionPower + deltaKw, 0.0f, 30.0f));
+    } 
+    else if (systemId == "life_support") {
+        setLifeSupportPower(std::clamp(m_lifeSupportPower + deltaKw, 0.0f, 30.0f));
+    } 
+    else if (systemId == "navigation") {
+        setNavigationPower(std::clamp(m_navigationPower + deltaKw, 0.0f, 30.0f));
+    } 
+    else if (systemId == "comms") {
+        setCommunicationsPower(std::clamp(m_communicationsPower + deltaKw, 0.0f, 30.0f));
+    }
+}
+
 void PowerSystem::updateSimulation(float deltaTime) {
     float oldSolarArrayOutput = m_solarArrayOutput;
     float oldReactorCoreOutput = m_reactorCoreOutput;

@@ -5,6 +5,8 @@ import QtQuick.Controls
 Item {
     id: powerSceneRoot
 
+    required property SpacecraftSimulation sim
+    readonly property PowerSystem powerSystem: sim.state.power
     signal requestPowerReroute(string systemName, real deltaKw)
 
     ColumnLayout {

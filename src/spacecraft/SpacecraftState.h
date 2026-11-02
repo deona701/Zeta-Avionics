@@ -18,7 +18,7 @@ class SpacecraftState : public QObject
     Q_PROPERTY(NavigationSystem* navigation READ navigation CONSTANT)
     Q_PROPERTY(CommunicationsSystem* communications READ communications CONSTANT)
     Q_PROPERTY(LifeSupportSystem* lifeSupport READ lifeSupport CONSTANT)
-    Q_PROPERTY(PowerSystem* powerSystem READ powerSystem CONSTANT)
+    Q_PROPERTY(PowerSystem* power READ powerSystem CONSTANT)
 
 public:
     explicit SpacecraftState(QObject *parent = nullptr);
@@ -27,7 +27,7 @@ public:
     NavigationSystem* navigation() { return &m_navigation; }
     CommunicationsSystem* communications() { return &m_communications; }
     LifeSupportSystem* lifeSupport() { return &m_lifeSupport; }
-    PowerSystem* powerSystem() { return &m_power; }
+    PowerSystem* power() { return &m_power; }
 
     void updateAllSystems(float deltaTime);
 

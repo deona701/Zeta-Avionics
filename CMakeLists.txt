@@ -74,6 +74,8 @@ qt_add_qml_module(appZeta_Avionics
         src/systems/CommunicationsSystem.cpp
         src/systems/LifeSupportSystem.h 
         src/systems/LifeSupportSystem.cpp
+        src/systems/PowerSystem.h
+        src/systems/PowerSystem.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

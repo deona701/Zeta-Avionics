@@ -90,10 +90,6 @@ void PowerSystem::updateSimulation(float deltaTime) {
     float oldSolarArrayOutput = m_solarArrayOutput;
     float oldReactorCoreOutput = m_reactorCoreOutput;
     float oldMainBatteryBus = m_mainBatteryBus;
-    float oldPropulsionPower = m_propulsionPower;
-    float oldLifeSupportPower = m_lifeSupportPower;
-    float oldNavigationPower = m_navigationPower;
-    float oldCommunicationsPower = m_communicationsPower;
     float oldTotalGeneration = m_totalGeneration;
     float oldTotalConsumption = m_totalConsumption;
     float oldNetBusBalance = m_netBusBalance;
@@ -108,10 +104,6 @@ void PowerSystem::updateSimulation(float deltaTime) {
     if (m_solarArrayOutput != oldSolarArrayOutput) emit solarArrayOutputChanged();
     if (m_reactorCoreOutput != oldReactorCoreOutput) emit reactorCoreOutputChanged();
     if (m_mainBatteryBus != oldMainBatteryBus) emit mainBatteryBusChanged();
-    if (m_propulsionPower != oldPropulsionPower) emit propulsionPowerChanged();
-    if (m_lifeSupportPower != oldLifeSupportPower) emit lifeSupportPowerChanged();
-    if (m_navigationPower != oldNavigationPower) emit navigationPowerChanged();
-    if (m_communicationsPower != oldCommunicationsPower) emit communicationsPowerChanged();
     if (m_totalGeneration != oldTotalGeneration) emit totalGenerationChanged();
     if (m_totalConsumption != oldTotalConsumption) emit totalConsumptionChanged();
     if (m_netBusBalance != oldNetBusBalance) emit netBusBalanceChanged();

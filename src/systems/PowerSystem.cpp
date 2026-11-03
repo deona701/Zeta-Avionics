@@ -1,4 +1,5 @@
 #include "PowerSystem.h"
+#include <algorithm>
 
 PowerSystem::PowerSystem(QObject *parent) 
     : QObject(parent)
@@ -97,6 +98,12 @@ void PowerSystem::updateSimulation(float deltaTime) {
     float oldTotalConsumption = m_totalConsumption;
     float oldNetBusBalance = m_netBusBalance;
 
+    m_totalGeneration = m_solarArrayOutput + m_reactorCoreOutput;
+    m_totalConsumption = m_propulsionPower + m_lifeSupportPower + m_navigationPower + m_communicationsPower;
+    m_netBusBalance = m_totalGeneration - m_totalConsumption;
+
+    m_mainBatteryBus += (m_netBusBalance * 0.01f) * deltaTime;
+    m_mainBatteryBus = std::clamp(m_mainBatteryBus, 0.0f, 100.0f);
 
     if (m_solarArrayOutput != oldSolarArrayOutput) emit solarArrayOutputChanged();
     if (m_reactorCoreOutput != oldReactorCoreOutput) emit reactorCoreOutputChanged();

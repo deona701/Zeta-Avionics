@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -50,37 +51,37 @@ Item {
                     ColumnLayout {
                         spacing: 4
                         Text { text: "SOLAR ARRAY OUTPUT"; color: Theme.secondaryText; font.pixelSize: Theme.fontSmall }
-                        Text { text: "----"; color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
+                        Text { text: powerSceneRoot.powerSystem.solarArrayOutput.toFixed(1); color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
                     }
 
                     ColumnLayout {
                         spacing: 4
                         Text { text: "REACTOR CORE STATUS"; color: Theme.secondaryText; font.pixelSize: Theme.fontSmall }
-                        Text { text: "----"; color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
+                        Text { text: powerSceneRoot.powerSystem.reactorCoreOutput.toFixed(1); color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
                     }
 
                     ColumnLayout {
                         spacing: 4
                         Text { text: "MAIN BATTERY BUS"; color: Theme.secondaryText; font.pixelSize: Theme.fontSmall }
-                        Text { text: "----"; color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
+                        Text { text: powerSceneRoot.powerSystem.mainBatteryBus.toFixed(1); color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
                     }
 
                     ColumnLayout {
                         spacing: 4
                         Text { text: "TOTAL GENERATION"; color: Theme.secondaryText; font.pixelSize: Theme.fontSmall }
-                        Text { text: "----"; color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
+                        Text { text: powerSceneRoot.powerSystem.totalGeneration.toFixed(1); color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
                     }
 
                     ColumnLayout {
                         spacing: 4
                         Text { text: "TOTAL CONSUMPTION"; color: Theme.secondaryText; font.pixelSize: Theme.fontSmall }
-                        Text { text: "----"; color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
+                        Text { text: powerSceneRoot.powerSystem.totalConsumption.toFixed(1); color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
                     }
 
                     ColumnLayout {
                         spacing: 4
                         Text { text: "NET BUS BALANCE"; color: Theme.secondaryText; font.pixelSize: Theme.fontSmall }
-                        Text { text: "----"; color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
+                        Text { text: powerSceneRoot.powerSystem.netBusBalance.toFixed(1); color: Theme.primaryText; font.pixelSize: Theme.fontNormal; font.bold: true }
                     }
                 }
             }
@@ -175,7 +176,7 @@ Item {
                             implicitWidth: 80
                             implicitHeight: 32
                             text: "- 1.0 kW"
-                            onClicked: requestPowerReroute(systemId, -1.0)
+                            onClicked: powerSceneRoot.powerSystem.requestPowerReroute(systemId, -1.0)
 
                             contentItem: Text {
                                 text: parent.text
@@ -193,7 +194,7 @@ Item {
                             implicitWidth: 80
                             implicitHeight: 32
                             text: "+ 1.0 kW"
-                            onClicked: requestPowerReroute(systemId, 1.0)
+                            onClicked: powerSceneRoot.powerSystem.requestPowerReroute(systemId, 1.0)
 
                             contentItem: Text {
                                 text: parent.text
@@ -213,21 +214,37 @@ Item {
             PowerSubsystemCard {
                 systemId: "propulsion"
                 systemName: "PROPULSION POWER"
+                allocatedPower: powerSceneRoot.powerSystem.propulsionPower.toFixed(1) + " kW"
+                loadPercent: ((powerSceneRoot.powerSystem.propulsionPower / 30.0) * 100).toFixed(0) + " %"
+                statusText: powerSceneRoot.powerSystem.propulsionPower > 0 ? "NOMINAL" : "STANDBY"
+                fillRatio: powerSceneRoot.powerSystem.propulsionPower / 30.0
             }
 
             PowerSubsystemCard {
                 systemId: "life_support"
                 systemName: "LIFE SUPPORT POWER"
+                allocatedPower: powerSceneRoot.powerSystem.lifeSupportPower.toFixed(1) + " kW"
+                loadPercent: ((powerSceneRoot.powerSystem.lifeSupportPower / 30.0) * 100).toFixed(0) + " %"
+                statusText: powerSceneRoot.powerSystem.lifeSupportPower > 0 ? "NOMINAL" : "OFF"
+                fillRatio: powerSceneRoot.powerSystem.lifeSupportPower / 30.0
             }
 
             PowerSubsystemCard {
                 systemId: "navigation"
                 systemName: "NAVIGATION POWER"
+                allocatedPower: powerSceneRoot.powerSystem.navigationPower.toFixed(1) + " kW"
+                loadPercent: ((powerSceneRoot.powerSystem.navigationPower / 30.0) * 100).toFixed(0) + " %"
+                statusText: powerSceneRoot.powerSystem.navigationPower > 0 ? "NOMINAL" : "OFF"
+                fillRatio: powerSceneRoot.powerSystem.navigationPower / 30.0
             }
 
             PowerSubsystemCard {
                 systemId: "comms"
                 systemName: "COMMUNICATIONS POWER"
+                allocatedPower: powerSceneRoot.powerSystem.communicationsPower.toFixed(1) + " kW"
+                loadPercent: ((powerSceneRoot.powerSystem.communicationsPower / 30.0) * 100).toFixed(0) + " %"
+                statusText: powerSceneRoot.powerSystem.communicationsPower > 0 ? "NOMINAL" : "OFF"
+                fillRatio: powerSceneRoot.powerSystem.communicationsPower / 30.0
             }
         }
     }

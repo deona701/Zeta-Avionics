@@ -7,6 +7,7 @@
 CommunicationsSystem::CommunicationsSystem(QObject *parent)
     : QObject(parent)
     , m_networkManager(new QNetworkAccessManager(this))
+    , m_powerConsumption(5.0f)
     , m_signalStrength(90.0f)
     , m_dataTransferRate(00.0f)
     , m_antennaAlignment(91.7f)
@@ -17,6 +18,7 @@ CommunicationsSystem::CommunicationsSystem(QObject *parent)
 {
 }
 
+float CommunicationsSystem::powerConsumption() const { return m_powerConsumption; }
 float CommunicationsSystem::signalStrength() const { return m_signalStrength; }
 float CommunicationsSystem::dataTransferRate() const { return m_dataTransferRate; }
 float CommunicationsSystem::antennaAlignment() const { return m_antennaAlignment; }
@@ -24,6 +26,13 @@ int CommunicationsSystem::telemetryPackets() const { return m_telemetryPackets; 
 bool CommunicationsSystem::downlinkStatus() const { return m_downlinkStatus; }
 QString CommunicationsSystem::antennaTargetLock() const { return m_antennaTargetLock; }
 QString CommunicationsSystem::activeLink() const { return m_activeLink; }
+
+
+void CommunicationsSystem::setPowerConsumption(float newPower) {
+    if (m_powerConsumption == newPower) return;
+    m_powerConsumption = newPower;
+    emit powerConsumptionChanged();
+}
 
 
 void CommunicationsSystem::setAntennaAlignment(float newAntennaAlignment) {

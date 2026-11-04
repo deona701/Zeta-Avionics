@@ -11,6 +11,8 @@ class LifeSupportSystem : public QObject
     Q_OBJECT
     QML_ELEMENT
 
+    Q_PROPERTY(float powerConsumption READ powerConsumption NOTIFY powerConsumptionChanged)
+
     Q_PROPERTY(float cabinPressure READ cabinPressure NOTIFY cabinPressureChanged)
     Q_PROPERTY(float o2PartialPress READ o2PartialPress NOTIFY o2PartialPressChanged)
     Q_PROPERTY(float co2Concentration READ co2Concentration NOTIFY co2ConcentrationChanged)
@@ -45,6 +47,8 @@ class LifeSupportSystem : public QObject
 
 public:
     explicit LifeSupportSystem(QObject *parent = nullptr);
+
+    float powerConsumption() const;
 
     float cabinPressure() const;
     float o2PartialPress() const;
@@ -81,9 +85,12 @@ public:
     Q_INVOKABLE void updateSimulation(float deltaTime);
 
 public slots:
+    void setPowerConsumption(float power);
     void setLiOHScrubbersActive(bool newLiOHScrubbersActive);
 
 signals:
+    void powerConsumptionChanged();
+
     void cabinPressureChanged();
     void o2PartialPressChanged();
     void co2ConcentrationChanged();
@@ -118,6 +125,8 @@ signals:
 
 private:
     QHttpServer *m_server;
+
+    float m_powerConsumption = 6.0;
 
     float m_cabinPressure = 101.3f;
     float m_o2PartialPress = 21.1f;

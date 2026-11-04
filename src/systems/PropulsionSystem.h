@@ -9,6 +9,7 @@ class PropulsionSystem : public QObject
     Q_OBJECT
     QML_ELEMENT
 
+    Q_PROPERTY(float powerConsumption READ powerConsumption NOTIFY powerConsumptionChanged)
     Q_PROPERTY(float throttle READ throttle WRITE setThrottle NOTIFY throttleChanged)
     Q_PROPERTY(float engineTemp READ engineTemp NOTIFY engineTempChanged)
     Q_PROPERTY(float propellantPercentage READ propellantPercentage NOTIFY propellantPercentageChanged)
@@ -20,6 +21,7 @@ class PropulsionSystem : public QObject
 public:
     explicit PropulsionSystem(QObject *parent = nullptr);
 
+    float powerConsumption() const;
     float throttle() const;
     float engineTemp() const;
     float propellantPercentage() const;
@@ -41,10 +43,12 @@ public:
     Q_INVOKABLE void updateSimulation(float deltaTime);
 
 public slots:
+    void setPowerConsumption(float power);
     void setThrottle(float newThrottle);
     void setEngineStatus(bool newStatus);
 
 signals:
+    void powerConsumptionChanged();
     void throttleChanged();
     void engineTempChanged();
     void propellantPercentageChanged();
@@ -54,6 +58,7 @@ signals:
     void mainEngineAvailabilityChanged();
 
 private:
+    float m_powerConsumption = 8.0f;
     float m_throttle = 0.0f;
     float m_engineTemp = 20.0f;
     float m_propellantPercentage = 100.0f;

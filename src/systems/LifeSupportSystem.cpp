@@ -6,7 +6,7 @@
 
 LifeSupportSystem::LifeSupportSystem(QObject *parent) 
 : QObject(parent)
-, m_cabinPressure(101.3f), m_o2PartialPress(21.1f), m_co2Concentration(0.31f), m_relativeHumidity(45.0f)
+, m_powerConsumption(6.0f),m_cabinPressure(101.3f), m_o2PartialPress(21.1f), m_co2Concentration(0.31f), m_relativeHumidity(45.0f)
 , m_cabinTemp(21.5f), m_portableWater(88.4f), m_greywaterTank(32.1f), m_wpaEfficiency(94.8f), m_liOHScrubbersPercent(92.0f)
 , m_coolantLoopA(4.2f), m_liOHScrubbersActive(false)
 , m_astronaut1Temp(36.8f), m_astronaut1BPM(72), m_astronaut1SPO2(98), m_astronaut1Resp(12)
@@ -78,6 +78,8 @@ LifeSupportSystem::LifeSupportSystem(QObject *parent)
     m_server->route("/astronaut/4/decreaseTemp",      [this, updateFloatVal]() { updateFloatVal(m_astronaut4Temp, -0.1f, 30.0f, 45.0f); emit astronaut4TempChanged(); return QHttpServerResponse("text/plain", "OK"); });
 }
 
+float LifeSupportSystem::powerConsumption() const { return m_powerConsumption; }
+
 float LifeSupportSystem::cabinPressure() const { return m_cabinPressure; }
 float LifeSupportSystem::o2PartialPress() const { return m_o2PartialPress; }
 float LifeSupportSystem::co2Concentration() const { return m_co2Concentration; }
@@ -109,6 +111,13 @@ float LifeSupportSystem::astronaut4Temp() const { return m_astronaut4Temp; }
 int LifeSupportSystem::astronaut4BPM() const { return m_astronaut4BPM; }
 int LifeSupportSystem::astronaut4SPO2() const { return m_astronaut4SPO2; }
 int LifeSupportSystem::astronaut4Resp() const { return m_astronaut4Resp; }
+
+
+void LifeSupportSystem::setPowerConsumption(float newPower) {
+    if (m_powerConsumption == newPower) return;
+    m_powerConsumption = newPower;
+    emit powerConsumptionChanged();
+}
 
 void LifeSupportSystem::setLiOHScrubbersActive(bool newLiOHScrubbersActive) {
 

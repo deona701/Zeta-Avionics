@@ -10,6 +10,7 @@ class NavigationSystem : public QObject
     Q_OBJECT
     QML_ELEMENT
 
+    Q_PROPERTY(float powerConsumption READ powerConsumption NOTIFY powerConsumptionChanged)
     Q_PROPERTY(float distance READ distance NOTIFY distanceChanged)
     Q_PROPERTY(float velocity READ velocity NOTIFY velocityChanged)
     Q_PROPERTY(int eta READ eta NOTIFY etaChanged)
@@ -20,6 +21,7 @@ class NavigationSystem : public QObject
 public:
     explicit NavigationSystem(QObject *parent = nullptr);
 
+    float powerConsumption() const;
     float distance() const;
     float velocity() const;
     int eta() const;
@@ -29,7 +31,11 @@ public:
 
     Q_INVOKABLE void updateSimulation(float deltaTime, float currentThrust, float currentFuel, bool engineStatus);
 
+public slots:
+    void setPowerConsumption(float power);
+
 signals:
+    void powerConsumptionChanged();
     void distanceChanged();
     void velocityChanged();
     void etaChanged();
@@ -38,6 +44,7 @@ signals:
     void trajectoryChanged();
 
 private:
+    float m_powerConsumption = 4.0f;
     float m_distance = 225000000.0f;
     float m_velocity = 12.0f;
     int m_eta = 217;

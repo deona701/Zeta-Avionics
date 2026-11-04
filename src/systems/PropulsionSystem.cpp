@@ -5,6 +5,7 @@
 
 PropulsionSystem::PropulsionSystem(QObject *parent)
     : QObject(parent)
+    , m_powerConsumption(8.0f)
     , m_throttle(0.0f)
     , m_engineTemp(20.0f)
     , m_propellantPercentage(100.0f)
@@ -15,6 +16,7 @@ PropulsionSystem::PropulsionSystem(QObject *parent)
 {
 }
 
+float PropulsionSystem::powerConsumption() const { return m_powerConsumption; }
 float PropulsionSystem::throttle() const { return m_throttle; }
 float PropulsionSystem::engineTemp() const { return m_engineTemp; }
 float PropulsionSystem::propellantPercentage() const { return m_propellantPercentage; }
@@ -23,6 +25,12 @@ float PropulsionSystem::thrustOutput() const { return m_thrustOutput; }
 bool PropulsionSystem::engineStatus() const { return m_engineStatus; }
 bool PropulsionSystem::mainEngineAvailability() const { return m_mainEngineAvailability; }
 
+
+void PropulsionSystem::setPowerConsumption(float newPower) {
+    if (m_powerConsumption == newPower) return;
+    m_powerConsumption = newPower;
+    emit powerConsumptionChanged();
+}
 
 void PropulsionSystem::setThrottle(float newThrottle) {
     float clampedThrottle = std::clamp(newThrottle, 0.0f, 100.0f);

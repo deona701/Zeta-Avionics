@@ -3,6 +3,7 @@
 
 NavigationSystem::NavigationSystem(QObject *parent)
     : QObject(parent)
+    , m_powerConsumption(4.0f)
     , m_distance(225000000.0f)
     , m_velocity(12.0f)
     , m_eta(217)
@@ -11,12 +12,21 @@ NavigationSystem::NavigationSystem(QObject *parent)
 {
 }
 
+float NavigationSystem::powerConsumption() const { return m_powerConsumption; }
 float NavigationSystem::distance() const { return m_distance; }
 float NavigationSystem::velocity() const { return m_velocity; }
 int NavigationSystem::eta() const { return m_eta; }
 QString NavigationSystem::currentPos() const { return m_currentPos; }
 QString NavigationSystem::destination() const { return m_destination; }
 QString NavigationSystem::trajectory() const { return m_trajectory; }
+
+
+void NavigationSystem::setPowerConsumption(float newPower) {
+    if (m_powerConsumption == newPower) return;
+    m_powerConsumption = newPower;
+    emit powerConsumptionChanged();
+}
+
 
 void NavigationSystem::updateSimulation(float deltaTime, float currentThrust, float currentFuel, bool engineStatus) {
     float oldDistance = m_distance;

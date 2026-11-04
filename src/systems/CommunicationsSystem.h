@@ -12,6 +12,7 @@ class CommunicationsSystem : public QObject
     Q_OBJECT
     QML_ELEMENT
 
+    Q_PROPERTY(float powerConsumption READ powerConsumption NOTIFY powerConsumptionChanged)
     Q_PROPERTY(float signalStrength READ signalStrength NOTIFY signalStrengthChanged)
     Q_PROPERTY(float dataTransferRate READ dataTransferRate NOTIFY dataTransferRateChanged)
     Q_PROPERTY(float antennaAlignment READ antennaAlignment WRITE setAntennaAlignment NOTIFY antennaAlignmentChanged)
@@ -23,6 +24,7 @@ class CommunicationsSystem : public QObject
 public:
     explicit CommunicationsSystem(QObject *parent = nullptr);
 
+    float powerConsumption() const;
     float signalStrength() const;
     float dataTransferRate() const;
     float antennaAlignment() const;
@@ -36,11 +38,13 @@ public:
     Q_INVOKABLE void triggerDistressBeacon();
 
 public slots:
+    void setPowerConsumption(float power);
     void setAntennaAlignment(float newAntennaAlignment);
     void setDownlinkStatus(bool newDownlinkStatus);
     void setActiveLink(QString newActiveLink);
 
 signals:
+    void powerConsumptionChanged();
     void signalStrengthChanged();
     void dataTransferRateChanged();
     void antennaAlignmentChanged();
@@ -53,6 +57,7 @@ private:
     QNetworkAccessManager *m_networkManager;
     void sendNtfyNotification(const QString &title, const QString &message);
 
+    float m_powerConsumption = 3.0f;
     float m_signalStrength = 90.0f;
     float m_dataTransferRate = 00.0f;
     float m_antennaAlignment = 91.7f;

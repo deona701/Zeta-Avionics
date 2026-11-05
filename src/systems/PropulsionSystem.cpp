@@ -90,9 +90,12 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
         m_engineStatus = false;
     }
 
+    float nominalPower = 8.0f;
+    float powerFactor = std::clamp(m_powerConsumption / nominalPower, 0.0f, 1.0f);
+
     float targetThrust = 0.0f;
     if (m_engineStatus && m_mainEngineAvailability) {
-        targetThrust = throttleRatio * MAX_THRUST;
+        targetThrust = throttleRatio * MAX_THRUST * powerFactor;
     }
 
     m_thrustOutput += (targetThrust - m_thrustOutput) * SPOOL_SPEED * deltaTime;

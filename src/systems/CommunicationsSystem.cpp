@@ -165,9 +165,12 @@ void CommunicationsSystem::updateSimulation(float deltaTime) {
 
         if (distanceToCenter <= maxAllowedDistance) {
             float signalPercent = (1.0f - (distanceToCenter / maxAllowedDistance)) * 100.0f;
-            m_signalStrength = std::clamp(signalPercent, 10.0f, 100.0f);
 
-            m_dataTransferRate = (m_signalStrength / 100.0f) * 256.0f;
+            float nominalPower = 3.0f;
+            float powerFactor = std::clamp(m_powerConsumption / nominalPower, 0.0f, 1.0f);
+
+            m_signalStrength = std::clamp(signalPercent, 10.0f, 100.0f) * powerFactor;
+            m_dataTransferRate = (m_signalStrength / 100.0f) * 256.0f * powerFactor;
         }
         else {
             m_antennaTargetLock = "LOST...";

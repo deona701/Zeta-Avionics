@@ -36,10 +36,13 @@ void NavigationSystem::updateSimulation(float deltaTime, float currentThrust, fl
     QString oldDestination = m_destination;
     QString oldTrajectory = m_trajectory;
 
+    float nominalPower = 4.0f;
+    float powerFactor = std::clamp(m_powerConsumption / nominalPower, 0.0f, 1.0f);
+
     float fuelMass = (currentFuel / 100.0f) * SpacecraftState::MAX_PROPELLANT_MASS;
     float totalMass = SpacecraftState::DRY_MASS + fuelMass;
 
-    float acceleration =  currentThrust / totalMass;
+    float acceleration =  currentThrust / totalMass * powerFactor;
     m_velocity += (acceleration / 1000.0f) * deltaTime;
 
     m_distance -= m_velocity * deltaTime;

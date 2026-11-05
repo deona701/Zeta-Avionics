@@ -7,15 +7,21 @@ import Zeta_Avionics
 Item {
     id: lifeSupportSceneRoot
 
+    anchors.topMargin: Theme.sceneMarginTop
+    anchors.bottomMargin: Theme.sceneMarginBottom
+    anchors.leftMargin: Theme.sceneMarginLeft
+    anchors.rightMargin: Theme.sceneMarginRight
+
     required property SpacecraftSimulation sim
     readonly property LifeSupportSystem lifeSupportSystem: sim.state.lifeSupport
 
+    UnpoweredOverlay {
+        anchors.fill: parent
+        isPowered: lifeSupportSceneRoot.lifeSupportSystem.powerConsumption > 0
+    }
+
     Rectangle {
         anchors.fill: parent
-        anchors.topMargin: Theme.sceneMarginTop
-        anchors.bottomMargin: Theme.sceneMarginBottom
-        anchors.leftMargin: Theme.sceneMarginLeft
-        anchors.rightMargin: Theme.sceneMarginRight
         color: "transparent"
 
         RowLayout {

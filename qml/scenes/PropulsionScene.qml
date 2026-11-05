@@ -7,15 +7,22 @@ import Zeta_Avionics
 Item {
     id: propulsionSceneRoot
 
+    anchors.topMargin: Theme.sceneMarginTop
+    anchors.bottomMargin: Theme.sceneMarginBottom
+    anchors.leftMargin: Theme.sceneMarginLeft
+    anchors.rightMargin: Theme.sceneMarginRight
+
     required property SpacecraftSimulation sim
     readonly property PropulsionSystem propulsionSystem: sim.state.propulsion
 
+    UnpoweredOverlay {
+        anchors.fill: parent
+        isPowered: propulsionSceneRoot.propulsionSystem.powerConsumption > 0
+    }
+
+
     Rectangle {
         anchors.fill: parent
-        anchors.topMargin: Theme.sceneMarginTop
-        anchors.bottomMargin: Theme.sceneMarginBottom
-        anchors.leftMargin: Theme.sceneMarginLeft
-        anchors.rightMargin: Theme.sceneMarginRight
         border.color: Theme.light
         radius: Theme.cornerRadius
         color: Theme.dark

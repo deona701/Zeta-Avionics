@@ -5,17 +5,23 @@ import Zeta_Avionics
 Item {
     id: navigationSceneRoot
 
+    anchors.topMargin: Theme.sceneMarginTop
+    anchors.bottomMargin: Theme.sceneMarginBottom
+    anchors.leftMargin: Theme.sceneMarginLeft
+    anchors.rightMargin: Theme.sceneMarginRight
+
     required property SpacecraftSimulation sim
     readonly property PropulsionSystem propulsionSystem: sim.state.propulsion
     readonly property NavigationSystem navigationSystem: sim.state.navigation
 
+    UnpoweredOverlay {
+        anchors.fill: parent
+        isPowered: navigationSceneRoot.navigationSystem.powerConsumption > 0
+    }
+
     Column {
         id: navMainColumn
         anchors.fill: parent
-        anchors.topMargin: Theme.sceneMarginTop
-        anchors.bottomMargin: Theme.sceneMarginBottom
-        anchors.leftMargin: Theme.sceneMarginLeft
-        anchors.rightMargin: Theme.sceneMarginRight
         spacing: 25
 
         Rectangle {

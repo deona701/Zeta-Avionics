@@ -1,20 +1,28 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Zeta_Avionics
+import "../overlays"
 
 Item {
     id: communicationsSceneRoot
 
+    anchors.topMargin: Theme.sceneMarginTop
+    anchors.bottomMargin: Theme.sceneMarginBottom
+    anchors.leftMargin: Theme.sceneMarginLeft
+    anchors.rightMargin: Theme.sceneMarginRight
+
     required property SpacecraftSimulation sim
     readonly property CommunicationsSystem communicationsSystem: sim.state.communications
 
+    UnpoweredOverlay {
+        anchors.fill: parent
+        isPowered: communicationsSceneRoot.communicationsSystem.powerConsumption > 0
+    }
+
     ColumnLayout {
         anchors.fill: parent
-        anchors.topMargin: Theme.sceneMarginTop
-        anchors.bottomMargin: Theme.sceneMarginBottom
-        anchors.leftMargin: Theme.sceneMarginLeft
-        anchors.rightMargin: Theme.sceneMarginRight
         spacing: 25
 
         Rectangle {

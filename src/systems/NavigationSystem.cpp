@@ -36,6 +36,17 @@ void NavigationSystem::updateSimulation(float deltaTime, float currentThrust, fl
     QString oldDestination = m_destination;
     QString oldTrajectory = m_trajectory;
 
+    if (m_powerConsumption <= 0.0f) {
+        m_distance = 0.0f; emit distanceChanged();
+        m_eta = 0; emit etaChanged();
+        m_velocity = 0.0f; emit velocityChanged();
+        m_currentPos = "-"; emit currentPosChanged();
+        m_destination = "-"; emit destinationChanged();
+        m_trajectory = "SYSTEM OFFLINE"; emit trajectoryChanged();
+
+        return;
+    }
+
     float nominalPower = 4.0f;
     float powerFactor = std::clamp(m_powerConsumption / nominalPower, 0.0f, 1.0f);
 

@@ -69,6 +69,17 @@ void PropulsionSystem::updateSimulation(float deltaTime) {
 
     float throttleRatio = m_throttle / 100.0f;
 
+    if (m_powerConsumption <= 0.0f) {
+        m_throttle = 0.0f; emit throttleChanged();
+        m_thrustOutput = 0.0f; emit thrustOutputChanged();
+        m_engineStatus = false; emit engineStatusChanged();
+        m_mainEngineAvailability = false; emit mainEngineAvailabilityChanged();
+        m_deltaV = 0.0f; emit deltaVChanged();
+        m_engineTemp = 0.0f; emit engineTempChanged();
+
+        return;
+    }
+
     float heatIn = 0.0f;
     if (m_engineStatus && m_mainEngineAvailability) {
         heatIn = (throttleRatio * throttleRatio) * TEMP_HEAT_RATE;

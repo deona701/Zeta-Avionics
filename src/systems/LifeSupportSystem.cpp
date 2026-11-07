@@ -41,41 +41,113 @@ LifeSupportSystem::LifeSupportSystem(QObject *parent)
         val = std::clamp(val + delta, minVal, maxVal);
     };
 
-    m_server->route("/astronaut/1/increaseHeartRate", [this, updateVal]() { updateVal(m_astronaut1BPM, 1, 30, 220); emit astronaut1BPMChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/1/decreaseHeartRate", [this, updateVal]() { updateVal(m_astronaut1BPM, -1, 30, 220); emit astronaut1BPMChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/1/increaseSPO2",      [this, updateVal]() { updateVal(m_astronaut1SPO2, 1, 0, 100); emit astronaut1SPO2Changed(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/1/decreaseSPO2",      [this, updateVal]() { updateVal(m_astronaut1SPO2, -1, 0, 100); emit astronaut1SPO2Changed(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/1/increaseRespRate",  [this, updateVal]() { updateVal(m_astronaut1Resp, 1, 0, 60); emit astronaut1RespChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/1/decreaseRespRate",  [this, updateVal]() { updateVal(m_astronaut1Resp, -1, 0, 60); emit astronaut1RespChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/1/increaseTemp",      [this, updateFloatVal]() { updateFloatVal(m_astronaut1Temp, 0.1f, 30.0f, 45.0f); emit astronaut1TempChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/1/decreaseTemp",      [this, updateFloatVal]() { updateFloatVal(m_astronaut1Temp, -0.1f, 30.0f, 45.0f); emit astronaut1TempChanged(); return QHttpServerResponse("text/plain", "OK"); });
+    auto handleRequest = [this](auto action) {
+        if (m_powerConsumption <= 0.0f) {
+            return QHttpServerResponse("text/plain", "SYSTEM OFFLINE");
+        }
+        action();
+        return QHttpServerResponse("text/plain", "OK");
+    };
 
-    m_server->route("/astronaut/2/increaseHeartRate", [this, updateVal]() { updateVal(m_astronaut2BPM, 1, 30, 220); emit astronaut2BPMChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/2/decreaseHeartRate", [this, updateVal]() { updateVal(m_astronaut2BPM, -1, 30, 220); emit astronaut2BPMChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/2/increaseSPO2",      [this, updateVal]() { updateVal(m_astronaut2SPO2, 1, 0, 100); emit astronaut2SPO2Changed(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/2/decreaseSPO2",      [this, updateVal]() { updateVal(m_astronaut2SPO2, -1, 0, 100); emit astronaut2SPO2Changed(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/2/increaseRespRate",  [this, updateVal]() { updateVal(m_astronaut2Resp, 1, 0, 60); emit astronaut2RespChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/2/decreaseRespRate",  [this, updateVal]() { updateVal(m_astronaut2Resp, -1, 0, 60); emit astronaut2RespChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/2/increaseTemp",      [this, updateFloatVal]() { updateFloatVal(m_astronaut2Temp, 0.1f, 30.0f, 45.0f); emit astronaut2TempChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/2/decreaseTemp",      [this, updateFloatVal]() { updateFloatVal(m_astronaut2Temp, -0.1f, 30.0f, 45.0f); emit astronaut2TempChanged(); return QHttpServerResponse("text/plain", "OK"); });
+    m_server->route("/astronaut/1/increaseHeartRate", [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut1BPM, 1, 30, 220); emit astronaut1BPMChanged(); }); 
+    });
+    m_server->route("/astronaut/1/decreaseHeartRate", [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut1BPM, -1, 30, 220); emit astronaut1BPMChanged(); }); 
+    });
+    m_server->route("/astronaut/1/increaseSPO2",      [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut1SPO2, 1, 0, 100); emit astronaut1SPO2Changed(); }); 
+    });
+    m_server->route("/astronaut/1/decreaseSPO2",      [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut1SPO2, -1, 0, 100); emit astronaut1SPO2Changed(); }); 
+    });
+    m_server->route("/astronaut/1/increaseRespRate",  [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut1Resp, 1, 0, 60); emit astronaut1RespChanged(); }); 
+    });
+    m_server->route("/astronaut/1/decreaseRespRate",  [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut1Resp, -1, 0, 60); emit astronaut1RespChanged(); }); 
+    });
+    m_server->route("/astronaut/1/increaseTemp",      [this, updateFloatVal, handleRequest]() { 
+        return handleRequest([&]() { updateFloatVal(m_astronaut1Temp, 0.1f, 30.0f, 45.0f); emit astronaut1TempChanged(); }); 
+    });
+    m_server->route("/astronaut/1/decreaseTemp",      [this, updateFloatVal, handleRequest]() { 
+        return handleRequest([&]() { updateFloatVal(m_astronaut1Temp, -0.1f, 30.0f, 45.0f); emit astronaut1TempChanged(); }); 
+    });
 
-    m_server->route("/astronaut/3/increaseHeartRate", [this, updateVal]() { updateVal(m_astronaut3BPM, 1, 30, 220); emit astronaut3BPMChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/3/decreaseHeartRate", [this, updateVal]() { updateVal(m_astronaut3BPM, -1, 30, 220); emit astronaut3BPMChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/3/increaseSPO2",      [this, updateVal]() { updateVal(m_astronaut3SPO2, 1, 0, 100); emit astronaut3SPO2Changed(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/3/decreaseSPO2",      [this, updateVal]() { updateVal(m_astronaut3SPO2, -1, 0, 100); emit astronaut3SPO2Changed(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/3/increaseRespRate",  [this, updateVal]() { updateVal(m_astronaut3Resp, 1, 0, 60); emit astronaut3RespChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/3/decreaseRespRate",  [this, updateVal]() { updateVal(m_astronaut3Resp, -1, 0, 60); emit astronaut3RespChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/3/increaseTemp",      [this, updateFloatVal]() { updateFloatVal(m_astronaut3Temp, 0.1f, 30.0f, 45.0f); emit astronaut3TempChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/3/decreaseTemp",      [this, updateFloatVal]() { updateFloatVal(m_astronaut3Temp, -0.1f, 30.0f, 45.0f); emit astronaut3TempChanged(); return QHttpServerResponse("text/plain", "OK"); });
+    m_server->route("/astronaut/2/increaseHeartRate", [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut2BPM, 1, 30, 220); emit astronaut2BPMChanged(); }); 
+    });
+    m_server->route("/astronaut/2/decreaseHeartRate", [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut2BPM, -1, 30, 220); emit astronaut2BPMChanged(); }); 
+    });
+    m_server->route("/astronaut/2/increaseSPO2",      [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut2SPO2, 1, 0, 100); emit astronaut2SPO2Changed(); }); 
+    });
+    m_server->route("/astronaut/2/decreaseSPO2",      [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut2SPO2, -1, 0, 100); emit astronaut2SPO2Changed(); }); 
+    });
+    m_server->route("/astronaut/2/increaseRespRate",  [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut2Resp, 1, 0, 60); emit astronaut2RespChanged(); }); 
+    });
+    m_server->route("/astronaut/2/decreaseRespRate",  [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut2Resp, -1, 0, 60); emit astronaut2RespChanged(); }); 
+    });
+    m_server->route("/astronaut/2/increaseTemp",      [this, updateFloatVal, handleRequest]() { 
+        return handleRequest([&]() { updateFloatVal(m_astronaut2Temp, 0.1f, 30.0f, 45.0f); emit astronaut2TempChanged(); }); 
+    });
+    m_server->route("/astronaut/2/decreaseTemp",      [this, updateFloatVal, handleRequest]() { 
+        return handleRequest([&]() { updateFloatVal(m_astronaut2Temp, -0.1f, 30.0f, 45.0f); emit astronaut2TempChanged(); }); 
+    });
 
-    m_server->route("/astronaut/4/increaseHeartRate", [this, updateVal]() { updateVal(m_astronaut4BPM, 1, 30, 220); emit astronaut4BPMChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/4/decreaseHeartRate", [this, updateVal]() { updateVal(m_astronaut4BPM, -1, 30, 220); emit astronaut4BPMChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/4/increaseSPO2",      [this, updateVal]() { updateVal(m_astronaut4SPO2, 1, 0, 100); emit astronaut4SPO2Changed(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/4/decreaseSPO2",      [this, updateVal]() { updateVal(m_astronaut4SPO2, -1, 0, 100); emit astronaut4SPO2Changed(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/4/increaseRespRate",  [this, updateVal]() { updateVal(m_astronaut4Resp, 1, 0, 60); emit astronaut4RespChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/4/decreaseRespRate",  [this, updateVal]() { updateVal(m_astronaut4Resp, -1, 0, 60); emit astronaut4RespChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/4/increaseTemp",      [this, updateFloatVal]() { updateFloatVal(m_astronaut4Temp, 0.1f, 30.0f, 45.0f); emit astronaut4TempChanged(); return QHttpServerResponse("text/plain", "OK"); });
-    m_server->route("/astronaut/4/decreaseTemp",      [this, updateFloatVal]() { updateFloatVal(m_astronaut4Temp, -0.1f, 30.0f, 45.0f); emit astronaut4TempChanged(); return QHttpServerResponse("text/plain", "OK"); });
+    m_server->route("/astronaut/3/increaseHeartRate", [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut3BPM, 1, 30, 220); emit astronaut3BPMChanged(); }); 
+    });
+    m_server->route("/astronaut/3/decreaseHeartRate", [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut3BPM, -1, 30, 220); emit astronaut3BPMChanged(); }); 
+    });
+    m_server->route("/astronaut/3/increaseSPO2",      [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut3SPO2, 1, 0, 100); emit astronaut3SPO2Changed(); }); 
+    });
+    m_server->route("/astronaut/3/decreaseSPO2",      [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut3SPO2, -1, 0, 100); emit astronaut3SPO2Changed(); }); 
+    });
+    m_server->route("/astronaut/3/increaseRespRate",  [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut3Resp, 1, 0, 60); emit astronaut3RespChanged(); }); 
+    });
+    m_server->route("/astronaut/3/decreaseRespRate",  [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut3Resp, -1, 0, 60); emit astronaut3RespChanged(); }); 
+    });
+    m_server->route("/astronaut/3/increaseTemp",      [this, updateFloatVal, handleRequest]() { 
+        return handleRequest([&]() { updateFloatVal(m_astronaut3Temp, 0.1f, 30.0f, 45.0f); emit astronaut3TempChanged(); }); 
+    });
+    m_server->route("/astronaut/3/decreaseTemp",      [this, updateFloatVal, handleRequest]() { 
+        return handleRequest([&]() { updateFloatVal(m_astronaut3Temp, -0.1f, 30.0f, 45.0f); emit astronaut3TempChanged(); }); 
+    });
+
+    m_server->route("/astronaut/4/increaseHeartRate", [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut4BPM, 1, 30, 220); emit astronaut4BPMChanged(); }); 
+    });
+    m_server->route("/astronaut/4/decreaseHeartRate", [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut4BPM, -1, 30, 220); emit astronaut4BPMChanged(); }); 
+    });
+    m_server->route("/astronaut/4/increaseSPO2",      [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut4SPO2, 1, 0, 100); emit astronaut4SPO2Changed(); }); 
+    });
+    m_server->route("/astronaut/4/decreaseSPO2",      [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut4SPO2, -1, 0, 100); emit astronaut4SPO2Changed(); }); 
+    });
+    m_server->route("/astronaut/4/increaseRespRate",  [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut4Resp, 1, 0, 60); emit astronaut4RespChanged(); }); 
+    });
+    m_server->route("/astronaut/4/decreaseRespRate",  [this, updateVal, handleRequest]() { 
+        return handleRequest([&]() { updateVal(m_astronaut4Resp, -1, 0, 60); emit astronaut4RespChanged(); }); 
+    });
+    m_server->route("/astronaut/4/increaseTemp",      [this, updateFloatVal, handleRequest]() { 
+        return handleRequest([&]() { updateFloatVal(m_astronaut4Temp, 0.1f, 30.0f, 45.0f); emit astronaut4TempChanged(); }); 
+    });
+    m_server->route("/astronaut/4/decreaseTemp",      [this, updateFloatVal, handleRequest]() { 
+        return handleRequest([&]() { updateFloatVal(m_astronaut4Temp, -0.1f, 30.0f, 45.0f); emit astronaut4TempChanged(); }); 
+    });
 }
 
 float LifeSupportSystem::powerConsumption() const { return m_powerConsumption; }
@@ -153,6 +225,41 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
 
     float co2Production = totalRespRates * 0.0001f;
     float co2Removal = 0.0f;
+
+    if (m_powerConsumption <= 0.0f) {
+        m_cabinPressure = 0.0f; emit cabinPressureChanged();
+        m_o2PartialPress = 0.0f; emit o2PartialPressChanged();
+        m_co2Concentration = 0.0f; emit co2ConcentrationChanged();
+        m_relativeHumidity = 0.0f; emit relativeHumidityChanged();
+        m_cabinTemp = 0.0f; emit cabinTempChanged();
+        m_coolantLoopA = 0.0f; emit coolantLoopAChanged();
+        m_portableWater = 0.0f; emit portableWaterChanged();
+        m_greywaterTank = 0.0f; emit greywaterTankChanged();
+        m_wpaEfficiency = 0.0f; emit wpaEfficiencyChanged();
+        m_liOHScrubbersActive = false; emit liOHScrubbersActiveChanged();
+
+        m_astronaut1BPM = 0; emit astronaut1BPMChanged();
+        m_astronaut1Resp = 0; emit astronaut1RespChanged();
+        m_astronaut1SPO2 = 0; emit astronaut1SPO2Changed();
+        m_astronaut1Temp = 0.0f; emit astronaut1TempChanged();
+
+        m_astronaut2BPM = 0; emit astronaut2BPMChanged();
+        m_astronaut2Resp = 0; emit astronaut2RespChanged();
+        m_astronaut2SPO2 = 0; emit astronaut2SPO2Changed();
+        m_astronaut2Temp = 0.0f; emit astronaut2TempChanged();
+
+        m_astronaut3BPM = 0; emit astronaut3BPMChanged();
+        m_astronaut3Resp = 0; emit astronaut3RespChanged();
+        m_astronaut3SPO2 = 0; emit astronaut3SPO2Changed();
+        m_astronaut3Temp = 0.0f; emit astronaut3TempChanged();
+
+        m_astronaut4BPM = 0; emit astronaut4BPMChanged();
+        m_astronaut4Resp = 0; emit astronaut4RespChanged();
+        m_astronaut4SPO2 = 0; emit astronaut4SPO2Changed();
+        m_astronaut4Temp = 0.0f; emit astronaut4TempChanged();
+        
+        return;
+    }
 
     if (m_liOHScrubbersActive && m_liOHScrubbersPercent > 0.0f) {
         co2Removal = (m_liOHScrubbersPercent / 100.0f) * 0.00015f * powerFactor;

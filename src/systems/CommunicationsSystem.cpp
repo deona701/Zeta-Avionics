@@ -80,21 +80,20 @@ void CommunicationsSystem::sendNtfyNotification(const QString &title, const QStr
 
 
 void CommunicationsSystem::sendTelemetryBurst() {
+    if (m_powerConsumption <= 0.0f) return;
     if (m_downlinkStatus && m_antennaTargetLock == "LOCKED") {
         sendNtfyNotification(
-        "ZETA AVIONICS: Telemetry Burst",
-        "Outbound telemetry package transmitted to Earth Relay successfully."
-    );
-    m_telemetryPackets += 15;
-    emit telemetryPacketsChanged();
-    }
-    else {
-        return;
+            "ZETA AVIONICS: Telemetry Burst",
+            "Outbound telemetry package transmitted to Earth Relay successfully."
+        );
+        m_telemetryPackets += 15;
+        emit telemetryPacketsChanged();
     }
 }
 
 
 void CommunicationsSystem::triggerDistressBeacon() {
+    if (m_powerConsumption <= 0.0f) return;
     if (m_downlinkStatus && m_antennaTargetLock == "LOCKED") {
         sendNtfyNotification(
             "CRITICAL ALERT: Zeta Avionics",
@@ -102,9 +101,6 @@ void CommunicationsSystem::triggerDistressBeacon() {
         );
         m_telemetryPackets += 20;
         emit telemetryPacketsChanged();
-    }
-    else {
-        return;
     }
 }
 
@@ -116,6 +112,14 @@ void CommunicationsSystem::updateSimulation(float deltaTime) {
     bool oldDownlinkStatus = m_downlinkStatus;
     QString oldAntennaTargetLock = m_antennaTargetLock;
     QString oldActiveLink = m_activeLink;
+
+    if (m_powerConsumption <= 0.0f) {
+        m_antennaTargetLock = "OFFLINE"; emit antennaTargetLockChanged();
+        m_signalStrength = 0.0f; emit signalStrengthChanged();
+        m_dataTransferRate = 0.0f; emit dataTransferRateChanged();
+    
+        return;
+    }
 
     if (!m_downlinkStatus) {
         m_antennaTargetLock = "OFFLINE...";

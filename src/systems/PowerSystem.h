@@ -69,9 +69,9 @@ private:
     float m_navigationPower = 4.0f;
     float m_communicationsPower = 3.0f;
 
-    float m_totalGeneration = 40.0f;
-    float m_totalConsumption = 21.0f;
-    float m_netBusBalance = 19.0f;
+    float m_totalGeneration = 15.0f + 25.0f;
+    float m_totalConsumption = 8.0f + 6.0f + 4.0f + 3.0f;
+    float m_netBusBalance = (15.0f + 25.0f) - (8.0f + 6.0f + 4.0f + 3.0f);
 };
 
 #endif // POWERSYSTEM_H

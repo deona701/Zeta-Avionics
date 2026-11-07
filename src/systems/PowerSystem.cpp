@@ -12,9 +12,9 @@ PowerSystem::PowerSystem(QObject *parent)
     , m_navigationPower(4.0f)
     , m_communicationsPower(3.0f)
 
-    , m_totalGeneration(40.0f)
-    , m_totalConsumption(21.0f)
-    , m_netBusBalance(19.0f)
+    , m_totalGeneration(15.0f + 25.0f)
+    , m_totalConsumption(8.0f + 6.0f + 4.0f + 3.0f)
+    , m_netBusBalance((15.0f + 25.0f) - (8.0f + 6.0f + 4.0f + 3.0f))
 {
 }
 
@@ -100,6 +100,12 @@ void PowerSystem::updateSimulation(float deltaTime) {
 
     m_mainBatteryBus += (m_netBusBalance * 0.01f) * deltaTime;
     m_mainBatteryBus = std::clamp(m_mainBatteryBus, 0.0f, 100.0f);
+
+    if (m_mainBatteryBus <= 0.0f && m_netBusBalance < 0.0f) {
+        m_propulsionPower = 0.0f;
+        m_navigationPower = 0.0f;
+        m_communicationsPower = 0.0f;
+    }
 
     if (m_solarArrayOutput != oldSolarArrayOutput) emit solarArrayOutputChanged();
     if (m_reactorCoreOutput != oldReactorCoreOutput) emit reactorCoreOutputChanged();

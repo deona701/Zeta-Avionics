@@ -20,7 +20,7 @@ Item {
 
         Rectangle {
             Layout.fillWidth: true
-            Layout.preferredHeight: 160
+            Layout.preferredHeight: 180
             color: Theme.dark
             border.color: Theme.light
             border.width: 1
@@ -31,19 +31,40 @@ Item {
                 anchors.margins: 20
                 spacing: 8
 
-                Text {
-                    text: "MAIN POWER GENERATION OVERVIEW"
-                    color: Theme.primaryText
-                    font.bold: true
-                    font.pixelSize: Theme.fontSmall
+                RowLayout {
                     Layout.alignment: Qt.AlignHCenter
+                    spacing: 15
+
+                    Text {
+                        text: "MAIN POWER GENERATION OVERVIEW"
+                        color: Theme.primaryText
+                        font.bold: true
+                        font.pixelSize: Theme.fontSmall
+                    }
+
+                    Rectangle {
+                        width: 90
+                        height: 22
+                        radius: 4
+                        color: powerSceneRoot.powerSystem.inEclipse ? "#2a1212" : "#122a12"
+                        border.color: powerSceneRoot.powerSystem.inEclipse ? "#ff3333" : "#33ff33"
+                        border.width: 1
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: powerSceneRoot.powerSystem.inEclipse ? "ECLIPSE" : "SUNLIGHT"
+                            color: powerSceneRoot.powerSystem.inEclipse ? "#ff3333" : "#33ff33"
+                            font.bold: true
+                            font.pixelSize: 10
+                        }
+                    }
                 }
 
                 Rectangle { Layout.fillWidth: true; height: 1; color: Theme.grey }
 
                 GridLayout {
                     columns: 3
-                    rowSpacing: 20
+                    rowSpacing: 15
                     columnSpacing: 20
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignCenter

@@ -6,6 +6,8 @@ PowerSystem::PowerSystem(QObject *parent)
     ,  m_solarArrayOutput(15.0f)
     , m_reactorCoreOutput(25.0f)
     , m_mainBatteryBus(85.0f)
+    , m_orbitTimer(0.0f)
+    , m_inEclipse(false)
 
     , m_propulsionPower(8.0f)
     , m_lifeSupportPower(6.0f)
@@ -21,6 +23,8 @@ PowerSystem::PowerSystem(QObject *parent)
 float PowerSystem::solarArrayOutput() const { return m_solarArrayOutput; }
 float PowerSystem::reactorCoreOutput() const { return m_reactorCoreOutput; }
 float PowerSystem::mainBatteryBus() const { return m_mainBatteryBus; }
+float PowerSystem::orbitTimer() const { return m_orbitTimer; }
+bool PowerSystem::inEclipse() const { return m_inEclipse; }
 
 float PowerSystem::propulsionPower() const { return m_propulsionPower; }
 float PowerSystem::lifeSupportPower() const { return m_lifeSupportPower; }
@@ -93,6 +97,22 @@ void PowerSystem::updateSimulation(float deltaTime) {
     float oldTotalGeneration = m_totalGeneration;
     float oldTotalConsumption = m_totalConsumption;
     float oldNetBusBalance = m_netBusBalance;
+    float oldOrbitTimer = m_orbitTimer;
+    bool oldInEclipse = m_inEclipse;
+
+    m_orbitTimer += deltaTime;
+    float orbitalPeriod = 5400.0f; 
+    float timeInOrbit = std::fmod(m_orbitTimer, orbitalPeriod);
+
+    const float nominalSolar = 15.0f;
+    if (timeInOrbit >= 3600.0f) {
+        m_solarArrayOutput = 0.0f;
+        m_inEclipse = true;
+    } 
+    else {
+        m_solarArrayOutput = nominalSolar;
+        m_inEclipse = false;
+    }
 
     m_totalGeneration = m_solarArrayOutput + m_reactorCoreOutput;
     m_totalConsumption = m_propulsionPower + m_lifeSupportPower + m_navigationPower + m_communicationsPower;
@@ -113,4 +133,6 @@ void PowerSystem::updateSimulation(float deltaTime) {
     if (m_totalGeneration != oldTotalGeneration) emit totalGenerationChanged();
     if (m_totalConsumption != oldTotalConsumption) emit totalConsumptionChanged();
     if (m_netBusBalance != oldNetBusBalance) emit netBusBalanceChanged();
+    if (m_orbitTimer != oldOrbitTimer) emit orbitTimerChanged();
+    if (m_inEclipse != oldInEclipse) emit inEclipseChanged();
 }

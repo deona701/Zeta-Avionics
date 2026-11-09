@@ -15,6 +15,8 @@ class PowerSystem : public QObject
     Q_PROPERTY(float solarArrayOutput READ solarArrayOutput NOTIFY solarArrayOutputChanged)
     Q_PROPERTY(float reactorCoreOutput READ reactorCoreOutput NOTIFY reactorCoreOutputChanged)
     Q_PROPERTY(float mainBatteryBus READ mainBatteryBus NOTIFY mainBatteryBusChanged)
+    Q_PROPERTY(float orbitTimer READ orbitTimer NOTIFY orbitTimerChanged)
+    Q_PROPERTY(bool inEclipse READ inEclipse NOTIFY inEclipseChanged)
 
     Q_PROPERTY(float propulsionPower READ propulsionPower WRITE setPropulsionPower NOTIFY propulsionPowerChanged)
     Q_PROPERTY(float lifeSupportPower READ lifeSupportPower WRITE setLifeSupportPower NOTIFY lifeSupportPowerChanged)
@@ -30,6 +32,8 @@ public:
     float solarArrayOutput() const;
     float reactorCoreOutput() const;
     float mainBatteryBus() const;
+    float orbitTimer() const;
+    bool inEclipse() const;
 
     float propulsionPower() const;
     float lifeSupportPower() const;
@@ -53,6 +57,8 @@ signals:
     void solarArrayOutputChanged();
     void reactorCoreOutputChanged();
     void mainBatteryBusChanged();
+    void orbitTimerChanged();
+    void inEclipseChanged();
 
     void propulsionPowerChanged();
     void lifeSupportPowerChanged();
@@ -63,6 +69,9 @@ private:
     float m_solarArrayOutput = 15.0f;
     float m_reactorCoreOutput = 25.0f;
     float m_mainBatteryBus = 85.0f;
+
+    float m_orbitTimer = 0.0f;
+    bool m_inEclipse = false;
 
     float m_propulsionPower = 8.0f;
     float m_lifeSupportPower = 6.0f;

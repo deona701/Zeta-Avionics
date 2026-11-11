@@ -37,13 +37,6 @@ void NavigationSystem::updateSimulation(float deltaTime, float currentThrust, fl
     QString oldTrajectory = m_trajectory;
 
     if (m_powerConsumption <= 0.0f) {
-        m_distance = 0.0f; emit distanceChanged();
-        m_eta = 0; emit etaChanged();
-        m_velocity = 0.0f; emit velocityChanged();
-        m_currentPos = "-"; emit currentPosChanged();
-        m_destination = "-"; emit destinationChanged();
-        m_trajectory = "SYSTEM OFFLINE"; emit trajectoryChanged();
-
         return;
     }
 

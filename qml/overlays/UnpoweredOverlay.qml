@@ -11,12 +11,10 @@ Item {
     Rectangle {
         anchors.fill: parent
         color: "#000000"
-        opacity: overlayRoot.isPowered ? 0.0 : 0.75
+        border.color: Theme.light
+        border.width: 2
+        opacity: overlayRoot.isPowered ? 0.0 : 1.0
         visible: opacity > 0.01
-
-        Behavior on opacity {
-            NumberAnimation { duration: 250; easing.type: Easing.OutQuad }
-        }
 
         MouseArea {
             anchors.fill: parent

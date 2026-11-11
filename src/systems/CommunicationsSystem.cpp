@@ -114,10 +114,6 @@ void CommunicationsSystem::updateSimulation(float deltaTime) {
     QString oldActiveLink = m_activeLink;
 
     if (m_powerConsumption <= 0.0f) {
-        m_antennaTargetLock = "OFFLINE"; emit antennaTargetLockChanged();
-        m_signalStrength = 0.0f; emit signalStrengthChanged();
-        m_dataTransferRate = 0.0f; emit dataTransferRateChanged();
-    
         return;
     }
 

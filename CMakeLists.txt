@@ -41,6 +41,9 @@ qt_add_qml_module(appZeta_Avionics
         qml/components/BottomNavBar.qml
         qml/components/PlanetsView.qml
         qml/components/EngineView.qml
+        qml/overlays/UnpoweredOverlay.qml
+        qml/scenes/DiagnosticsScene.qml
+        qml/scenes/MissionsScene.qml
         models/SpacecraftModel/Futuristic_spacecraft_3dmodel.qml
     RESOURCES
         assets/fonts/IBMPlexMono-Regular.ttf
@@ -76,11 +79,10 @@ qt_add_qml_module(appZeta_Avionics
         src/systems/LifeSupportSystem.cpp
         src/systems/PowerSystem.h
         src/systems/PowerSystem.cpp
-        QML_FILES qml/overlays/UnpoweredOverlay.qml
-        SOURCES src/diagnostics/DiagnosticsSystem.h src/diagnostics/DiagnosticsSystem.cpp
-        QML_FILES qml/scenes/DiagnosticsScene.qml
-        QML_FILES qml/scenes/MissionsScene.qml
-        SOURCES src/missions/MissionsSystem.h src/missions/MissionsSystem.cpp
+        src/diagnostics/DiagnosticsSystem.h
+        src/diagnostics/DiagnosticsSystem.cpp
+        src/missions/MissionsSystem.h 
+        src/missions/MissionsSystem.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

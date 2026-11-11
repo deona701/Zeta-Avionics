@@ -8,6 +8,7 @@
 #include "../systems/CommunicationsSystem.h"
 #include "../systems/LifeSupportSystem.h"
 #include "../systems/PowerSystem.h"
+#include "../diagnostics/DiagnosticsSystem.h"
 
 class SpacecraftState : public QObject
 {
@@ -20,6 +21,8 @@ class SpacecraftState : public QObject
     Q_PROPERTY(LifeSupportSystem* lifeSupport READ lifeSupport CONSTANT)
     Q_PROPERTY(PowerSystem* power READ power CONSTANT)
 
+    Q_PROPERTY(DiagnosticsSystem* diagnostics READ diagnostics CONSTANT)
+
 public:
     explicit SpacecraftState(QObject *parent = nullptr);
 
@@ -28,6 +31,8 @@ public:
     CommunicationsSystem* communications() { return &m_communications; }
     LifeSupportSystem* lifeSupport() { return &m_lifeSupport; }
     PowerSystem* power() { return &m_power; }
+
+    DiagnosticsSystem* diagnostics() { return &m_diagnostics; }
 
     void updateAllSystems(float deltaTime);
 
@@ -41,6 +46,7 @@ private:
     CommunicationsSystem m_communications;
     LifeSupportSystem m_lifeSupport;
     PowerSystem m_power;
+    DiagnosticsSystem m_diagnostics;
 };
 
 #endif // SPACECRAFTSTATE_H

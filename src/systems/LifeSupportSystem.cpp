@@ -223,8 +223,8 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     float nominalPower = 6.0f;
     float powerFactor = std::clamp(m_powerConsumption / nominalPower, 0.0f, 1.0f);
 
-    float co2Production = totalRespRates * 0.0001f;
-    float co2Removal = 0.0f;
+    float co2Production = totalRespRates * 0.00003f; 
+    float co2Removal = 0.00002f;
 
     if (m_powerConsumption <= 0.0f) {
         return;

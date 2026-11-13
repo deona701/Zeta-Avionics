@@ -1,14 +1,17 @@
 #include "NavigationSystem.h"
 #include "SpacecraftState.h"
+#include <algorithm>
+#include <cmath>
 
 NavigationSystem::NavigationSystem(QObject *parent)
     : QObject(parent)
     , m_powerConsumption(4.0f)
     , m_distance(225000000.0f)
-    , m_velocity(12.0f)
-    , m_eta(217)
-    , m_currentPos("Earth")
-    , m_destination("Mars")
+    , m_velocity(24.5f)
+    , m_eta(106)
+    , m_currentPos("Earth Orbit")
+    , m_destination("Mars Intercept")
+    , m_trajectory("Nominal Interplanetary Transfer")
 {
 }
 
@@ -20,13 +23,11 @@ QString NavigationSystem::currentPos() const { return m_currentPos; }
 QString NavigationSystem::destination() const { return m_destination; }
 QString NavigationSystem::trajectory() const { return m_trajectory; }
 
-
 void NavigationSystem::setPowerConsumption(float newPower) {
     if (m_powerConsumption == newPower) return;
     m_powerConsumption = newPower;
     emit powerConsumptionChanged();
 }
-
 
 void NavigationSystem::updateSimulation(float deltaTime, float currentThrust, float currentFuel, bool engineStatus) {
     float oldDistance = m_distance;
@@ -46,27 +47,51 @@ void NavigationSystem::updateSimulation(float deltaTime, float currentThrust, fl
     float fuelMass = (currentFuel / 100.0f) * SpacecraftState::MAX_PROPELLANT_MASS;
     float totalMass = SpacecraftState::DRY_MASS + fuelMass;
 
-    float acceleration =  currentThrust / totalMass * powerFactor;
-    m_velocity += (acceleration / 1000.0f) * deltaTime;
+    float rawAcceleration = (totalMass > 0.0f) ? (currentThrust / totalMass) : 0.0f;
+    float accelerationKm = (rawAcceleration * 50.0f) * powerFactor;
 
-    m_distance -= m_velocity * deltaTime;
+    if (currentFuel > 0.0f && engineStatus && currentThrust > 0.0f) {
+        m_velocity += accelerationKm * deltaTime;
+        m_trajectory = "Powered Burn Vector";
+    } 
+    else {
+        m_trajectory = "Heliocentric Coast";
+    }
+
+    m_velocity = std::clamp(m_velocity, 10.0f, 75.0f);
+
+    float distanceCoveredKm = m_velocity * deltaTime * 150.0f;
+    m_distance -= distanceCoveredKm;
     m_distance = std::clamp(m_distance, 0.0f, 225000000.0f);
-    
-    m_eta = (m_distance / m_velocity) / 86400.0;
 
-    if (m_distance <= 0.0f) {
-        m_currentPos = "Mars";
-        m_destination = "Arrived";
+    if (m_distance > 180000000.0f) {
+        m_currentPos = "Earth Departure Orbit";
+        m_destination = "Deep Space Transit";
+    } 
+    else if (m_distance > 50000000.0f) {
+        m_currentPos = "Deep Space Cruise";
+        m_destination = "Mars Approach Corridor";
+    } 
+    else if (m_distance > 5000000.0f) {
+        m_currentPos = "Mars Approach";
+        m_destination = "Mars Orbit Insertion (MOI)";
+    } 
+    else if (m_distance > 0.0f) {
+        m_currentPos = "Mars Terminal Insertion";
+        m_destination = "Low Mars Orbit (LMO)";
+    } 
+    else {
+        m_currentPos = "Mars Surface / Orbit";
+        m_destination = "Mission Accomplished";
+        m_trajectory = "Stable Martian Capture";
+    }
+
+    if (m_velocity > 0.0f) {
+        m_eta = static_cast<int>((m_distance / m_velocity) / 86400.0f);
     }
 
     if (currentFuel <= 0.0f) {
-        m_trajectory = "Fuel Depleted (Coast)";
-    }
-    else if (currentThrust > 0.0f) {
-        m_trajectory = "Powered Burn";
-    }
-    else {
-        m_trajectory = "Nominal Coast";
+        m_trajectory = "Fuel Depleted - Ballistic Coast";
     }
 
     if (m_distance != oldDistance) emit distanceChanged();

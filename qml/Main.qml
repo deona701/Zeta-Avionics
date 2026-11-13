@@ -65,6 +65,7 @@ ApplicationWindow {
         SceneWrapper { active: window.currentScene === "NAV"; NavigationScene { anchors.fill: parent; sim: mainSim } }
         SceneWrapper { active: window.currentScene === "COMMS"; CommunicationsScene { anchors.fill: parent; sim: mainSim } }
 
+        SceneWrapper { active: window.currentScene === "MISSIONS"; MissionsScene { anchors.fill: parent; sim: mainSim } }
         SceneWrapper { active: window.currentScene === "DIAG"; DiagnosticsScene { anchors.fill: parent; sim: mainSim } }
     }
 

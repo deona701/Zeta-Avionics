@@ -39,4 +39,10 @@ void SpacecraftState::updateAllSystems(float deltaTime)
         m_lifeSupport.astronaut3Temp(), m_lifeSupport.astronaut3BPM(), m_lifeSupport.astronaut3SPO2(), m_lifeSupport.astronaut3Resp(),
         m_lifeSupport.astronaut4Temp(), m_lifeSupport.astronaut4BPM(), m_lifeSupport.astronaut4SPO2(), m_lifeSupport.astronaut4Resp()
     );
+    m_missions.updateSimulation(
+        deltaTime,
+        m_navigation.distance(),
+        m_propulsion.propellantPercentage(),
+        m_navigation.velocity()
+    );
 }

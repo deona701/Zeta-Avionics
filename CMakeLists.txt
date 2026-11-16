@@ -4,7 +4,7 @@ project(Zeta_Avionics VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick Quick3D HttpServer)
+find_package(Qt6 REQUIRED COMPONENTS Quick Quick3D HttpServer Multimedia TextToSpeech)
 
 qt_standard_project_setup(REQUIRES 6.10)
 
@@ -44,6 +44,7 @@ qt_add_qml_module(appZeta_Avionics
         qml/overlays/UnpoweredOverlay.qml
         qml/scenes/DiagnosticsScene.qml
         qml/scenes/MissionsScene.qml
+        qml/scenes/Zeta.qml
         models/SpacecraftModel/Futuristic_spacecraft_3dmodel.qml
     RESOURCES
         assets/fonts/IBMPlexMono-Regular.ttf
@@ -83,6 +84,8 @@ qt_add_qml_module(appZeta_Avionics
         src/diagnostics/DiagnosticsSystem.cpp
         src/missions/MissionsSystem.h 
         src/missions/MissionsSystem.cpp
+        src/zeta/ZetaAssistantSystem.h 
+        src/zeta/ZetaAssistantSystem.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -97,7 +100,7 @@ set_target_properties(appZeta_Avionics PROPERTIES
 )
 
 target_link_libraries(appZeta_Avionics
-    PRIVATE Qt6::Quick Qt6::Quick3D Qt6::HttpServer
+    PRIVATE Qt6::Quick Qt6::Quick3D Qt6::HttpServer Qt6::Multimedia Qt6::TextToSpeech
 )
 
 target_include_directories(appZeta_Avionics PRIVATE

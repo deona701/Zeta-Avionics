@@ -10,6 +10,7 @@
 #include "../systems/PowerSystem.h"
 #include "../diagnostics/DiagnosticsSystem.h"
 #include "../missions/MissionsSystem.h"
+#include "../zeta/ZetaAssistantSystem.h"
 
 class SpacecraftState : public QObject
 {
@@ -24,6 +25,7 @@ class SpacecraftState : public QObject
 
     Q_PROPERTY(DiagnosticsSystem* diagnostics READ diagnostics CONSTANT)
     Q_PROPERTY(MissionsSystem* missions READ missions CONSTANT)
+    Q_PROPERTY(ZetaAssistantSystem* zeta READ zeta CONSTANT)
 
 public:
     explicit SpacecraftState(QObject *parent = nullptr);
@@ -36,6 +38,7 @@ public:
 
     DiagnosticsSystem* diagnostics() { return &m_diagnostics; }
     MissionsSystem* missions() { return &m_missions; }
+    ZetaAssistantSystem* zeta() { return &m_zeta; }
 
     void updateAllSystems(float deltaTime);
 
@@ -51,6 +54,7 @@ private:
     PowerSystem m_power;
     DiagnosticsSystem m_diagnostics;
     MissionsSystem m_missions;
+    ZetaAssistantSystem m_zeta;
 };
 
 #endif // SPACECRAFTSTATE_H

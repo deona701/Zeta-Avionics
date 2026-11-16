@@ -67,6 +67,7 @@ ApplicationWindow {
 
         SceneWrapper { active: window.currentScene === "MISSIONS"; MissionsScene { anchors.fill: parent; sim: mainSim } }
         SceneWrapper { active: window.currentScene === "DIAG"; DiagnosticsScene { anchors.fill: parent; sim: mainSim } }
+        SceneWrapper { active: window.currentScene === "ZETA"; Zeta { anchors.fill: parent; sim: mainSim } }
     }
 
     SpacecraftSimulation {

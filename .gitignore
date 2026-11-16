@@ -91,3 +91,5 @@ assets/background/
 assets/planets/
 assets/spacecraftengine
 models/
+*.onnx
+*.wav

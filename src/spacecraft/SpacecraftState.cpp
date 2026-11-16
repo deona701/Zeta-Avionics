@@ -1,6 +1,8 @@
 #include "SpacecraftState.h"
 
-SpacecraftState::SpacecraftState(QObject *parent) : QObject(parent) {}
+SpacecraftState::SpacecraftState(QObject *parent) : QObject(parent) {
+    m_zeta.setSpacecraftState(this);
+}
 
 void SpacecraftState::updateAllSystems(float deltaTime)
 {
@@ -45,4 +47,6 @@ void SpacecraftState::updateAllSystems(float deltaTime)
         m_propulsion.propellantPercentage(),
         m_navigation.velocity()
     );
+
+    m_zeta.updateSimulation(deltaTime);
 }

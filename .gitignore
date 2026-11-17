@@ -93,3 +93,4 @@ assets/spacecraftengine
 models/
 *.onnx
 *.wav
+assets/stt/

@@ -66,19 +66,45 @@ Item {
                 anchors.margins: 30
                 spacing: 20
 
-                Text {
-                    text: "ZETA RESPONSE FEED"
-                    color: Theme.secondaryText
-                    font.pixelSize: Theme.fontSmall
+                ColumnLayout {
+                    spacing: 6
+                    visible: zeta.lastHeardText.length > 0
+                    Layout.fillWidth: true
+
+                    Text {
+                        text: "CAPTAIN VOICE TRANSCRIPT"
+                        color: Theme.secondaryText
+                        font.pixelSize: Theme.fontSmall
+                    }
+
+                    Text {
+                        text: "\"" + zeta.lastHeardText + "\""
+                        color: "#00e5ff"
+                        font.italic: true
+                        font.pixelSize: 16
+                        wrapMode: Text.WordWrap
+                        Layout.fillWidth: true
+                    }
                 }
 
-                Text {
-                    text: zeta.lastResponse
-                    color: Theme.primaryText
-                    font.bold: true
-                    font.pixelSize: 18
-                    wrapMode: Text.WordWrap
+                ColumnLayout {
+                    spacing: 6
                     Layout.fillWidth: true
+
+                    Text {
+                        text: "ZETA RESPONSE FEED"
+                        color: Theme.secondaryText
+                        font.pixelSize: Theme.fontSmall
+                    }
+
+                    Text {
+                        text: zeta.lastResponse
+                        color: Theme.primaryText
+                        font.bold: true
+                        font.pixelSize: 18
+                        wrapMode: Text.WordWrap
+                        Layout.fillWidth: true
+                    }
                 }
 
                 Item { Layout.fillHeight: true }
@@ -144,7 +170,7 @@ Item {
                 id: fallbackInput
                 Layout.fillWidth: true
                 Layout.preferredHeight: 50
-                placeholderText: "Type command (e.g. 'status report', 'mars distance', 'fuel', 'cabin vitals')..."
+                placeholderText: "Or type command (e.g. 'status report', 'mars distance', 'fuel', 'cabin vitals')..."
                 color: Theme.primaryText
                 font.pixelSize: 14
                 background: Rectangle {

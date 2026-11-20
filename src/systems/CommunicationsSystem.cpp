@@ -3,17 +3,19 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QUrl>
+#include <algorithm>
+#include <cmath>
 
 CommunicationsSystem::CommunicationsSystem(QObject *parent)
     : QObject(parent)
     , m_networkManager(new QNetworkAccessManager(this))
     , m_powerConsumption(5.0f)
-    , m_signalStrength(90.0f)
-    , m_dataTransferRate(00.0f)
+    , m_signalStrength(0.0f)
+    , m_dataTransferRate(0.0f)
     , m_antennaAlignment(91.7f)
     , m_telemetryPackets(0)
     , m_downlinkStatus(true)
-    , m_antennaTargetLock("LOCKED")
+    , m_antennaTargetLock("LOST...")
     , m_activeLink("EARTH RELAY / DSN")
 {
 }
@@ -104,7 +106,9 @@ void CommunicationsSystem::triggerDistressBeacon() {
     }
 }
 
-void CommunicationsSystem::updateSimulation(float deltaTime) {
+void CommunicationsSystem::updateSimulation(float deltaTime, float distance) {
+    Q_UNUSED(deltaTime);
+
     float oldSignalStrength = m_signalStrength;
     float oldDataTransferRate = m_dataTransferRate;
     float oldAntennaAlignment = m_antennaAlignment;
@@ -114,58 +118,59 @@ void CommunicationsSystem::updateSimulation(float deltaTime) {
     QString oldActiveLink = m_activeLink;
 
     if (m_powerConsumption <= 0.0f) {
-        return;
+        m_antennaTargetLock = "OFFLINE...";
+        m_signalStrength = 0.0f;
+        m_dataTransferRate = 0.0f;
     }
-
-    if (!m_downlinkStatus) {
+    else if (!m_downlinkStatus) {
         m_antennaTargetLock = "OFFLINE...";
         m_dataTransferRate = 0.0f;
         m_signalStrength = 0.0f;
     }
     else {
+        QString normalizedLink = m_activeLink.trimmed().toUpper();
+
         float distanceToCenter = 0.0f;
         float maxAllowedDistance = 0.0f;
+        bool aligned = false;
 
-        if (m_activeLink == "EARTH RELAY / DSN") {
+        if (normalizedLink == "EARTH RELAY / DSN") {
             float center = 93.0f;
             maxAllowedDistance = 7.0f;
             distanceToCenter = std::abs(m_antennaAlignment - center);
-
-            if (m_antennaAlignment >= 86.0f) {
-                m_antennaTargetLock = "LOCKED";
-            }
-            else {
-                m_antennaTargetLock = "LOST...";
-            }
+            aligned = (m_antennaAlignment >= 86.0f && m_antennaAlignment <= 100.0f);
         }
-        else if (m_activeLink == "MARS ORBITER RELAY") {
+        else if (normalizedLink == "MARS ORBITER RELAY") {
             float center = 39.5f;
             maxAllowedDistance = 3.5f;
             distanceToCenter = std::abs(m_antennaAlignment - center);
-
-            if (m_antennaAlignment >= 36.0f && m_antennaAlignment <= 43.0f) {
-                m_antennaTargetLock = "LOCKED";
-            }
-            else {
-                m_antennaTargetLock = "LOST...";
-            }
+            aligned = (m_antennaAlignment >= 36.0f && m_antennaAlignment <= 43.0f);
         }
-        else if (m_activeLink == "DEEP SPACE GATEWAY") {
+        else if (normalizedLink == "DEEP SPACE GATEWAY") {
             float center = 55.5f;
             maxAllowedDistance = 2.5f;
             distanceToCenter = std::abs(m_antennaAlignment - center);
-
-            if (m_antennaAlignment >= 53.0f && m_antennaAlignment <= 58.0f) {
-                m_antennaTargetLock = "LOCKED";
-            }
-            else {
-                m_antennaTargetLock = "LOST...";
-            }
+            aligned = (m_antennaAlignment >= 53.0f && m_antennaAlignment <= 58.0f);
         }
 
-        if (distanceToCenter <= maxAllowedDistance) {
-            float signalPercent = (1.0f - (distanceToCenter / maxAllowedDistance)) * 100.0f;
+        bool linkInRange = false;
+        if (distance > 180000000.0f) {
+            linkInRange = (normalizedLink == "EARTH RELAY / DSN");
+        }
+        else if (distance > 50000000.0f) {
+            linkInRange = (normalizedLink == "DEEP SPACE GATEWAY");
+        }
+        else if (distance > 5000000.0f) {
+            linkInRange = (normalizedLink == "DEEP SPACE GATEWAY" || normalizedLink == "MARS ORBITER RELAY");
+        }
+        else {
+            linkInRange = (normalizedLink == "MARS ORBITER RELAY");
+        }
 
+        if (aligned && linkInRange && distanceToCenter <= maxAllowedDistance) {
+            m_antennaTargetLock = "LOCKED";
+
+            float signalPercent = (1.0f - (distanceToCenter / maxAllowedDistance)) * 100.0f;
             float nominalPower = 3.0f;
             float powerFactor = std::clamp(m_powerConsumption / nominalPower, 0.0f, 1.0f);
 

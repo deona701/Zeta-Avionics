@@ -14,7 +14,6 @@ void SpacecraftState::updateAllSystems(float deltaTime)
     m_communications.setPowerConsumption(m_power.communicationsPower());
 
     m_propulsion.updateSimulation(deltaTime);
-    m_communications.updateSimulation(deltaTime);
     m_lifeSupport.updateSimulation(deltaTime);
 
     float currentThrust = m_propulsion.thrustOutput();
@@ -27,6 +26,10 @@ void SpacecraftState::updateAllSystems(float deltaTime)
     float communicationsPowerConsumption = m_communications.powerConsumption();
 
     m_navigation.updateSimulation(deltaTime, currentThrust, currentFuel, engineStatus);
+
+    float distance = m_navigation.distance();
+
+    m_communications.updateSimulation(deltaTime, distance);
 
     m_diagnostics.updateSimulation(
         deltaTime,

@@ -12,7 +12,7 @@ class CommunicationsSystem : public QObject
     Q_OBJECT
     QML_ELEMENT
 
-    Q_PROPERTY(float powerConsumption READ powerConsumption NOTIFY powerConsumptionChanged)
+    Q_PROPERTY(float powerConsumption READ powerConsumption WRITE setPowerConsumption NOTIFY powerConsumptionChanged)
     Q_PROPERTY(float signalStrength READ signalStrength NOTIFY signalStrengthChanged)
     Q_PROPERTY(float dataTransferRate READ dataTransferRate NOTIFY dataTransferRateChanged)
     Q_PROPERTY(float antennaAlignment READ antennaAlignment WRITE setAntennaAlignment NOTIFY antennaAlignmentChanged)
@@ -20,7 +20,7 @@ class CommunicationsSystem : public QObject
     Q_PROPERTY(bool downlinkStatus READ downlinkStatus WRITE setDownlinkStatus NOTIFY downlinkStatusChanged)
     Q_PROPERTY(QString antennaTargetLock READ antennaTargetLock NOTIFY antennaTargetLockChanged)
     Q_PROPERTY(QString activeLink READ activeLink WRITE setActiveLink NOTIFY activeLinkChanged)
-    
+
 public:
     explicit CommunicationsSystem(QObject *parent = nullptr);
 
@@ -33,15 +33,15 @@ public:
     QString antennaTargetLock() const;
     QString activeLink() const;
 
-    Q_INVOKABLE void updateSimulation(float deltaTime);
-    Q_INVOKABLE void sendTelemetryBurst();
-    Q_INVOKABLE void triggerDistressBeacon();
-
-public slots:
-    void setPowerConsumption(float power);
+    void setPowerConsumption(float newPower);
     void setAntennaAlignment(float newAntennaAlignment);
     void setDownlinkStatus(bool newDownlinkStatus);
     void setActiveLink(QString newActiveLink);
+
+    Q_INVOKABLE void sendTelemetryBurst();
+    Q_INVOKABLE void triggerDistressBeacon();
+
+    void updateSimulation(float deltaTime, float distance);
 
 signals:
     void powerConsumptionChanged();
@@ -54,12 +54,12 @@ signals:
     void activeLinkChanged();
 
 private:
-    QNetworkAccessManager *m_networkManager;
     void sendNtfyNotification(const QString &title, const QString &message);
 
-    float m_powerConsumption = 3.0f;
+    QNetworkAccessManager *m_networkManager = nullptr;
+    float m_powerConsumption = 5.0f;
     float m_signalStrength = 90.0f;
-    float m_dataTransferRate = 00.0f;
+    float m_dataTransferRate = 0.0f;
     float m_antennaAlignment = 91.7f;
     int m_telemetryPackets = 0;
     bool m_downlinkStatus = true;

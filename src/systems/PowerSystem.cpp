@@ -101,11 +101,11 @@ void PowerSystem::updateSimulation(float deltaTime) {
     bool oldInEclipse = m_inEclipse;
 
     m_orbitTimer += deltaTime;
-    float orbitalPeriod = 5400.0f; 
+    float orbitalPeriod = 180.0f; 
     float timeInOrbit = std::fmod(m_orbitTimer, orbitalPeriod);
 
     const float nominalSolar = 15.0f;
-    if (timeInOrbit >= 3600.0f) {
+    if (timeInOrbit >= 120.0f) {
         m_solarArrayOutput = 0.0f;
         m_inEclipse = true;
     } 
@@ -118,7 +118,7 @@ void PowerSystem::updateSimulation(float deltaTime) {
     m_totalConsumption = m_propulsionPower + m_lifeSupportPower + m_navigationPower + m_communicationsPower;
     m_netBusBalance = m_totalGeneration - m_totalConsumption;
 
-    m_mainBatteryBus += (m_netBusBalance * 0.01f) * deltaTime;
+    m_mainBatteryBus += (m_netBusBalance * 0.05f) * deltaTime;
     m_mainBatteryBus = std::clamp(m_mainBatteryBus, 0.0f, 100.0f);
 
     if (m_mainBatteryBus <= 0.0f && m_netBusBalance < 0.0f) {

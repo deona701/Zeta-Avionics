@@ -215,25 +215,25 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     bool oldLiOHScrubbersActive = m_liOHScrubbersActive;
 
     float targetPressure = 101.3f;
-    float recyclingRate = 0.00008f;
+    float recyclingRate = 0.002f;
     float totalRespRates = m_astronaut1Resp + m_astronaut2Resp + m_astronaut3Resp + m_astronaut4Resp;
-    m_o2PartialPress -= (totalRespRates * 0.0001) * deltaTime;
+    m_o2PartialPress -= (totalRespRates * 0.002) * deltaTime;
     m_o2PartialPress = std::clamp(m_o2PartialPress, 0.0f, 100.0f);
 
     float nominalPower = 6.0f;
     float powerFactor = std::clamp(m_powerConsumption / nominalPower, 0.0f, 1.0f);
 
-    float co2Production = totalRespRates * 0.00003f; 
-    float co2Removal = 0.00002f;
+    float co2Production = totalRespRates * 0.0005f; 
+    float co2Removal = 0.0001f;
 
     if (m_powerConsumption <= 0.0f) {
         return;
     }
 
     if (m_liOHScrubbersActive && m_liOHScrubbersPercent > 0.0f) {
-        co2Removal = (m_liOHScrubbersPercent / 100.0f) * 0.00015f * powerFactor;
+        co2Removal = (m_liOHScrubbersPercent / 100.0f) * 0.04f * powerFactor;
 
-        m_liOHScrubbersPercent -= 0.001f * deltaTime;
+        m_liOHScrubbersPercent -= 0.02f * deltaTime;
         m_liOHScrubbersPercent = std::clamp(m_liOHScrubbersPercent, 0.0f, 100.0f);
     }
     else if (m_liOHScrubbersActive && m_liOHScrubbersPercent <= 0.0f) {
@@ -242,21 +242,28 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     m_co2Concentration += (co2Production - co2Removal) * deltaTime;
     m_co2Concentration = std::clamp(m_co2Concentration, 0.0f, 100.0f);
 
-    m_relativeHumidity += totalRespRates * 0.0001 * deltaTime;
+
+    float targetHumidity = 45.0f;
+    float humidityGain = totalRespRates * 0.001f;
+    float humidityDehumidify = (m_relativeHumidity > targetHumidity)
+        ? ((m_relativeHumidity - targetHumidity) * 0.03f * powerFactor) : 0.0f;
+
+    m_relativeHumidity += (humidityGain - humidityDehumidify) * deltaTime;
+    m_relativeHumidity = std::clamp(m_relativeHumidity, 0.0f, 100.0f);
 
     m_cabinPressure -= (totalRespRates * 0.00005) * deltaTime;
     float pressureDifference = (m_cabinPressure - targetPressure) * -1.0f;
     m_cabinPressure += (pressureDifference / 2) * deltaTime;
 
-    m_cabinTemp += totalRespRates * 0.0001 * deltaTime;
+    m_cabinTemp += totalRespRates * 0.001f * deltaTime;
     if (m_cabinTemp > 21.5f) {
-        m_cabinTemp -= (m_coolantLoopA * 0.01 * deltaTime);
+        m_cabinTemp -= (m_coolantLoopA * 0.05f * deltaTime);
     }
     else if (m_cabinTemp < 10.5f) {
-        m_cabinTemp += (0.002 * deltaTime);
+        m_cabinTemp += (0.02f * deltaTime);
     }
 
-    float waterConsumedThisFrame = (totalRespRates * 0.0001f) * deltaTime;
+    float waterConsumedThisFrame = (totalRespRates * 0.001f) * deltaTime;
     float processedAmount = m_greywaterTank * (m_wpaEfficiency / 100.0f) * recyclingRate * deltaTime;
     processedAmount = std::min(processedAmount, m_greywaterTank);
 

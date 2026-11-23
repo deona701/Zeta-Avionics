@@ -58,7 +58,7 @@ ApplicationWindow {
         anchors.fill: parent
         visible: window.uiActive
 
-        SceneWrapper { active: window.currentScene === "MAIN"; OverviewScene { anchors.fill: parent } }
+        SceneWrapper { active: window.currentScene === "MAIN"; OverviewScene { anchors.fill: parent; sim: mainSim } }
         SceneWrapper { active: window.currentScene === "PROP"; PropulsionScene { anchors.fill: parent; sim: mainSim } }
         SceneWrapper { active: window.currentScene === "POWER"; PowerScene { anchors.fill: parent; sim: mainSim } }
         SceneWrapper { active: window.currentScene === "LIFESUPPORT"; LifeSupportScene { anchors.fill: parent; sim: mainSim } }

@@ -90,18 +90,18 @@ Item {
         NumberAnimation {
             target: startupZetaAvionicsText
             property: "opacity"
-            duration: 600
+            duration: 400
             to: 1.0
         }
         PauseAnimation { duration: 2200 }
         NumberAnimation {
             target: startupZetaAvionicsText
             property: "opacity"
-            duration: 600
+            duration: 400
             to: 0.0
         }
 
-        PauseAnimation { duration: 2200 }
+        PauseAnimation { duration: 1200 }
 
         ScriptAction {
             script: {
@@ -109,7 +109,7 @@ Item {
                 startupInitialization.opacity = 1.0
             }
         }
-        PauseAnimation { duration: 4200 }
+        PauseAnimation { duration: 2200 }
         ScriptAction {
             script: {
                 dotTimer.stop()
@@ -117,7 +117,7 @@ Item {
             }
         }
 
-        PauseAnimation { duration: 4200 }
+        PauseAnimation { duration: 1200 }
 
         ScriptAction {
             script: {
@@ -133,7 +133,7 @@ Item {
             }
         }
 
-        PauseAnimation { duration: 1200 }
+        PauseAnimation { duration: 2200 }
 
         NumberAnimation {
             target: startupComplete

@@ -138,7 +138,7 @@ private:
     float m_wpaEfficiency = 94.8f;
     float m_liOHScrubbersPercent = 92.0f;
     float m_coolantLoopA = 4.2f;
-    bool m_liOHScrubbersActive = false;
+    bool m_liOHScrubbersActive = true;
 
     float m_astronaut1Temp = 36.8f;
     int m_astronaut1BPM = 72;

@@ -230,6 +230,9 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
         return;
     }
 
+    m_o2PartialPress += (21.1f - m_o2PartialPress) * 0.05f * powerFactor * deltaTime;
+    m_o2PartialPress = std::clamp(m_o2PartialPress, 0.0f, 100.0f);
+
     if (m_liOHScrubbersActive && m_liOHScrubbersPercent > 0.0f) {
         co2Removal = (m_liOHScrubbersPercent / 100.0f) * 0.04f * powerFactor;
 

@@ -7,11 +7,12 @@ SpacecraftState::SpacecraftState(QObject *parent) : QObject(parent) {
 void SpacecraftState::updateAllSystems(float deltaTime)
 {
     m_power.updateSimulation(deltaTime);
-    
+
     m_propulsion.setPowerConsumption(m_power.propulsionPower());
     m_lifeSupport.setPowerConsumption(m_power.lifeSupportPower());
     m_navigation.setPowerConsumption(m_power.navigationPower());
     m_communications.setPowerConsumption(m_power.communicationsPower());
+    m_missions.setPowerConsumption(m_power.navigationPower());
 
     m_propulsion.updateSimulation(deltaTime);
     m_lifeSupport.updateSimulation(deltaTime);

@@ -1,9 +1,11 @@
 #include "PowerSystem.h"
 #include <algorithm>
+#include <cmath>
+#include <QStringList>
 
-PowerSystem::PowerSystem(QObject *parent) 
+PowerSystem::PowerSystem(QObject *parent)
     : QObject(parent)
-    ,  m_solarArrayOutput(15.0f)
+    , m_solarArrayOutput(15.0f)
     , m_reactorCoreOutput(25.0f)
     , m_mainBatteryBus(85.0f)
     , m_orbitTimer(0.0f)
@@ -35,7 +37,6 @@ float PowerSystem::totalGeneration() const { return m_totalGeneration; }
 float PowerSystem::totalConsumption() const { return m_totalConsumption; }
 float PowerSystem::netBusBalance() const { return m_netBusBalance; }
 
-
 void PowerSystem::setPropulsionPower(float newPropulsionPower) {
     if (m_propulsionPower == newPropulsionPower) {
         return;
@@ -44,7 +45,6 @@ void PowerSystem::setPropulsionPower(float newPropulsionPower) {
     m_propulsionPower = newPropulsionPower;
     emit propulsionPowerChanged();
 }
-
 
 void PowerSystem::setLifeSupportPower(float newLifeSupportPower) {
     if (m_lifeSupportPower == newLifeSupportPower) {
@@ -55,7 +55,6 @@ void PowerSystem::setLifeSupportPower(float newLifeSupportPower) {
     emit lifeSupportPowerChanged();
 }
 
-
 void PowerSystem::setNavigationPower(float newNavigationPower) {
     if (m_navigationPower == newNavigationPower) {
         return;
@@ -64,7 +63,6 @@ void PowerSystem::setNavigationPower(float newNavigationPower) {
     m_navigationPower = newNavigationPower;
     emit navigationPowerChanged();
 }
-
 
 void PowerSystem::setCommunicationsPower(float newCommunicationsPower) {
     if (m_communicationsPower == newCommunicationsPower) {
@@ -76,17 +74,50 @@ void PowerSystem::setCommunicationsPower(float newCommunicationsPower) {
 }
 
 void PowerSystem::requestPowerReroute(const QString &systemId, float deltaKw) {
-    if (systemId == "propulsion") {
-        setPropulsionPower(std::clamp(m_propulsionPower + deltaKw, 0.0f, 30.0f));
-    } 
-    else if (systemId == "life_support") {
-        setLifeSupportPower(std::clamp(m_lifeSupportPower + deltaKw, 0.0f, 30.0f));
-    } 
-    else if (systemId == "navigation") {
-        setNavigationPower(std::clamp(m_navigationPower + deltaKw, 0.0f, 30.0f));
-    } 
-    else if (systemId == "comms") {
-        setCommunicationsPower(std::clamp(m_communicationsPower + deltaKw, 0.0f, 30.0f));
+    auto getKw = [this](const QString &id) -> float {
+        if (id == "propulsion") return m_propulsionPower;
+        if (id == "life_support") return m_lifeSupportPower;
+        if (id == "navigation") return m_navigationPower;
+        if (id == "comms") return m_communicationsPower;
+        return 0.0f;
+    };
+
+    auto setKw = [this](const QString &id, float val) {
+        float clamped = std::clamp(val, 0.0f, 30.0f);
+        if (id == "propulsion") setPropulsionPower(clamped);
+        else if (id == "life_support") setLifeSupportPower(clamped);
+        else if (id == "navigation") setNavigationPower(clamped);
+        else if (id == "comms") setCommunicationsPower(clamped);
+    };
+
+    if (systemId != "propulsion" && systemId != "life_support"
+        && systemId != "navigation" && systemId != "comms") {
+        return;
+    }
+
+    const float currentTarget = getKw(systemId);
+    const float nextTarget = std::clamp(currentTarget + deltaKw, 0.0f, 30.0f);
+    const float actualDelta = nextTarget - currentTarget;
+    if (actualDelta == 0.0f) {
+        return;
+    }
+
+    setKw(systemId, nextTarget);
+
+    if (actualDelta > 0.0f) {
+        float remainingToShed = actualDelta;
+        const QStringList donors = {"propulsion", "comms", "navigation", "life_support"};
+        for (const QString &donor : donors) {
+            if (donor == systemId || remainingToShed <= 0.0f) {
+                continue;
+            }
+            const float donorKw = getKw(donor);
+            const float shed = std::min(donorKw, remainingToShed);
+            if (shed > 0.0f) {
+                setKw(donor, donorKw - shed);
+                remainingToShed -= shed;
+            }
+        }
     }
 }
 
@@ -101,15 +132,14 @@ void PowerSystem::updateSimulation(float deltaTime) {
     bool oldInEclipse = m_inEclipse;
 
     m_orbitTimer += deltaTime;
-    float orbitalPeriod = 180.0f; 
+    float orbitalPeriod = 180.0f;
     float timeInOrbit = std::fmod(m_orbitTimer, orbitalPeriod);
 
     const float nominalSolar = 15.0f;
     if (timeInOrbit >= 120.0f) {
         m_solarArrayOutput = 0.0f;
         m_inEclipse = true;
-    } 
-    else {
+    } else {
         m_solarArrayOutput = nominalSolar;
         m_inEclipse = false;
     }

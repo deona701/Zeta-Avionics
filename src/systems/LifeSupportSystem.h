@@ -20,6 +20,7 @@ class LifeSupportSystem : public QObject
     Q_PROPERTY(float cabinTemp READ cabinTemp NOTIFY cabinTempChanged)
     Q_PROPERTY(float portableWater READ portableWater NOTIFY portableWaterChanged)
     Q_PROPERTY(float greywaterTank READ greywaterTank NOTIFY greywaterTankChanged)
+    Q_PROPERTY(float wasteLevel READ wasteLevel NOTIFY wasteLevelChanged)
     Q_PROPERTY(float wpaEfficiency READ wpaEfficiency NOTIFY wpaEfficiencyChanged)
     Q_PROPERTY(float liOHScrubbersPercent READ liOHScrubbersPercent NOTIFY liOHScrubbersPercentChanged)
     Q_PROPERTY(float coolantLoopA READ coolantLoopA NOTIFY coolantLoopAChanged)
@@ -57,6 +58,7 @@ public:
     float cabinTemp() const;
     float portableWater() const;
     float greywaterTank() const;
+    float wasteLevel() const;
     float wpaEfficiency() const;
     float liOHScrubbersPercent() const;
     float coolantLoopA() const;
@@ -98,6 +100,7 @@ signals:
     void cabinTempChanged();
     void portableWaterChanged();
     void greywaterTankChanged();
+    void wasteLevelChanged();
     void wpaEfficiencyChanged();
     void liOHScrubbersPercentChanged();
     void coolantLoopAChanged();
@@ -126,7 +129,7 @@ signals:
 private:
     QHttpServer *m_server;
 
-    float m_powerConsumption = 6.0;
+    float m_powerConsumption = 6.0f;
 
     float m_cabinPressure = 101.3f;
     float m_o2PartialPress = 21.1f;
@@ -135,6 +138,7 @@ private:
     float m_cabinTemp = 21.5f;
     float m_portableWater = 88.4f;
     float m_greywaterTank = 32.1f;
+    float m_wasteLevel = 15.0f;
     float m_wpaEfficiency = 94.8f;
     float m_liOHScrubbersPercent = 92.0f;
     float m_coolantLoopA = 4.2f;

@@ -159,6 +159,7 @@ float LifeSupportSystem::relativeHumidity() const { return m_relativeHumidity; }
 float LifeSupportSystem::cabinTemp() const { return m_cabinTemp; }
 float LifeSupportSystem::portableWater() const { return m_portableWater; }
 float LifeSupportSystem::greywaterTank() const { return m_greywaterTank; }
+float LifeSupportSystem::wasteLevel() const { return m_wasteLevel; }
 float LifeSupportSystem::wpaEfficiency() const { return m_wpaEfficiency; }
 float LifeSupportSystem::liOHScrubbersPercent() const { return m_liOHScrubbersPercent; }
 float LifeSupportSystem::coolantLoopA() const { return m_coolantLoopA; }
@@ -184,16 +185,19 @@ int LifeSupportSystem::astronaut4BPM() const { return m_astronaut4BPM; }
 int LifeSupportSystem::astronaut4SPO2() const { return m_astronaut4SPO2; }
 int LifeSupportSystem::astronaut4Resp() const { return m_astronaut4Resp; }
 
-
-void LifeSupportSystem::setPowerConsumption(float newPower) {
-    if (m_powerConsumption == newPower) return;
+void LifeSupportSystem::setPowerConsumption(float newPower)
+{
+    if (m_powerConsumption == newPower)
+        return;
     m_powerConsumption = newPower;
     emit powerConsumptionChanged();
 }
 
-void LifeSupportSystem::setLiOHScrubbersActive(bool newLiOHScrubbersActive) {
+void LifeSupportSystem::setLiOHScrubbersActive(bool newLiOHScrubbersActive)
+{
 
-    if (m_liOHScrubbersActive == newLiOHScrubbersActive) {
+    if (m_liOHScrubbersActive == newLiOHScrubbersActive)
+    {
         return;
     }
 
@@ -201,7 +205,8 @@ void LifeSupportSystem::setLiOHScrubbersActive(bool newLiOHScrubbersActive) {
     emit liOHScrubbersActiveChanged();
 }
 
-void LifeSupportSystem::updateSimulation(float deltaTime) {
+void LifeSupportSystem::updateSimulation(float deltaTime)
+{
     float oldCabinPressure = m_cabinPressure;
     float oldO2PartialPress = m_o2PartialPress;
     float oldCO2Concentration = m_co2Concentration;
@@ -209,6 +214,7 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     float oldCabinTemp = m_cabinTemp;
     float oldPortableWater = m_portableWater;
     float oldGreywaterTank = m_greywaterTank;
+    float oldWasteLevel = m_wasteLevel;
     float oldWpaEfficiency = m_wpaEfficiency;
     float oldLiOHScrubbersPercent = m_liOHScrubbersPercent;
     float oldCoolantLoopA = m_coolantLoopA;
@@ -223,33 +229,36 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     float nominalPower = 6.0f;
     float powerFactor = std::clamp(m_powerConsumption / nominalPower, 0.0f, 1.0f);
 
-    float co2Production = totalRespRates * 0.0005f; 
+    float co2Production = totalRespRates * 0.0005f;
     float co2Removal = 0.0001f;
 
-    if (m_powerConsumption <= 0.0f) {
+    if (m_powerConsumption <= 0.0f)
+    {
         return;
     }
 
     m_o2PartialPress += (21.1f - m_o2PartialPress) * 0.05f * powerFactor * deltaTime;
     m_o2PartialPress = std::clamp(m_o2PartialPress, 0.0f, 100.0f);
 
-    if (m_liOHScrubbersActive && m_liOHScrubbersPercent > 0.0f) {
+    if (m_liOHScrubbersActive && m_liOHScrubbersPercent > 0.0f)
+    {
         co2Removal = (m_liOHScrubbersPercent / 100.0f) * 0.04f * powerFactor;
 
         m_liOHScrubbersPercent -= 0.02f * deltaTime;
         m_liOHScrubbersPercent = std::clamp(m_liOHScrubbersPercent, 0.0f, 100.0f);
     }
-    else if (m_liOHScrubbersActive && m_liOHScrubbersPercent <= 0.0f) {
+    else if (m_liOHScrubbersActive && m_liOHScrubbersPercent <= 0.0f)
+    {
         m_liOHScrubbersActive = false;
     }
     m_co2Concentration += (co2Production - co2Removal) * deltaTime;
     m_co2Concentration = std::clamp(m_co2Concentration, 0.0f, 100.0f);
 
-
     float targetHumidity = 45.0f;
     float humidityGain = totalRespRates * 0.001f;
     float humidityDehumidify = (m_relativeHumidity > targetHumidity)
-        ? ((m_relativeHumidity - targetHumidity) * 0.03f * powerFactor) : 0.0f;
+                                   ? ((m_relativeHumidity - targetHumidity) * 0.03f * powerFactor)
+                                   : 0.0f;
 
     m_relativeHumidity += (humidityGain - humidityDehumidify) * deltaTime;
     m_relativeHumidity = std::clamp(m_relativeHumidity, 0.0f, 100.0f);
@@ -259,10 +268,12 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     m_cabinPressure += (pressureDifference / 2) * deltaTime;
 
     m_cabinTemp += totalRespRates * 0.001f * deltaTime;
-    if (m_cabinTemp > 21.5f) {
+    if (m_cabinTemp > 21.5f)
+    {
         m_cabinTemp -= (m_coolantLoopA * 0.05f * deltaTime);
     }
-    else if (m_cabinTemp < 10.5f) {
+    else if (m_cabinTemp < 10.5f)
+    {
         m_cabinTemp += (0.02f * deltaTime);
     }
 
@@ -276,15 +287,33 @@ void LifeSupportSystem::updateSimulation(float deltaTime) {
     m_greywaterTank += (waterConsumedThisFrame - processedAmount);
     m_greywaterTank = std::clamp(m_greywaterTank, 0.0f, 100.0f);
 
-    if (m_cabinPressure != oldCabinPressure) emit cabinPressureChanged();
-    if (m_o2PartialPress != oldO2PartialPress) emit o2PartialPressChanged();
-    if (m_co2Concentration != oldCO2Concentration) emit co2ConcentrationChanged();
-    if (m_relativeHumidity != oldRelativeHumidity) emit relativeHumidityChanged();
-    if (m_cabinTemp != oldCabinTemp) emit cabinTempChanged();
-    if (m_portableWater != oldPortableWater) emit portableWaterChanged();
-    if (m_greywaterTank != oldGreywaterTank) emit greywaterTankChanged();
-    if (m_wpaEfficiency != oldWpaEfficiency) emit wpaEfficiencyChanged();
-    if (m_liOHScrubbersPercent != oldLiOHScrubbersPercent) emit liOHScrubbersPercentChanged();
-    if (m_coolantLoopA != oldCoolantLoopA) emit coolantLoopAChanged();
-    if (m_liOHScrubbersActive != oldLiOHScrubbersActive) emit liOHScrubbersActiveChanged();
+    float wasteAccumulation = (totalRespRates * 0.00025f) * deltaTime;
+    float wasteProcessed = (m_wasteLevel * 0.001f * powerFactor) * deltaTime;
+    m_wasteLevel += (wasteAccumulation - wasteProcessed);
+    m_wasteLevel = std::clamp(m_wasteLevel, 0.0f, 100.0f);
+
+    if (m_cabinPressure != oldCabinPressure)
+        emit cabinPressureChanged();
+    if (m_o2PartialPress != oldO2PartialPress)
+        emit o2PartialPressChanged();
+    if (m_co2Concentration != oldCO2Concentration)
+        emit co2ConcentrationChanged();
+    if (m_relativeHumidity != oldRelativeHumidity)
+        emit relativeHumidityChanged();
+    if (m_cabinTemp != oldCabinTemp)
+        emit cabinTempChanged();
+    if (m_portableWater != oldPortableWater)
+        emit portableWaterChanged();
+    if (m_greywaterTank != oldGreywaterTank)
+        emit greywaterTankChanged();
+    if (m_wasteLevel != oldWasteLevel)
+        emit wasteLevelChanged();
+    if (m_wpaEfficiency != oldWpaEfficiency)
+        emit wpaEfficiencyChanged();
+    if (m_liOHScrubbersPercent != oldLiOHScrubbersPercent)
+        emit liOHScrubbersPercentChanged();
+    if (m_coolantLoopA != oldCoolantLoopA)
+        emit coolantLoopAChanged();
+    if (m_liOHScrubbersActive != oldLiOHScrubbersActive)
+        emit liOHScrubbersActiveChanged();
 }

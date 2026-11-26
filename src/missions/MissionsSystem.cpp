@@ -33,6 +33,7 @@ void MissionsSystem::selectMission(const QString &missionName) {
 
     m_currentMission = missionName;
     m_objectiveProgress = 0.0f;
+    m_orbitCheckTimer = 0.0f;
     m_missionStatus = "IN PROGRESS";
 
     if (missionName == "Earth Departure") {
@@ -65,13 +66,12 @@ void MissionsSystem::updateSimulation(float deltaTime, float navDistance, float 
     }
 
     if (m_currentMission == "Earth Departure") {
-        m_objectiveProgress = std::clamp((velocity / 20.0f) * 100.0f, 0.0f, 100.0f);
+        m_objectiveProgress = std::clamp(((225000000.0f - navDistance) / 45000000.0f) * 100.0f, 0.0f, 100.0f);
     } 
     else if (m_currentMission == "Earth Orbit") {
-        static float orbitTimer = 0.0f;
-        orbitTimer += deltaTime;
-        m_objectiveProgress = std::clamp((orbitTimer / 20.0f) * 100.0f, 0.0f, 100.0f);
-    } 
+        m_orbitCheckTimer += deltaTime;
+        m_objectiveProgress = std::clamp((m_orbitCheckTimer / 20.0f) * 100.0f, 0.0f, 100.0f);
+    }
     else if (m_currentMission == "Lunar Transfer") {
         float distanceCovered = 225000000.0f - navDistance;
         m_objectiveProgress = std::clamp((distanceCovered / 25000000.0f) * 100.0f, 0.0f, 100.0f);

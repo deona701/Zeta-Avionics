@@ -49,6 +49,7 @@ private:
     float m_objectiveProgress = 0.0f;
     QString m_missionStatus = "IN PROGRESS";
     QStringList m_availableMissions;
+    float m_orbitCheckTimer = 0.0f;
 };
 
 #endif // MISSIONSSYSTEM_H

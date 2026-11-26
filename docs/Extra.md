@@ -9,6 +9,3 @@
 
 ## Network and security
 - **Telemetry Burst and Distress Beacon POST to a public topic**
-
-## Cleanup
-- `Qt6::TextToSpeech` is linked but unused (voice uses Piper).

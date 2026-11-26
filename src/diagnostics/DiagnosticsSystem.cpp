@@ -94,7 +94,7 @@ void DiagnosticsSystem::updateSimulation(
         lastPacketCount = telemetryPackets;
     }
 
-    if (engineTemp >= 250.0f) {
+    if (engineTemp >= 140.0f) {
         faults++;
         currentFaults.append(QString("[WARN_THERMAL] Propulsion core overheating: %1 C").arg(engineTemp, 0, 'f', 1));
     }
